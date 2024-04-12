@@ -8,10 +8,11 @@ use Cake\ORM\Entity;
 /**
  * Category Entity
  *
- * @property int $id
- * @property string $name
+ * @property string $id
+ * @property string|null $category_name
+ * @property string|null $category_description
  *
- * @property \App\Model\Entity\Product[] $products
+ * @property \App\Model\Entity\Flower[] $flower
  */
 class Category extends Entity
 {
@@ -25,7 +26,8 @@ class Category extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
-        'name' => true,
-        'products' => true,
+        'category_name' => true,
+        'category_description' => true,
+        'flower' => true,
     ];
 }
