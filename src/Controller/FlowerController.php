@@ -25,6 +25,22 @@ class FlowerController extends AppController
     }
 
     /**
+     * Gallery Page for customers
+     *
+     * @return void
+     */
+    public function customerView()
+    {
+        $query = $this->Flower->find('all', [
+            'contain' => ['Category']
+        ]);
+        $flowers = $this->paginate($query);
+        $this->viewBuilder()->setLayout('default2');
+        $this->set(compact('flowers'));
+    }
+
+
+    /**
      * View method
      *
      * @param string|null $id Flower id.
