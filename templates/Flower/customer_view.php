@@ -17,26 +17,28 @@
         <?php foreach ($flowers as $flower): ?>
         <div class="col-lg-4 col-12 mb-3">
             <div class="product-thumb">
-                <a href="product-detail.html">
-                    <img src="images/iris_japonicalow.png" class="img-fluid product-image" alt="">
-                </a>
 
-                <div class="product-top d-flex">
-                    <span class="product-alert me-auto">New Arrival</span>
-
-                    <a href="#" class="bi-heart-fill product-icon"></a>
-                </div>
+                    <?= $this->Html->image('iris_japonicalow.png', [
+                        'alt' => 'FlowerPlaceholder',
+                        'style' => 'height: 360px;', // Adjust the height as needed
+                        'url' => ['action' => 'view', $flower->id] // TODO: temp link change to customer version
+                    ]) ?>
 
                 <div class="product-info d-flex">
                     <div>
                         <h5 class="product-title mb-0">
-                            <a href="product-detail.html" class="product-title-link">Tree pot</a>
-                        </h5>
 
-                        <p class="product-p">Original package design from house</p>
+                           <?= $this->Html->link(
+                               h($flower->flower_name),
+                               ['action' => 'view', $flower->id]
+                            ); ?>
+
+                            <small class="product-price text-muted ms-auto mt-1 mb-5 float-right "><?= $this->Number->currency($flower->flower_price) ?></small>
+                        </h5>
+                        <p class="product-p"><?= h($flower->flower_description) ?></p>
                     </div>
 
-                    <small class="product-price text-muted ms-auto mt-auto mb-5">$25</small>
+
                 </div>
             </div>
         </div>
