@@ -198,6 +198,9 @@ ol {
     border-radius: 0;
     height: 50px;
     font-size: 15px;
+    background-color: #f8f9fa;
+    color: #7a1f73;
+    font-weight: bolder;
 }
 
 label {
@@ -208,7 +211,6 @@ label {
     border-radius: 0;
     padding: 13px 28px;
     transition: all 0.2s ease;
-    max-width: 100%;
 }
 
 .btn-small {
@@ -216,9 +218,10 @@ label {
 }
 
 .btn-primary {
-    background-color: transparent;
-    color: black;
-    border-color: #999999;
+    background-color: #f5ea78;
+    color: #701a6c;
+    border-color: white;
+    border-width: medium;
 }
 
 .btn-primary:hover,

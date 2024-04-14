@@ -2,12 +2,32 @@
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Flower> $flowers
+ *  * @var iterable<\App\Model\Entity\Category> $category
  */
 
 ?>
 
 <div class="container-fluid">
     <div class="row">
+        <?= $this->Form->create(null, ['type' => 'get', 'class' => 'form-inline']) ?>
+        <div class="col-md-4 mb-3">
+            <?= $this->Form->control('search', ['label' => false, 'class' => 'form-control', 'placeholder' => 'Search Flowers', 'value' => $this->request->getQuery('search')]) ?>
+        </div>
+        <div class="col-md-4 mb-3">
+            <?= $this->Form->control('category', [
+                'type' => 'select',
+                'label' => false,
+                'class' => 'form-control',
+                'options' => $category,
+                'empty' => 'Select Category',
+                'value' => $this->request->getQuery('category')
+            ]) ?>
+        </div>
+        <div class="col-md-2 mb-3 d-flex">
+            <?= $this->Form->button(__('Search'), ['class' => 'btn btn-primary']) ?>
+            <?= $this->Html->link('Refresh', ['action' => 'index'], ['class' => 'btn btn-secondary ml-2']) ?>
+        </div>
+        <?= $this->Form->end() ?>
     </div>
     <div class="row tm-content-row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
