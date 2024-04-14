@@ -47,7 +47,7 @@
 
 
         <div class="col-12 text-center">
-            <a href="products.html" class="view-all">View All Products</a>
+            <a href="" class="view-all">View All Products</a>
         </div>
 
     </div>
