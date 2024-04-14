@@ -17,11 +17,11 @@ class FlowerController extends AppController
      */
     public function index()
     {
-        $query = $this->Flower->find()
-            ->contain(['Category']);
-        $flower = $this->paginate($query);
-
-        $this->set(compact('flower'));
+        $query = $this->Flower->find('all', [
+            'contain' => ['Category']
+        ]);
+        $flowers = $this->paginate($query);
+        $this->set(compact('flowers'));
     }
 
     /**
