@@ -46,6 +46,8 @@ class UserTable extends Table
         $this->hasMany('Payment', [
             'foreignKey' => 'user_id',
         ]);
+
+        $this->addBehavior('CanAuthenticate');
     }
 
     /**
