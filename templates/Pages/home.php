@@ -41,7 +41,7 @@ $this->assign('title', 'Home');
                     <div class="row">
                         <div class="col-lg-6 col-10">
                             <h1 class="slick-title">Welcome to Blossom Haven</h1>
-                            <h3 class="lead text-white mt-lg-3 mb-lg-5">Where Every Petal Tells a Story! Experience the joy of gifting with our seamless delivery service. Your chosen bouquet will arrive fresh and vibrant, ready to brighten someone's day.</h3>
+                            <p class="lead text-white mt-lg-3 mb-lg-5">Where Every Petal Tells a Story! Experience the joy of gifting with our seamless delivery service. Your chosen bouquet will arrive fresh and vibrant, ready to brighten someone's day.</p>
                             <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']); ?>" class="btn custom-btn">Learn more about us</a>
                         </div>
                     </div>
@@ -203,6 +203,7 @@ $this->assign('title', 'Home');
         </div>
     </section>
 
+    <br><br>
     <!-- Featured Products Section -->
     <section class="featured-product section-padding">
         <div class="container">
@@ -247,6 +248,7 @@ $this->assign('title', 'Home');
                 </div>
             </div>
         </div>
+        <br><br><br>
     </section>
 </main>
 

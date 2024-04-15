@@ -573,7 +573,7 @@ url("../fonts/bootstrap-icons.woff?856008caa5eb66df68595e734e59580d") format("wo
 .bi-emoji-sunglasses::before { content: "\f329"; }
 .bi-emoji-wink-fill::before { content: "\f32a"; }
 .bi-emoji-wink::before { content: "\f32b"; }
-.bi-envelope-fill::before { content: "\f32c"; }
+.bi-envelope-fill::before { content: "\f32c"; font-size: 40px; }
 .bi-envelope-open-fill::before { content: "\f32d"; }
 .bi-envelope-open::before { content: "\f32e"; }
 .bi-envelope::before { content: "\f32f"; }
@@ -840,7 +840,7 @@ url("../fonts/bootstrap-icons.woff?856008caa5eb66df68595e734e59580d") format("wo
 .bi-info::before { content: "\f434"; }
 .bi-input-cursor-text::before { content: "\f435"; }
 .bi-input-cursor::before { content: "\f436"; }
-.bi-instagram::before { content: "\f437"; }
+.bi-instagram::before { content: "\f437"; font-size: 40px; }
 .bi-intersect::before { content: "\f438"; }
 .bi-journal-album::before { content: "\f439"; }
 .bi-journal-arrow-down::before { content: "\f43a"; }
@@ -1321,7 +1321,7 @@ url("../fonts/bootstrap-icons.woff?856008caa5eb66df68595e734e59580d") format("wo
 .bi-wallet2::before { content: "\f615"; }
 .bi-watch::before { content: "\f616"; }
 .bi-water::before { content: "\f617"; }
-.bi-whatsapp::before { content: "\f618"; }
+.bi-whatsapp::before { content: "\f618"; font-size: 40px; }
 .bi-wifi-1::before { content: "\f619"; }
 .bi-wifi-2::before { content: "\f61a"; }
 .bi-wifi-off::before { content: "\f61b"; }
@@ -1340,7 +1340,7 @@ url("../fonts/bootstrap-icons.woff?856008caa5eb66df68595e734e59580d") format("wo
 .bi-x-square-fill::before { content: "\f628"; }
 .bi-x-square::before { content: "\f629"; }
 .bi-x::before { content: "\f62a"; }
-.bi-youtube::before { content: "\f62b"; }
+.bi-youtube::before { content: "\f62b"; font-size: 40px; }
 .bi-zoom-in::before { content: "\f62c"; }
 .bi-zoom-out::before { content: "\f62d"; }
 .bi-bank::before { content: "\f62e"; }
@@ -1383,7 +1383,7 @@ url("../fonts/bootstrap-icons.woff?856008caa5eb66df68595e734e59580d") format("wo
 .bi-safe2::before { content: "\f653"; }
 .bi-sd-card-fill::before { content: "\f654"; }
 .bi-sd-card::before { content: "\f655"; }
-.bi-skype::before { content: "\f656"; }
+.bi-skype::before { content: "\f656"; font-size: 40px;}
 .bi-slash-lg::before { content: "\f657"; }
 .bi-translate::before { content: "\f658"; }
 .bi-x-lg::before { content: "\f659"; }
