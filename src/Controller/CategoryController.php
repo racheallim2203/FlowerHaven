@@ -15,12 +15,31 @@ class CategoryController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
-    {
-        $query = $this->Category->find();
-        $category = $this->paginate($query);
+    public function index() {
+        $query = $this->Category->find('all', [
+            'contain' => ['Flower'],
+            'order' => ['Category.category_name' => 'asc'] // Or any other default sorting you prefer
+        ]);
 
-        $this->set(compact('category'));
+        $search = $this->request->getQuery('search');
+        $category = $this->request->getQuery('category');
+
+        if (!empty($search)) {
+            // Use matching to apply conditions on associated data
+            $query->matching('Flower', function ($q) use ($search) {
+                return $q->where(['Flower.flower_name LIKE' => '%' . $search . '%']);
+            });
+        }
+        if (!empty($category)) {
+            $query->where(['Category.id' => $category]);
+        }
+        $categoriesList = $this->Category->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'category_name'
+        ])->toArray();
+
+        $categories = $this->paginate($query);
+        $this->set(compact('categories', 'categoriesList'));
     }
 
     /**
@@ -32,7 +51,10 @@ class CategoryController extends AppController
      */
     public function view($id = null)
     {
-        $category = $this->Category->get($id, contain: ['Flower']);
+
+        $category = $this->Category->get($id, [
+            'contain' => ['Flower'],
+        ]);
         $this->set(compact('category'));
     }
 

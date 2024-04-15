@@ -4,30 +4,44 @@
  * @var \App\Model\Entity\Category $category
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $category->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $category->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Category'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column column-80">
-        <div class="category form content">
-            <?= $this->Form->create($category) ?>
-            <fieldset>
-                <legend><?= __('Edit Category') ?></legend>
-                <?php
-                    echo $this->Form->control('category_name');
-                    echo $this->Form->control('category_description');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0"><?= __('Actions') ?></h4>
+                </div>
+                <div class="card-body">
+                    <?= $this->Html->link(__('List Categories'), ['action' => 'index'], ['class' => 'btn btn-outline-info btn-block']) ?>
+                    <?= $this->Form->postLink(
+                        __('Delete Category'),
+                        ['action' => 'delete', $category->id],
+                        ['confirm' => __('Are you sure you want to delete # {0}?', $category->id), 'class' => 'btn btn-outline-danger btn-block']
+                    ) ?>
+                </div>
+            </div>
+        </aside>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0"><?= __('Edit Category') ?></h4>
+                </div>
+                <div class="card-body">
+                    <?= $this->Form->create($category) ?>
+                    <fieldset>
+                        <div class="form-group">
+                            <?= $this->Form->control('category_name', ['class' => 'form-control form-control-lg']); ?>
+                        </div>
+                        <div class="form-group">
+                            <?= $this->Form->control('category_description', ['class' => 'form-control form-control-lg']); ?>
+                        </div>
+                    </fieldset>
+                    <div class="form-group mt-4">
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-lg btn-success']) ?>
+                    </div>
+                    <?= $this->Form->end() ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>

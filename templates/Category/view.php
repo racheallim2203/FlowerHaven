@@ -2,67 +2,93 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Category $category
+ * @var \App\Model\Entity\Flower $flowers
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Category'), ['action' => 'edit', $category->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Category'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Category'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Category'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column column-80">
-        <div class="category view content">
-            <h3><?= h($category->id) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= h($category->id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Category Name') ?></th>
-                    <td><?= h($category->category_name) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Category Description') ?></th>
-                    <td><?= h($category->category_description) ?></td>
-                </tr>
-            </table>
-            <div class="related">
-                <h4><?= __('Related Flower') ?></h4>
-                <?php if (!empty($category->flower)) : ?>
-                <div class="table-responsive">
-                    <table>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0"><?= __('Actions') ?></h4>
+                </div>
+                <div class="card-body">
+                    <?= $this->Html->link(__('Edit Category'), ['action' => 'edit', $category->id], ['class' => 'btn btn-primary btn-block']) ?>
+                    <?= $this->Form->postLink(
+                        __('Delete Category'),
+                        ['action' => 'delete', $category->id],
+                        ['confirm' => __('Are you sure you want to delete # {0}?', $category->id), 'class' => 'btn btn-danger btn-block']
+                    ) ?>
+                    <?= $this->Html->link(__('All Categories'), ['action' => 'index'], ['class' => 'btn btn-info btn-block']) ?>
+                    <?= $this->Html->link(__('New Category'), ['action' => 'add'], ['class' => 'btn btn-success btn-block']) ?>
+                </div>
+            </div>
+        </aside>
+        <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0"><?= __('Category Details') ?></h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tbody>
                         <tr>
-                            <th><?= __('Id') ?></th>
-                            <th><?= __('Flower Name') ?></th>
-                            <th><?= __('Flower Description') ?></th>
-                            <th><?= __('Flower Price') ?></th>
-                            <th><?= __('Stock Quantity') ?></th>
-                            <th><?= __('Category Id') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
+                            <th><?= __('ID') ?></th>
+                            <td><?= h($category->id) ?></td>
                         </tr>
-                        <?php foreach ($category->flower as $flower) : ?>
                         <tr>
-                            <td><?= h($flower->id) ?></td>
-                            <td><?= h($flower->flower_name) ?></td>
-                            <td><?= h($flower->flower_description) ?></td>
-                            <td><?= h($flower->flower_price) ?></td>
-                            <td><?= h($flower->stock_quantity) ?></td>
-                            <td><?= h($flower->category_id) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Flower', 'action' => 'view', $flower->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Flower', 'action' => 'edit', $flower->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Flower', 'action' => 'delete', $flower->id], ['confirm' => __('Are you sure you want to delete # {0}?', $flower->id)]) ?>
-                            </td>
+                            <th><?= __('Category Name') ?></th>
+                            <td><?= h($category->category_name) ?></td>
                         </tr>
-                        <?php endforeach; ?>
+                        <tr>
+                            <th><?= __('Description') ?></th>
+                            <td><?= h($category->category_description) ?></td>
+                        </tr>
+                        </tbody>
                     </table>
                 </div>
-                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h4 class="font-weight-bold"><?= __('Flowers in this Category') ?></h4>
+                </div>
+                <div class="card-body">
+                    <?php if (!empty($category->flower)): ?>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered">
+                                <thead style="background-color: #9e297e; color:white">
+                                <tr>
+                                    <th><?= __('Id') ?></th>
+                                    <th><?= __('Flower Name') ?></th>
+                                    <th><?= __('Price') ?></th>
+                                    <th class="actions"><?= __('Actions') ?></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($category->flower as $flowers): ?>
+                                    <tr>
+                                        <td><?= h($flowers->id) ?></td>
+                                        <td><?= h($flowers->flower_name) ?></td>
+                                        <td><?= $this->Number->currency($flowers->flower_price) ?></td>
+                                        <td class="actions">
+                                            <?= $this->Html->link(__('View'), ['controller' => 'Flower', 'action' => 'view', $flowers->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                            <?= $this->Html->link(__('Edit'), ['controller' => 'Flower', 'action' => 'edit', $flowers->id], ['class' => 'btn btn-primary btn-sm']) ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php else: ?>
+                        <p class="text-muted"><?= __('No flowers found in this category.') ?></p>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>
