@@ -1,3 +1,10 @@
+<?php
+// Assuming you have a way to determine the current page/controller/action
+$currentController = $this->getRequest()->getParam('controller');
+$currentAction = $this->getRequest()->getParam('action');
+$activePage = ucfirst($currentController) . '/' . $currentAction;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,22 +32,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
+                    <li class="nav-item <?= ($activePage == 'Flower/index') ? 'active' : '' ?>">
                         <?= $this->Html->link('Flower <span class="sr-only">(current)</span>', ['controller' => 'Flower', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item <?= ($activePage == 'Payment/index') ? 'active' : '' ?>">
                         <a class="nav-link" href="#">Payment</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item <?= ($activePage == 'User/index') ? 'active' : '' ?>">
                         <a class="nav-link" href="#">User</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item <?= ($activePage == 'Category/index') ? 'active' : '' ?>">
                         <?= $this->Html->link('Category', ['controller' => 'Category', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item <?= ($activePage == 'Order/index') ? 'active' : '' ?>">
                         <a class="nav-link" href="#">Order</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item <?= ($activePage == 'LogOut/index') ? 'active' : '' ?>">
                         <a class="nav-link" href="#">Log Out</a>
                     </li>
                 </ul>
@@ -59,5 +66,23 @@
     <!-- Footer content here -->
 </footer>
 <?= $this->fetch('script') ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navItems = document.querySelectorAll('.nav-item');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function () {
+                navItems.forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+
+                this.classList.add('active');
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
+

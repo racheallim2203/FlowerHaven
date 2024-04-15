@@ -4,7 +4,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a class="navbar-brand" href="/home" ?>
+        <a class="navbar-brand" href="/" ?>
             <?= $this->Html->image('F.png', [
                 'alt' => 'FlowerHeaven',
                 'style' => 'height: 60px;' // Adjust the height as needed
