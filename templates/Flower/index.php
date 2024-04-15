@@ -1,50 +1,76 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var iterable<\App\Model\Entity\Flower> $flower
+ * @var iterable<\App\Model\Entity\Flower> $flowers
  */
+
 ?>
-<div class="flower index content">
-    <?= $this->Html->link(__('New Flower'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Flower') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('flower_name') ?></th>
-                    <th><?= $this->Paginator->sort('flower_price') ?></th>
-                    <th><?= $this->Paginator->sort('stock_quantity') ?></th>
-                    <th><?= $this->Paginator->sort('category_id') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($flower as $flower): ?>
-                <tr>
-                    <td><?= h($flower->id) ?></td>
-                    <td><?= h($flower->flower_name) ?></td>
-                    <td><?= $this->Number->format($flower->flower_price) ?></td>
-                    <td><?= $this->Number->format($flower->stock_quantity) ?></td>
-                    <td><?= $flower->hasValue('category') ? $this->Html->link($flower->category->id, ['controller' => 'Category', 'action' => 'view', $flower->category->id]) : '' ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $flower->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $flower->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $flower->id], ['confirm' => __('Are you sure you want to delete # {0}?', $flower->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+
+<div class="container-fluid">
+    <div class="row">
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+    <div class="row tm-content-row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <br>
+            <div class="bg-white tm-block h-100">
+                <div class="table-responsive">
+                    <h2 class="text-center" style="font-weight: bold;">Flower Inventory</h2>
+                    <br>
+                    <table class="table table-bordered" style="background-color: #f8f9fa;">
+                        <thead>
+                        <tr class="table-pink">
+                            <th style="color: #9e297e;">ID</th>
+                            <th style="color: #9e297e;">Flower Name</th>
+                            <th style="color: #9e297e;">Flower Price</th>
+                            <th style="color: #9e297e;">Stock Quantity</th>
+                            <th style="color: #9e297e;">Category</th>
+                            <th class="actions" style="color: #9e297e;"><?= __('Actions') ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($flowers as $flower): ?>
+                            <tr>
+                                <td><?= h($flower->id) ?></td>
+                                <td><?= h($flower->flower_name) ?></td>
+                                <td><?= $this->Number->currency($flower->flower_price) ?></td>
+                                <td><?= $this->Number->format($flower->stock_quantity) ?></td>
+                                <td>
+                                    <?= $flower->has('category') && !empty($flower->category->category_name) ? $this->Html->link($flower->category->category_name, ['controller' => 'Category', 'action' => 'view', $flower->category->id]) : __('No Category') ?>
+                                </td>
+                                <td class="actions">
+                                    <div class="d-block mb-2">
+                                        <?= $this->Html->link(__('View'), ['action' => 'view', $flower->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                    </div>
+                                    <div class="d-block mb-2">
+                                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $flower->id], ['class' => 'btn btn-primary btn-sm']) ?>
+                                    </div>
+                                    <div class="d-block">
+                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $flower->id], ['confirm' => __('Are you sure you want to delete # {0}?', $flower->id), 'class' => 'btn btn-danger btn-sm']) ?>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="paginator">
+                    <ul class="pagination justify-content-center">
+                        <?= $this->Paginator->first('<< ' . __('First')) ?>
+                        <?= $this->Paginator->prev('< ' . __('Previous')) ?>
+                        <?= $this->Paginator->numbers() ?>
+                        <?= $this->Paginator->next(__('Next') . ' >') ?>
+                        <?= $this->Paginator->last(__('Last') . ' >>') ?>
+                    </ul>
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center mb-3">
+                            <?= $this->Html->link('Add New Flower', ['action' => 'add'], ['class' => 'btn btn-success']) ?>
+                        </div>
+                    </div>
+                    <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>

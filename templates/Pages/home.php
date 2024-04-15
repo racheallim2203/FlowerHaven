@@ -1,16 +1,5 @@
 <?php
 /**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link      https://cakephp.org CakePHP(tm) Project
- * @since     0.10.0
- * @license   https://opensource.org/licenses/mit-license.php MIT License
  * @var \App\View\AppView $this
  */
 use Cake\Cache\Cache;
@@ -20,41 +9,8 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Error\Debugger;
 use Cake\Http\Exception\NotFoundException;
 
-$this->disableAutoLayout();
-
-$checkConnection = function (string $name) {
-    $error = null;
-    $connected = false;
-    try {
-        ConnectionManager::get($name)->getDriver()->connect();
-        // No exception means success
-        $connected = true;
-    } catch (Exception $connectionError) {
-        $error = $connectionError->getMessage();
-        if (method_exists($connectionError, 'getAttributes')) {
-            $attributes = $connectionError->getAttributes();
-            if (isset($attributes['message'])) {
-                $error .= '<br />' . $attributes['message'];
-            }
-        }
-        if ($name === 'debug_kit') {
-            $error = 'Try adding your current <b>top level domain</b> to the
-                <a href="https://book.cakephp.org/debugkit/5/en/index.html#configuration" target="_blank">DebugKit.safeTld</a>
-            config and reload.';
-            if (!in_array('sqlite', \PDO::getAvailableDrivers())) {
-                $error .= '<br />You need to install the PHP extension <code>pdo_sqlite</code> so DebugKit can work properly.';
-            }
-        }
-    }
-
-    return compact('connected', 'error');
-};
-
-if (!Configure::read('debug')) :
-    throw new NotFoundException(
-        'Please replace templates/Pages/home.php with your own version or re-enable debug mode.'
-    );
-endif;
+$this->layout = 'default2';
+$this->assign('title', 'Home');
 
 ?>
 <!DOCTYPE html>
@@ -75,165 +31,230 @@ endif;
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <header>
-        <div class="container text-center">
-            <a href="https://cakephp.org/" target="_blank" rel="noopener">
-                <img alt="CakePHP" src="https://cakephp.org/v2/img/logos/CakePHP_Logo.svg" width="350" />
-            </a>
-            <h1>
-                Welcome to CakePHP <?= h(Configure::version()) ?> Chiffon (🍰)
-            </h1>
-        </div>
-    </header>
-    <main class="main">
-        <div class="container">
-            <div class="content">
-                <div class="row">
-                    <div class="column">
-                        <div class="message default text-center">
-                            <small>Please be aware that this page will not be shown if you turn off debug mode unless you replace templates/Pages/home.php with your own version.</small>
+<main class="main">
+    <!-- Slick Slideshow -->
+    <section class="slick-slideshow">
+        <div class="slick-custom">
+            <img src="<?= $this->Url->image('slideshow/slideshow1.jpg') ?>" class="img-fluid" alt="">
+            <div class="slick-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-10">
+                            <h1 class="slick-title">Cool Fashion</h1>
+                            <p class="lead text-white mt-lg-3 mb-lg-5">Little fashion template comes with total 8 HTML pages provided by Tooplate website.</p>
+                            <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']); ?>" class="btn custom-btn">Learn more about us</a>
                         </div>
-                        <div id="url-rewriting-warning" style="padding: 1rem; background: #fcebea; color: #cc1f1a; border-color: #ef5753;">
-                            <ul>
-                                <li class="bullet problem">
-                                    URL rewriting is not properly configured on your server.<br />
-                                    1) <a target="_blank" rel="noopener" href="https://book.cakephp.org/5/en/installation.html#url-rewriting">Help me configure it</a><br />
-                                    2) <a target="_blank" rel="noopener" href="https://book.cakephp.org/5/en/development/configuration.html#general-configuration">I don't / can't use URL rewriting</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <?php Debugger::checkSecurityKeys(); ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <h4>Environment</h4>
-                        <ul>
-                        <?php if (version_compare(PHP_VERSION, '8.1.0', '>=')) : ?>
-                            <li class="bullet success">Your version of PHP is 8.1.0 or higher (detected <?= PHP_VERSION ?>).</li>
-                        <?php else : ?>
-                            <li class="bullet problem">Your version of PHP is too low. You need PHP 8.1.0 or higher to use CakePHP (detected <?= PHP_VERSION ?>).</li>
-                        <?php endif; ?>
-
-                        <?php if (extension_loaded('mbstring')) : ?>
-                            <li class="bullet success">Your version of PHP has the mbstring extension loaded.</li>
-                        <?php else : ?>
-                            <li class="bullet problem">Your version of PHP does NOT have the mbstring extension loaded.</li>
-                        <?php endif; ?>
-
-                        <?php if (extension_loaded('openssl')) : ?>
-                            <li class="bullet success">Your version of PHP has the openssl extension loaded.</li>
-                        <?php elseif (extension_loaded('mcrypt')) : ?>
-                            <li class="bullet success">Your version of PHP has the mcrypt extension loaded.</li>
-                        <?php else : ?>
-                            <li class="bullet problem">Your version of PHP does NOT have the openssl or mcrypt extension loaded.</li>
-                        <?php endif; ?>
-
-                        <?php if (extension_loaded('intl')) : ?>
-                            <li class="bullet success">Your version of PHP has the intl extension loaded.</li>
-                        <?php else : ?>
-                            <li class="bullet problem">Your version of PHP does NOT have the intl extension loaded.</li>
-                        <?php endif; ?>
-                        </ul>
-                    </div>
-                    <div class="column">
-                        <h4>Filesystem</h4>
-                        <ul>
-                        <?php if (is_writable(TMP)) : ?>
-                            <li class="bullet success">Your tmp directory is writable.</li>
-                        <?php else : ?>
-                            <li class="bullet problem">Your tmp directory is NOT writable.</li>
-                        <?php endif; ?>
-
-                        <?php if (is_writable(LOGS)) : ?>
-                            <li class="bullet success">Your logs directory is writable.</li>
-                        <?php else : ?>
-                            <li class="bullet problem">Your logs directory is NOT writable.</li>
-                        <?php endif; ?>
-
-                        <?php $settings = Cache::getConfig('_cake_core_'); ?>
-                        <?php if (!empty($settings)) : ?>
-                            <li class="bullet success">The <em><?= h($settings['className']) ?></em> is being used for core caching. To change the config edit config/app.php</li>
-                        <?php else : ?>
-                            <li class="bullet problem">Your cache is NOT working. Please check the settings in config/app.php</li>
-                        <?php endif; ?>
-                        </ul>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="column">
-                        <h4>Database</h4>
-                        <?php
-                        $result = $checkConnection('default');
-                        ?>
-                        <ul>
-                        <?php if ($result['connected']) : ?>
-                            <li class="bullet success">CakePHP is able to connect to the database.</li>
-                        <?php else : ?>
-                            <li class="bullet problem">CakePHP is NOT able to connect to the database.<br /><?= h($result['error']) ?></li>
-                        <?php endif; ?>
-                        </ul>
-                    </div>
-                    <div class="column">
-                        <h4>DebugKit</h4>
-                        <ul>
-                        <?php if (Plugin::isLoaded('DebugKit')) : ?>
-                            <li class="bullet success">DebugKit is loaded.</li>
-                            <?php
-                            $result = $checkConnection('debug_kit');
-                            ?>
-                            <?php if ($result['connected']) : ?>
-                                <li class="bullet success">DebugKit can connect to the database.</li>
-                            <?php else : ?>
-                                <li class="bullet problem">There are configuration problems present which need to be fixed:<br /><?= $result['error'] ?></li>
-                            <?php endif; ?>
-                        <?php else : ?>
-                            <li class="bullet problem">DebugKit is <strong>not</strong> loaded.</li>
-                        <?php endif; ?>
-                        </ul>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="column links">
-                        <h3>Getting Started</h3>
-                        <a target="_blank" rel="noopener" href="https://book.cakephp.org/5/en/">CakePHP Documentation</a>
-                        <a target="_blank" rel="noopener" href="https://book.cakephp.org/5/en/tutorials-and-examples/cms/installation.html">The 20 min CMS Tutorial</a>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="column links">
-                        <h3>Help and Bug Reports</h3>
-                        <a target="_blank" rel="noopener" href="https://slack-invite.cakephp.org/">Slack</a>
-                        <a target="_blank" rel="noopener" href="https://github.com/cakephp/cakephp/issues">CakePHP Issues</a>
-                        <a target="_blank" rel="noopener" href="https://discourse.cakephp.org/">CakePHP Forum</a>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="column links">
-                        <h3>Docs and Downloads</h3>
-                        <a target="_blank" rel="noopener" href="https://api.cakephp.org/">CakePHP API</a>
-                        <a target="_blank" rel="noopener" href="https://bakery.cakephp.org">The Bakery</a>
-                        <a target="_blank" rel="noopener" href="https://book.cakephp.org/5/en/">CakePHP Documentation</a>
-                        <a target="_blank" rel="noopener" href="https://plugins.cakephp.org">CakePHP plugins repo</a>
-                        <a target="_blank" rel="noopener" href="https://github.com/cakephp/">CakePHP Code</a>
-                        <a target="_blank" rel="noopener" href="https://github.com/FriendsOfCake/awesome-cakephp">CakePHP Awesome List</a>
-                        <a target="_blank" rel="noopener" href="https://www.cakephp.org">CakePHP</a>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="column links">
-                        <h3>Training and Certification</h3>
-                        <a target="_blank" rel="noopener" href="https://cakefoundation.org/">Cake Software Foundation</a>
-                        <a target="_blank" rel="noopener" href="https://training.cakephp.org/">CakePHP Training</a>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+
+        <div class="slick-custom">
+            <img src="<?= $this->Url->image('slideshow/slideshow2.jpg') ?>" class="img-fluid" alt="">
+            <div class="slick-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-10">
+                            <h1 class="slick-title">New Design</h1>
+                            <p class="lead text-white mt-lg-3 mb-lg-5">Please share this Little Fashion template to your friends. Thank you for supporting us.</p>
+                            <a href="<?= $this->Url->build('/products'); ?>" class="btn custom-btn">Explore products</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slick-custom">
+            <img src="<?= $this->Url->image('slideshow/slideshow3.jpg') ?>" class="img-fluid" alt="">
+            <div class="slick-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-10">
+                            <h1 class="slick-title">Talk to us</h1>
+                            <p class="lead text-white mt-lg-3 mb-lg-5">Tooplate is one of the best HTML CSS template websites for everyone.</p>
+                            <a href="<?= $this->Url->build('/contact'); ?>" class="btn custom-btn">Work with us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="mb-5">Get started with <span>Little</span> Fashion</h2>
+                </div>
+
+                <div class="col-lg-2 col-12 mt-auto mb-auto">
+                    <ul class="nav nav-pills mb-5 mx-auto justify-content-center align-items-center" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Introduction</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-youtube-tab" data-bs-toggle="pill" data-bs-target="#pills-youtube" type="button" role="tab" aria-controls="pills-youtube" aria-selected="true">How we work?</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-skill-tab" data-bs-toggle="pill" data-bs-target="#pills-skill" type="button" role="tab" aria-controls="pills-skill" aria-selected="false">Capabilities</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-10 col-12">
+                    <div class="tab-content mt-2" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="row">
+                                <div class="col-lg-7 col-12">
+                                    <img src="<?= $this->Url->image('pim-chu-z6NZ76_UTDI-unsplash.jpeg') ?>" class="img-fluid" alt="">
+                                </div>
+                                <div class="col-lg-5 col-12">
+                                    <div class="d-flex flex-column h-100 ms-lg-4 mt-lg-0 mt-5">
+                                        <h4 class="mb-3">Good <span>Design</span> <br>Ideas for <span>your</span> fashion</h4>
+                                        <p>Little Fashion templates come with <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'login']); ?>">sign in</a> / <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'add']); ?>">sign up</a> pages, product listing / product detail, about, FAQs, and contact page.</p>
+                                        <p>Since this HTML template is based on Bootstrap 5 CSS library, you can feel free to add more components as you need.</p>
+                                        <div class="mt-2 mt-lg-auto">
+                                            <a href="<?= $this->Url->build('/about'); ?>" class="custom-link mb-2">
+                                                Learn more about us
+                                                <i class="bi-arrow-right ms-2"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-youtube" role="tabpanel" aria-labelledby="pills-youtube-tab">
+                            <div class="row">
+                                <div class="col-lg-7 col-12">
+                                    <div class="ratio ratio-16x9">
+                                        <iframe src="https://www.youtube-nocookie.com/embed/f_7JqPDWhfw?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-12">
+                                    <div class="d-flex flex-column h-100 ms-lg-4 mt-lg-0 mt-5">
+                                        <h4 class="mb-3">Life at Studio</h4>
+                                        <p>Over three years in business, We’ve had the chance to work on a variety of projects, with companies</p>
+                                        <p>Custom work is branding, web design, UI/UX design</p>
+                                        <div class="mt-2 mt-lg-auto">
+                                            <a href="<?= $this->Url->build('/contact'); ?>" class="custom-link mb-2">
+                                                Work with us
+                                                <i class="bi-arrow-right ms-2"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-skill" role="tabpanel" aria-labelledby="pills-skill-tab">
+                            <div class="row">
+                                <div class="col-lg-7 col-12">
+                                    <img src="<?= $this->Url->image('cody-lannom-G95AReIh_Ko-unsplash.jpeg') ?>" class="img-fluid" alt="">
+                                </div>
+                                <div class="col-lg-5 col-12">
+                                    <div class="d-flex flex-column h-100 ms-lg-4 mt-lg-0 mt-5">
+                                        <h4 class="mb-3">What can help you?</h4>
+                                        <p>Over three years in business, We’ve had the chance on projects</p>
+                                        <div class="skill-thumb mt-3">
+                                            <strong>Branding</strong>
+                                            <span class="float-end">90%</span>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+                                            </div>
+                                            <strong>Design & Strategy</strong>
+                                            <span class="float-end">70%</span>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                                            </div>
+                                            <strong>Online Platform</strong>
+                                            <span class="float-end">80%</span>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2 mt-lg-auto">
+                                            <a href="<?= $this->Url->build('/products'); ?>" class="custom-link mb-2">
+                                                Explore products
+                                                <i class="bi-arrow-right ms-2"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Retail Shop Owners Section -->
+    <section class="front-product">
+        <div class="container-fluid p-0">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-12">
+                    <img src="<?= $this->Url->image('retail-shop-owner-mask-social-distancing-shopping.jpg'); ?>" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="px-5 py-5 py-lg-0">
+                        <h2 class="mb-4"><span>Retail</span> shop owners</h2>
+                        <p class="lead mb-4">Credits go to Unsplash and FreePik websites for images used in this Little Fashion by Tooplate.</p>
+                        <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']); ?>" class="custom-link">
+                            Explore Products
+                            <i class="bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="featured-product section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="mb-5">Featured Flowers</h2>
+                </div>
+
+                <?php
+                // Example products array, you might load this from a database
+                $products = [
+                    ['image' => 'product/evan-mcdougall-qnh1odlqOmk-unsplash.jpeg', 'title' => 'Tree pot', 'description' => 'Original package design from house', 'price' => '$25'],
+                    ['image' => 'product/jordan-nix-CkCUvwMXAac-unsplash.jpeg', 'title' => 'Fashion Set', 'description' => 'Costume Package', 'price' => '$35'],
+                    ['image' => 'product/nature-zen-3Dn1BZZv3m8-unsplash.jpeg', 'title' => 'Juice Drinks', 'description' => 'Nature made another world', 'price' => '$45']
+                ];
+                foreach ($products as $product):
+                    ?>
+                    <div class="col-lg-4 col-12 mb-3">
+                        <div class="product-thumb">
+                            <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'view', $product['title']]); ?>">
+                                <img src="<?= $this->Url->image($product['image']); ?>" class="img-fluid product-image" alt="">
+                            </a>
+                            <div class="product-top d-flex">
+                                <span class="product-alert me-auto">New Arrival</span>
+                                <a href="#" class="bi-heart-fill product-icon"></a>
+                            </div>
+                            <div class="product-info d-flex">
+                                <div>
+                                    <h5 class="product-title mb-0">
+                                        <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'view', $product['title']]); ?>" class="product-title-link"><?= $product['title']; ?></a>
+                                    </h5>
+                                    <p class="product-p"><?= $product['description']; ?></p>
+                                </div>
+                                <small class="product-price text-muted ms-auto mt-auto mb-5"><?= $product['price']; ?></small>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+                <div class="col-12 text-center">
+                    <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']); ?>" class="view-all">View All Products</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
 </body>
 </html>
