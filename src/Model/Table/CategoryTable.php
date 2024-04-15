@@ -40,7 +40,7 @@ class CategoryTable extends Table
         parent::initialize($config);
 
         $this->setTable('category');
-        $this->setDisplayField('id');
+        $this->setDisplayField('category_name');
         $this->setPrimaryKey('id');
 
         $this->hasMany('Flower', [

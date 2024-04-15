@@ -41,7 +41,7 @@ class FlowerTable extends Table
         parent::initialize($config);
 
         $this->setTable('flower');
-        $this->setDisplayField('id');
+        $this->setDisplayField('flower_name');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Category', [
