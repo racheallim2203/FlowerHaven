@@ -180,6 +180,7 @@ $this->assign('title', 'Home');
         </div>
     </section>
 
+    <br><br><br>
     <!-- Next Section -->
     <section class="front-product">
         <div class="container-fluid p-0">
@@ -190,8 +191,8 @@ $this->assign('title', 'Home');
                 <div class="col-lg-6 col-12">
                     <div class="px-5 py-5 py-lg-0">
                         <h1 class="mb-4"><span style="color: #e632d7">Flower</span>Heaven Florist</h1>
-                        <h4 class=" mb-4">Meet Lily, the passionate soul behind FlowerHeaven, where his love for flowers blossoms into vibrant creations that captivate hearts and souls.</h4>
-                        <h5> As the owner of FlowerHeaven, Lily is committed to sourcing the finest blooms from trusted growers, ensuring each stem is a testament to nature's bounty and beauty. From classic roses to exotic orchids, every flower that graces her shop is handpicked with love and care </h5>
+                        <p class=" mb-4">Meet Lily, the passionate soul behind FlowerHeaven, where his love for flowers blossoms into vibrant creations that captivate hearts and souls.</p>
+                        <p> As the owner of FlowerHeaven, Lily is committed to sourcing the finest blooms from trusted growers, ensuring each stem is a testament to nature's bounty and beauty. From classic roses to exotic orchids, every flower that graces her shop is handpicked with love and care </p>
                         <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']); ?>" class="custom-link">
                             Explore Flowers
                             <i class="bi-arrow-right ms-2"></i>
