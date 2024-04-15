@@ -18,10 +18,24 @@ class FlowerController extends AppController
     public function index()
     {
         $query = $this->Flower->find('all', [
-            'contain' => ['Category']
+            'contain' => ['Category'],
+            'order' => ['Flower.stock_quantity' => 'asc']
         ]);
+
+        $search = $this->request->getQuery('search');
+        $category = $this->request->getQuery('category');
+
+        if (!empty($search)) {
+            $query->where(['Flower.flower_name LIKE' => '%' . $search . '%']);
+        }
+
+        if (!empty($category)) {
+            $query->where(['Category.id' => $category]);
+        }
+
         $flowers = $this->paginate($query);
-        $this->set(compact('flowers'));
+        $category = $this->Flower->Category->find('list');
+        $this->set(compact('flowers', 'category'));
     }
 
     /**
