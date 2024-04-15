@@ -224,6 +224,7 @@ strong {
     font-size: var(--copyright-text-font-size);
     text-transform: uppercase;
     padding: 16.50px 20px;
+    text-decoration: none;
 }
 
 .social-btn {
@@ -251,8 +252,8 @@ strong {
 
 .custom-btn:hover,
 .slick-slideshow .custom-btn:hover {
-    background: var(--primary-color);
-    color: var(--white-color);
+    background: white;
+    color: #66147a;
 }
 
 .custom-icon {

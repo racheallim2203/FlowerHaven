@@ -186,12 +186,12 @@ $this->assign('title', 'Home');
         <div class="container-fluid p-0">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-12">
-                    <img src="<?= $this->Url->image('retail-shop-owner-mask-social-distancing-shopping.jpg'); ?>" class="img-fluid" alt="">
+                    <img src="<?= $this->Url->image('aboutus4.jpg'); ?>" class="img-fluid" alt="">
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="px-5 py-5 py-lg-0">
                         <h1 class="mb-4"><span style="color: #e632d7">Flower</span>Heaven Florist</h1>
-                        <p class=" mb-4">Meet Lily, the passionate soul behind FlowerHeaven, where his love for flowers blossoms into vibrant creations that captivate hearts and souls.</p>
+                        <p class=" mb-4">Meet Lily, the passionate soul behind FlowerHeaven, where her love for flowers blossoms into vibrant creations that captivate hearts and souls.</p>
                         <p> As the owner of FlowerHeaven, Lily is committed to sourcing the finest blooms from trusted growers, ensuring each stem is a testament to nature's bounty and beauty. From classic roses to exotic orchids, every flower that graces her shop is handpicked with love and care </p>
                         <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']); ?>" class="custom-link">
                             Explore Flowers
