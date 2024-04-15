@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 12, 2024 at 10:19 AM
+-- Generation Time: Apr 15, 2024 at 03:05 AM
 -- Server version: 11.3.2-MariaDB
 -- PHP Version: 8.3.4
 
@@ -110,16 +110,16 @@ CREATE TABLE `flower` (
   `flower_description` text NOT NULL,
   `flower_price` decimal(10,0) NOT NULL,
   `stock_quantity` int(255) NOT NULL,
-  `category_id` varchar(10) NOT NULL
+  `category_id` varchar(10) NOT NULL,
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `flower`
 --
 
-INSERT INTO `flower` (`id`, `flower_name`, `flower_description`, `flower_price`, `stock_quantity`, `category_id`) VALUES
-('FLO-00001', 'Elegant White Lilies', 'These pristine white lilies symbolize purity and grace. Each stem typically bears multiple large, trumpet-shaped blooms with a sweet, captivating fragrance.', 12, 42, 'CAT-00001'),
-('FLO-00002', 'Radiant Sunflowers', 'Bright and cheerful, these radiant sunflowers symbolize happiness and warmth. ', 21, 24, 'CAT-00002');
+INSERT INTO `flower` (`id`, `flower_name`, `flower_description`, `flower_price`, `stock_quantity`, `category_id`, `image`) VALUES
+('FLO-00001', 'a', 'a', 1, 1, 'CAT-00001', NULL);
 
 --
 -- Triggers `flower`
@@ -363,6 +363,27 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `phinxlog`
+--
+
+CREATE TABLE `phinxlog` (
+  `version` bigint(20) NOT NULL,
+  `migration_name` varchar(100) DEFAULT NULL,
+  `start_time` timestamp NULL DEFAULT NULL,
+  `end_time` timestamp NULL DEFAULT NULL,
+  `breakpoint` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `phinxlog`
+--
+
+INSERT INTO `phinxlog` (`version`, `migration_name`, `start_time`, `end_time`, `breakpoint`) VALUES
+(20240415024812, 'AddColumnToTable', '2024-04-14 16:50:43', '2024-04-14 16:50:43', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -375,14 +396,14 @@ CREATE TABLE `user` (
   `phone_no` text NOT NULL,
   `isAdmin` tinyint(1) NOT NULL,
   `nonce` varchar(256) NOT NULL,
-  `non_expiry` date NOT NULL
+  `nonce_expiry` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `address`, `phone_no`, `isAdmin`, `nonce`, `non_expiry`) VALUES
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `address`, `phone_no`, `isAdmin`, `nonce`, `nonce_expiry`) VALUES
 ('USE-00001', 'customer1', 'rmn223@gmail.com', 'xxx', 'Konawarra Street VIC ', '0452483345', 0, '', '0000-00-00');
 
 --
@@ -467,6 +488,12 @@ ALTER TABLE `payment_method`
 --
 ALTER TABLE `payment_status`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `phinxlog`
+--
+ALTER TABLE `phinxlog`
+  ADD PRIMARY KEY (`version`);
 
 --
 -- Indexes for table `user`

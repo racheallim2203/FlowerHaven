@@ -56,6 +56,7 @@ return function (RouteBuilder $routes): void {
          * to use (in this case, templates/Pages/home.php)...
          */
         $builder->connect('/', ['controller' => 'Flower', 'action' => 'index', 'home']);
+        $builder->connect('/our-flowers', ['controller' => 'Flower', 'action' => 'customerView']);
         $builder->connect('/home', ['controller' => 'Pages', 'action' => 'display', 'home']);
 
         /*
