@@ -65,23 +65,17 @@ class CategoriesController extends AppController
      */
     public function add()
     {
-        $flower = $this->Flowers->newEmptyEntity();
+        $category = $this->Categories->newEmptyEntity();
         if ($this->request->is('post')) {
-            $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
-            if ($this->Flowers->save($flower)) {
-                $this->Flash->success(__('The flower has been saved.'));
+            $category = $this->Categories->patchEntity($category, $this->request->getData());
+            if ($this->Category->save($category)) {
+                $this->Flash->success(__('The category has been saved.'));
+
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The flower could not be saved. Please, try again.'));
+            $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
-
-        // Fetch categories for the drop-down
-        $categories = $this->Flowers->Categories->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'category_name'
-        ]);
-
-        $this->set(compact('flower', 'categories'));
+        $this->set(compact('category'));
     }
 
     /**
