@@ -11,6 +11,23 @@ namespace App\Controller;
 class FlowersController extends AppController
 {
     /**
+     * Initialization hook method.
+     *
+     * Use this method to add common initialization code like loading components.
+     *
+     * e.g. `$this->loadComponent('FormProtection');`
+     *
+     * @return void
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        // Allow unauthenticated access to 'view' and 'index' actions
+        $this->Authentication->allowUnauthenticated(['view', 'index']);
+    }
+
+    /**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view
