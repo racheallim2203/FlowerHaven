@@ -19,21 +19,21 @@ class CategoriesController extends AppController
     {
         $query = $this->Categories->find('all', [
             'contain' => ['Flowers'],
-            'order' => ['Categories.category_name' => 'asc'] // Or any other default sorting you prefer
+            'order' => ['Categories.category_name' => 'asc']
         ]);
 
         $search = $this->request->getQuery('search');
-        $categories = $this->request->getQuery('categories');
+        $category = $this->request->getQuery('category');
 
         if (!empty($search)) {
-            // Use matching to apply conditions on associated data
             $query->matching('Flowers', function ($q) use ($search) {
                 return $q->where(['Flowers.flower_name LIKE' => '%' . $search . '%']);
             });
         }
-        if (!empty($categories)) {
-            $query->where(['Categories.id' => $categories]);
+        if (!empty($category)) {
+            $query->where(['Categories.id' => $category]);
         }
+
         $categoriesList = $this->Categories->find('list', [
             'keyField' => 'id',
             'valueField' => 'category_name'
@@ -42,6 +42,7 @@ class CategoriesController extends AppController
         $categories = $this->paginate($query);
         $this->set(compact('categories', 'categoriesList'));
     }
+
 
     /**
      * View method

@@ -23,18 +23,24 @@ class FlowersController extends AppController
         ]);
 
         $search = $this->request->getQuery('search');
-        $categories = $this->request->getQuery('category');
+        $category = $this->request->getQuery('category');
 
         if (!empty($search)) {
             $query->where(['Flowers.flower_name LIKE' => '%' . $search . '%']);
         }
 
         if (!empty($category)) {
-            $query->where(['Categories.id' => $categories]);
+            $query->where(['Categories.id' => $category]);
         }
 
         $flowers = $this->paginate($query);
-        $categories = $this->Flowers->Categories->find('list');
+
+        // Fetch category names for the dropdown
+        $categories = $this->Flowers->Categories->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'category_name'
+        ]);
+
         $this->set(compact('flowers', 'categories'));
     }
 

@@ -25,8 +25,8 @@ $activePage = strtolower($currentController) . '/' . strtolower($currentAction);
                 <li class="nav-item <?= ($activePage == 'Pages/aboutus') ? 'active' : '' ?>">
                     <?= $this->Html->link('About Us', ['controller' => 'Pages', 'action' => 'aboutus'], ['class' => 'nav-link', 'escape' => false]) ?>
                 </li>
-                <li class="nav-item <?= ($activePage == 'Products/index') ? 'active' : '' ?>">
-                    <?= $this->Html->link('Products', ['controller' => 'Products', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
+                <li class="nav-item <?= ($activePage == 'Flowers/customer_view') ? 'active' : '' ?>">
+                    <?= $this->Html->link('Products', ['controller' => 'Flowers', 'action' => 'customer_view'], ['class' => 'nav-link', 'escape' => false]) ?>
                 </li>
                 <li class="nav-item <?= ($activePage == 'Pages/faq') ? 'active' : '' ?>">
                     <?= $this->Html->link('FAQs', ['controller' => 'Pages', 'action' => 'faq'], ['class' => 'nav-link', 'escape' => false]) ?>
