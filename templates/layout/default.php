@@ -32,8 +32,8 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item <?= ($activePage == 'Flower/index') ? 'active' : '' ?>">
-                        <?= $this->Html->link('Flower <span class="sr-only">(current)</span>', ['controller' => 'Flower', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
+                    <li class="nav-item <?= ($activePage == 'Flowers/index') ? 'active' : '' ?>">
+                        <?= $this->Html->link('Flowers <span class="sr-only">(current)</span>', ['controller' => 'Flowers', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'Payment/index') ? 'active' : '' ?>">
                         <a class="nav-link" href="#">Payment</a>
@@ -41,8 +41,8 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
                     <li class="nav-item <?= ($activePage == 'User/index') ? 'active' : '' ?>">
                         <a class="nav-link" href="#">User</a>
                     </li>
-                    <li class="nav-item <?= ($activePage == 'Category/index') ? 'active' : '' ?>">
-                        <?= $this->Html->link('Category', ['controller' => 'Category', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                    <li class="nav-item <?= ($activePage == 'Categories/index') ? 'active' : '' ?>">
+                        <?= $this->Html->link('Categories', ['controller' => 'Categories', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'Order/index') ? 'active' : '' ?>">
                         <a class="nav-link" href="#">Order</a>

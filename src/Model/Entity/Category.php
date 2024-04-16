@@ -6,13 +6,13 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Category Entity
+ * Categories Entity
  *
  * @property string $id
  * @property string|null $category_name
  * @property string|null $category_description
  *
- * @property \App\Model\Entity\Flower[] $flower
+ * @property \App\Model\Entity\Flower[] $flowers
  */
 class Category extends Entity
 {
@@ -28,6 +28,6 @@ class Category extends Entity
     protected array $_accessible = [
         'category_name' => true,
         'category_description' => true,
-        'flower' => true,
+        'flowers' => true,
     ];
 }

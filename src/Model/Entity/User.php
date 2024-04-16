@@ -16,9 +16,9 @@ use Cake\ORM\Entity;
  * @property string $phone_no
  * @property bool $isAdmin
  * @property string $nonce
- * @property \Cake\I18n\Date $non_expiry
+ * @property \Cake\I18n\Date $nonce_expiry
  *
- * @property \App\Model\Entity\Payment[] $payment
+ * @property \App\Model\Entity\Payment[] $payments
  */
 class User extends Entity
 {
@@ -39,8 +39,8 @@ class User extends Entity
         'phone_no' => true,
         'isAdmin' => true,
         'nonce' => true,
-        'non_expiry' => true,
-        'payment' => true,
+        'nonce_expiry' => true,
+        'payments' => true,
     ];
 
     /**

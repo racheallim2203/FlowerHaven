@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\FlowerController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\FlowerController Test Case
  *
- * @uses \App\Controller\FlowerController
+ * @uses \OLDFILES\OLDCONTROLLERS\FlowerController
  */
 class FlowerControllerTest extends TestCase
 {
@@ -22,8 +21,8 @@ class FlowerControllerTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Flower',
-        'app.Category',
+        'app.Flowers',
+        'app.Categories',
         'app.OrderFlower',
     ];
 
@@ -31,7 +30,7 @@ class FlowerControllerTest extends TestCase
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\FlowerController::index()
+     * @uses \OLDFILES\OLDCONTROLLERS\FlowerController::index()
      */
     public function testIndex(): void
     {
@@ -42,7 +41,7 @@ class FlowerControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\FlowerController::view()
+     * @uses \OLDFILES\OLDCONTROLLERS\FlowerController::view()
      */
     public function testView(): void
     {
@@ -53,7 +52,7 @@ class FlowerControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\FlowerController::add()
+     * @uses \OLDFILES\OLDCONTROLLERS\FlowerController::add()
      */
     public function testAdd(): void
     {
@@ -64,7 +63,7 @@ class FlowerControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\FlowerController::edit()
+     * @uses \OLDFILES\OLDCONTROLLERS\FlowerController::edit()
      */
     public function testEdit(): void
     {
@@ -75,7 +74,7 @@ class FlowerControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\FlowerController::delete()
+     * @uses \OLDFILES\OLDCONTROLLERS\FlowerController::delete()
      */
     public function testDelete(): void
     {

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\FlowerTable;
+use App\Model\Table\OldTables\FlowerTable;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -14,7 +14,7 @@ class FlowerTableTest extends TestCase
     /**
      * Test subject
      *
-     * @var \App\Model\Table\FlowerTable
+     * @var \App\Model\Table\OldTables\FlowerTable
      */
     protected $Flower;
 
@@ -24,8 +24,8 @@ class FlowerTableTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Flower',
-        'app.Category',
+        'app.Flowers',
+        'app.Categories',
         'app.OrderFlower',
     ];
 
@@ -37,8 +37,8 @@ class FlowerTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Flower') ? [] : ['className' => FlowerTable::class];
-        $this->Flower = $this->getTableLocator()->get('Flower', $config);
+        $config = $this->getTableLocator()->exists('Flowers') ? [] : ['className' => FlowerTable::class];
+        $this->Flower = $this->getTableLocator()->get('Flowers', $config);
     }
 
     /**
@@ -57,7 +57,7 @@ class FlowerTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\FlowerTable::validationDefault()
+     * @uses \App\Model\Table\OldTables\FlowerTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -68,7 +68,7 @@ class FlowerTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\FlowerTable::buildRules()
+     * @uses \App\Model\Table\OldTables\FlowerTable::buildRules()
      */
     public function testBuildRules(): void
     {
