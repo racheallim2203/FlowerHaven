@@ -52,6 +52,7 @@ body {
     background: var(--white-color);
     font-family: var(--body-font-family);
     position: relative;
+    padding-top: 90px;
 }
 
 /*---------------------------------------
@@ -224,6 +225,7 @@ strong {
     font-size: var(--copyright-text-font-size);
     text-transform: uppercase;
     padding: 16.50px 20px;
+    text-decoration: none;
 }
 
 .social-btn {
@@ -251,8 +253,8 @@ strong {
 
 .custom-btn:hover,
 .slick-slideshow .custom-btn:hover {
-    background: var(--primary-color);
-    color: var(--white-color);
+    background: white;
+    color: #66147a;
 }
 
 .custom-icon {
@@ -327,27 +329,44 @@ strong {
   NAVIGATION
 -----------------------------------------*/
 .navbar {
-    background: var(--white-color);
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    padding: 25px 0;
-    z-index: 2;
-    will-change: transform;
-    transition: transform 300ms linear;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    z-index: 1000 !important;
+    width: 100% !important;
+    padding: 25px 0 !important;
+    background-color: #fff !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+    transition: transform 300ms linear !important;
 }
 
 .navbar span, h2 span, h4 span {
-    color: var(--primary-color);
+    color: #ff1cec;
 }
 
 .navbar.headroom--not-top {
     padding: 20px 0;
 }
 
+.navbar-fixed-top {
+    padding: 10px 0 !important; // Reduced padding when navbar is fixed
+background-color: #fff !important; // Ensures the background is solid
+box-shadow: 0 2px 10px rgba(0,0,0,0.1); // Optional: adds shadow for better visibility
+}
+
 .headroom--pinned {
     transform: translate(0, 0);
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    z-index: 1000 !important;
+    width: 100% !important;
+    padding: 25px 0 !important;
+    background-color: #fff !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+    transition: transform 300ms linear !important;
 }
 
 .headroom--unpinned {
@@ -717,7 +736,6 @@ strong {
   SECTION
 -----------------------------------------*/
 section {
-    content-visibility: auto;
     contain-intrinsic-size: 700px;
 }
 
@@ -738,20 +756,22 @@ section {
 }
 
 .about .nav-pills .nav-link {
-    color: var(--grey-color);
+    color: white;
     font-size: 18px;
     font-weight: var(--font-weight-bold);
-    border-left: 1px solid var(--grey-color);
-    border-radius: 0;
-    padding-right: 0;
+    border-left: 2px solid #ffa1f7;
+    border-radius: 1px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    background-color: #ad18a1;
 }
 
 .about .nav-pills .nav-link:hover,
 .about .nav-pills .nav-link.active,
 .about .nav-pills .show>.nav-link {
     background: transparent;
-    border-left-color: var(--primary-color);
-    color: var(--primary-color);
+    border-left: 2px solid #ffa1f7;
+    color: #ad18a1;
 }
 
 /*---------------------------------------
@@ -887,7 +907,9 @@ button:focus:not(:focus-visible) {
   PRODUCT
 -----------------------------------------*/
 .front-product {
-    background: var(--section-bg-color);
+    background: #ffedf5;
+    padding-bottom: 100px;
+    padding-top: 80px;
 }
 
 .product-thumb {
@@ -1015,6 +1037,7 @@ button:focus:not(:focus-visible) {
     vertical-align: top;
     margin-top: 4px;
     margin-bottom: 4px;
+    text-decoration: none;
 }
 
 .site-footer .social-icon-link {

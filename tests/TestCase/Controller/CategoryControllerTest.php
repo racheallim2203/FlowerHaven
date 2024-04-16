@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\CategoryController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\CategoryController Test Case
  *
- * @uses \App\Controller\CategoryController
+ * @uses \OLDFILES\OLDCONTROLLERS\CategoryController
  */
 class CategoryControllerTest extends TestCase
 {
@@ -22,15 +21,15 @@ class CategoryControllerTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Category',
-        'app.Flower',
+        'app.Categories',
+        'app.Flowers',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\CategoryController::index()
+     * @uses \OLDFILES\OLDCONTROLLERS\CategoryController::index()
      */
     public function testIndex(): void
     {
@@ -41,7 +40,7 @@ class CategoryControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\CategoryController::view()
+     * @uses \OLDFILES\OLDCONTROLLERS\CategoryController::view()
      */
     public function testView(): void
     {
@@ -52,7 +51,7 @@ class CategoryControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\CategoryController::add()
+     * @uses \OLDFILES\OLDCONTROLLERS\CategoryController::add()
      */
     public function testAdd(): void
     {
@@ -63,7 +62,7 @@ class CategoryControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\CategoryController::edit()
+     * @uses \OLDFILES\OLDCONTROLLERS\CategoryController::edit()
      */
     public function testEdit(): void
     {
@@ -74,7 +73,7 @@ class CategoryControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\CategoryController::delete()
+     * @uses \OLDFILES\OLDCONTROLLERS\CategoryController::delete()
      */
     public function testDelete(): void
     {

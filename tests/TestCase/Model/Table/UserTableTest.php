@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\UserTable;
+use App\Model\Table\OldTables\UserTable;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -14,7 +14,7 @@ class UserTableTest extends TestCase
     /**
      * Test subject
      *
-     * @var \App\Model\Table\UserTable
+     * @var \App\Model\Table\OldTables\UserTable
      */
     protected $User;
 
@@ -56,7 +56,7 @@ class UserTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\UserTable::validationDefault()
+     * @uses \App\Model\Table\OldTables\UserTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -67,7 +67,7 @@ class UserTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\UserTable::buildRules()
+     * @uses \App\Model\Table\OldTables\UserTable::buildRules()
      */
     public function testBuildRules(): void
     {

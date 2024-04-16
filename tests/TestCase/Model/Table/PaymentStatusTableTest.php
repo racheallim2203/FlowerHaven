@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\PaymentStatusTable;
+use App\Model\Table\OldTables\PaymentStatusTable;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -14,7 +14,7 @@ class PaymentStatusTableTest extends TestCase
     /**
      * Test subject
      *
-     * @var \App\Model\Table\PaymentStatusTable
+     * @var \App\Model\Table\OldTables\PaymentStatusTable
      */
     protected $PaymentStatus;
 
@@ -55,7 +55,7 @@ class PaymentStatusTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\PaymentStatusTable::validationDefault()
+     * @uses \App\Model\Table\OldTables\PaymentStatusTable::validationDefault()
      */
     public function testValidationDefault(): void
     {

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\CategoryTable;
+use App\Model\Table\OldTables\CategoryTable;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -14,7 +14,7 @@ class CategoryTableTest extends TestCase
     /**
      * Test subject
      *
-     * @var \App\Model\Table\CategoryTable
+     * @var \App\Model\Table\OldTables\CategoryTable
      */
     protected $Category;
 
@@ -24,8 +24,8 @@ class CategoryTableTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Category',
-        'app.Flower',
+        'app.Categories',
+        'app.Flowers',
     ];
 
     /**
@@ -36,8 +36,8 @@ class CategoryTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Category') ? [] : ['className' => CategoryTable::class];
-        $this->Category = $this->getTableLocator()->get('Category', $config);
+        $config = $this->getTableLocator()->exists('Categories') ? [] : ['className' => CategoryTable::class];
+        $this->Category = $this->getTableLocator()->get('Categories', $config);
     }
 
     /**
@@ -56,7 +56,7 @@ class CategoryTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\CategoryTable::validationDefault()
+     * @uses \App\Model\Table\OldTables\CategoryTable::validationDefault()
      */
     public function testValidationDefault(): void
     {

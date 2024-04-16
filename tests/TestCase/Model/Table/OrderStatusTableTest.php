@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\OrderStatusTable;
+use App\Model\Table\OldTables\OrderStatusTable;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -14,7 +14,7 @@ class OrderStatusTableTest extends TestCase
     /**
      * Test subject
      *
-     * @var \App\Model\Table\OrderStatusTable
+     * @var \App\Model\Table\OldTables\OrderStatusTable
      */
     protected $OrderStatus;
 
@@ -55,7 +55,7 @@ class OrderStatusTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\OrderStatusTable::validationDefault()
+     * @uses \App\Model\Table\OldTables\OrderStatusTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
