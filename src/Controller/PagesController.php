@@ -70,4 +70,13 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
+
+    public function aboutus()
+    {
+        $this->viewBuilder()->setLayout('default2');
+        $this->set('title', 'About Us - Little Fashion');
+        // Ensure the view file 'aboutus.php' is being used
+        return $this->render();
+    }
+
 }

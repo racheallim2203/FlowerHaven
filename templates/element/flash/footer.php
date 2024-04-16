@@ -13,7 +13,7 @@
             <div class="col-lg-5 col-8">
                 <h5 class="text-white mb-3">Sitemap</h5>
                 <ul class="footer-menu d-flex flex-wrap">
-                    <li class="footer-menu-item"><a href="/about" class="footer-menu-link">Story</a></li>
+                    <li class="footer-menu-item"><a href="/aboutus" class="footer-menu-link">Story</a></li>
                     <li class="footer-menu-item"><a href="/products" class="footer-menu-link">Products</a></li>
                     <li class="footer-menu-item"><a href="/faq" class="footer-menu-link">FAQs</a></li>
                     <li class="footer-menu-item"><a href="/contact" class="footer-menu-link">Contact</a></li>

@@ -1,3 +1,9 @@
+<?php
+$currentController = $this->getRequest()->getParam('controller');
+$currentAction = $this->getRequest()->getParam('action');
+$activePage = strtolower($currentController) . '/' . strtolower($currentAction);
+?>
+
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,20 +19,20 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/">Home</a>
+                <li class="nav-item <?= ($activePage == 'Pages/display/home') ? 'active' : '' ?>">
+                    <?= $this->Html->link('Home', ['controller' => 'Pages', 'action' => 'display', 'home'], ['class' => 'nav-link']) ?>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">Story</a>
+                <li class="nav-item <?= ($activePage == 'Pages/aboutus') ? 'active' : '' ?>">
+                    <?= $this->Html->link('About Us', ['controller' => 'Pages', 'action' => 'aboutus'], ['class' => 'nav-link', 'escape' => false]) ?>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/products">Products</a>
+                <li class="nav-item <?= ($activePage == 'Products/index') ? 'active' : '' ?>">
+                    <?= $this->Html->link('Products', ['controller' => 'Products', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/faq">FAQs</a>
+                <li class="nav-item <?= ($activePage == 'Pages/faq') ? 'active' : '' ?>">
+                    <?= $this->Html->link('FAQs', ['controller' => 'Pages', 'action' => 'faq'], ['class' => 'nav-link', 'escape' => false]) ?>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
+                <li class="nav-item <?= ($activePage == 'Pages/contact') ? 'active' : '' ?>">
+                    <?= $this->Html->link('Contact', ['controller' => 'Pages', 'action' => 'contact'], ['class' => 'nav-link', 'escape' => false]) ?>
                 </li>
             </ul>
 
