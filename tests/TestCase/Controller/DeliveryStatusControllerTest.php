@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\DeliveryStatusController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\DeliveryStatusController Test Case
  *
- * @uses \App\Controller\DeliveryStatusController
+ * @uses \OLDFILES\OLDCONTROLLERS\DeliveryStatusController
  */
 class DeliveryStatusControllerTest extends TestCase
 {
@@ -29,7 +28,7 @@ class DeliveryStatusControllerTest extends TestCase
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\DeliveryStatusController::index()
+     * @uses \OLDFILES\OLDCONTROLLERS\DeliveryStatusController::index()
      */
     public function testIndex(): void
     {
@@ -40,7 +39,7 @@ class DeliveryStatusControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\DeliveryStatusController::view()
+     * @uses \OLDFILES\OLDCONTROLLERS\DeliveryStatusController::view()
      */
     public function testView(): void
     {
@@ -51,7 +50,7 @@ class DeliveryStatusControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\DeliveryStatusController::add()
+     * @uses \OLDFILES\OLDCONTROLLERS\DeliveryStatusController::add()
      */
     public function testAdd(): void
     {
@@ -62,7 +61,7 @@ class DeliveryStatusControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\DeliveryStatusController::edit()
+     * @uses \OLDFILES\OLDCONTROLLERS\DeliveryStatusController::edit()
      */
     public function testEdit(): void
     {
@@ -73,7 +72,7 @@ class DeliveryStatusControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\DeliveryStatusController::delete()
+     * @uses \OLDFILES\OLDCONTROLLERS\DeliveryStatusController::delete()
      */
     public function testDelete(): void
     {

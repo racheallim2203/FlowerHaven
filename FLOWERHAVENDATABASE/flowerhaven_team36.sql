@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 15, 2024 at 03:05 AM
+-- Generation Time: Apr 16, 2024 at 07:34 AM
 -- Server version: 11.3.2-MariaDB
 -- PHP Version: 8.3.4
 
@@ -24,20 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Table structure for table `categories`
 --
 
-CREATE TABLE `category` (
+CREATE TABLE `categories` (
   `id` varchar(10) NOT NULL,
   `category_name` varchar(255) DEFAULT NULL,
   `category_description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
--- Dumping data for table `category`
+-- Dumping data for table `categories`
 --
 
-INSERT INTO `category` (`id`, `category_name`, `category_description`) VALUES
+INSERT INTO `categories` (`id`, `category_name`, `category_description`) VALUES
 ('CAT-00001', 'Hand-tied Bouquets', 'A selection of fresh flowers expertly arranged and tied by hand, perfect for personal gifts and special occasions'),
 ('CAT-00002', 'Vase Arrangements', 'Beautifully arranged flowers in a vase, ready to display for instant elegance and charm.'),
 ('CAT-00003', 'Basket Arrangements', 'Charming floral arrangements set in decorative baskets, adding a rustic touch to any setting'),
@@ -45,14 +45,14 @@ INSERT INTO `category` (`id`, `category_name`, `category_description`) VALUES
 ('CAT-00005', 'Centerpieces', 'Stunning floral displays designed to be the focal point of tables at weddings, events, or home decor');
 
 --
--- Triggers `category`
+-- Triggers `categories`
 --
 DELIMITER $$
-CREATE TRIGGER `category_id` BEFORE INSERT ON `category` FOR EACH ROW BEGIN
+CREATE TRIGGER `category_id` BEFORE INSERT ON `categories` FOR EACH ROW BEGIN
     DECLARE max_id INT;
     DECLARE new_id VARCHAR(10);
 
-    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM category;
+    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM categories;
     SET new_id = CONCAT('CAT-', LPAD(IFNULL(max_id, 0) + 1, 5, '0'));
 
     SET NEW.id = new_id;
@@ -63,19 +63,19 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `delivery_status`
+-- Table structure for table `delivery_statuses`
 --
 
-CREATE TABLE `delivery_status` (
+CREATE TABLE `delivery_statuses` (
   `id` varchar(10) NOT NULL,
   `delivery_status` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
--- Dumping data for table `delivery_status`
+-- Dumping data for table `delivery_statuses`
 --
 
-INSERT INTO `delivery_status` (`id`, `delivery_status`) VALUES
+INSERT INTO `delivery_statuses` (`id`, `delivery_status`) VALUES
 ('DEL-00001', 'Awaiting Pickup'),
 ('DEL-00002', 'Out for delivery'),
 ('DEL-00003', 'Delayed'),
@@ -83,14 +83,14 @@ INSERT INTO `delivery_status` (`id`, `delivery_status`) VALUES
 ('DEL-00005', 'Failed');
 
 --
--- Triggers `delivery_status`
+-- Triggers `delivery_statuses`
 --
 DELIMITER $$
-CREATE TRIGGER `delivery_status` BEFORE INSERT ON `delivery_status` FOR EACH ROW BEGIN
+CREATE TRIGGER `delivery_status` BEFORE INSERT ON `delivery_statuses` FOR EACH ROW BEGIN
     DECLARE max_id INT;
     DECLARE new_id VARCHAR(10);
 
-    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM delivery_status;
+    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM delivery_statuses;
     SET new_id = CONCAT('DEL-', LPAD(IFNULL(max_id, 0) + 1, 5, '0'));
 
     SET NEW.id = new_id;
@@ -101,10 +101,10 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `flower`
+-- Table structure for table `flowers`
 --
 
-CREATE TABLE `flower` (
+CREATE TABLE `flowers` (
   `id` varchar(10) NOT NULL,
   `flower_name` varchar(32) NOT NULL,
   `flower_description` text NOT NULL,
@@ -115,21 +115,23 @@ CREATE TABLE `flower` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
--- Dumping data for table `flower`
+-- Dumping data for table `flowers`
 --
 
-INSERT INTO `flower` (`id`, `flower_name`, `flower_description`, `flower_price`, `stock_quantity`, `category_id`, `image`) VALUES
-('FLO-00001', 'a', 'a', 1, 1, 'CAT-00001', NULL);
+INSERT INTO `flowers` (`id`, `flower_name`, `flower_description`, `flower_price`, `stock_quantity`, `category_id`, `image`) VALUES
+('FLO-00001', 'Elegant White Lilies', 'These pristine white lilies symbolize purity and grace. Each stem typically bears multiple large, trumpet-shaped blooms with a sweet, captivating fragrance.', 12, 42, 'CAT-00001', NULL),
+('FLO-00002', 'Radiant Sunflowers', 'Bright and cheerful, these radiant sunflowers symbolize happiness and warmth. ', 12, 24, 'CAT-00005', NULL),
+('FLO-00003', 'a', 'a', 1, 1, 'CAT-00001', NULL);
 
 --
--- Triggers `flower`
+-- Triggers `flowers`
 --
 DELIMITER $$
-CREATE TRIGGER `flower_id` BEFORE INSERT ON `flower` FOR EACH ROW BEGIN
+CREATE TRIGGER `flower_id` BEFORE INSERT ON `flowers` FOR EACH ROW BEGIN
     DECLARE max_id INT;
     DECLARE new_id VARCHAR(10);
 
-    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM flower;
+    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM flowers;
     SET new_id = CONCAT('FLO-', LPAD(IFNULL(max_id, 0) + 1, 5, '0'));
 
     SET NEW.id = new_id;
@@ -140,10 +142,10 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_delivery`
+-- Table structure for table `order_deliveries`
 --
 
-CREATE TABLE `order_delivery` (
+CREATE TABLE `order_deliveries` (
   `id` varchar(10) NOT NULL,
   `orderstatus_id` varchar(10) NOT NULL,
   `deliverystatus_id` varchar(10) NOT NULL,
@@ -153,21 +155,21 @@ CREATE TABLE `order_delivery` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
--- Dumping data for table `order_delivery`
+-- Dumping data for table `order_deliveries`
 --
 
-INSERT INTO `order_delivery` (`id`, `orderstatus_id`, `deliverystatus_id`, `order_date`, `total_amount`, `delivery_date`) VALUES
+INSERT INTO `order_deliveries` (`id`, `orderstatus_id`, `deliverystatus_id`, `order_date`, `total_amount`, `delivery_date`) VALUES
 ('ODD-00001', 'ORS-00001', 'DEL-00001', '2024-04-11', 54, '2024-04-16');
 
 --
--- Triggers `order_delivery`
+-- Triggers `order_deliveries`
 --
 DELIMITER $$
-CREATE TRIGGER `orderdeliver_id` BEFORE INSERT ON `order_delivery` FOR EACH ROW BEGIN
+CREATE TRIGGER `orderdeliver_id` BEFORE INSERT ON `order_deliveries` FOR EACH ROW BEGIN
     DECLARE max_id INT;
     DECLARE new_id VARCHAR(10);
 
-    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM order_delivery;
+    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM order_deliveries;
     SET new_id = CONCAT('ODD-', LPAD(IFNULL(max_id, 0) + 1, 5, '0'));
 
     SET NEW.id = new_id;
@@ -178,10 +180,10 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_flower`
+-- Table structure for table `order_flowers`
 --
 
-CREATE TABLE `order_flower` (
+CREATE TABLE `order_flowers` (
   `id` varchar(10) NOT NULL,
   `flower_id` varchar(10) NOT NULL,
   `orderdelivery_id` varchar(10) NOT NULL,
@@ -189,21 +191,21 @@ CREATE TABLE `order_flower` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
--- Dumping data for table `order_flower`
+-- Dumping data for table `order_flowers`
 --
 
-INSERT INTO `order_flower` (`id`, `flower_id`, `orderdelivery_id`, `quantity`) VALUES
+INSERT INTO `order_flowers` (`id`, `flower_id`, `orderdelivery_id`, `quantity`) VALUES
 ('ORD-00001', 'FLO-00001', 'ODD-00001', 13);
 
 --
--- Triggers `order_flower`
+-- Triggers `order_flowers`
 --
 DELIMITER $$
-CREATE TRIGGER `orderflower_id` BEFORE INSERT ON `order_flower` FOR EACH ROW BEGIN
+CREATE TRIGGER `orderflower_id` BEFORE INSERT ON `order_flowers` FOR EACH ROW BEGIN
     DECLARE max_id INT;
     DECLARE new_id VARCHAR(10);
 
-    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM order_flower;
+    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM order_flowers;
     SET new_id = CONCAT('ORD-', LPAD(IFNULL(max_id, 0) + 1, 5, '0'));
 
     SET NEW.id = new_id;
@@ -214,19 +216,19 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_status`
+-- Table structure for table `order_statuses`
 --
 
-CREATE TABLE `order_status` (
+CREATE TABLE `order_statuses` (
   `id` varchar(10) NOT NULL,
   `order_type` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
--- Dumping data for table `order_status`
+-- Dumping data for table `order_statuses`
 --
 
-INSERT INTO `order_status` (`id`, `order_type`) VALUES
+INSERT INTO `order_statuses` (`id`, `order_type`) VALUES
 ('ORS-00001', 'Pending'),
 ('ORS-00002', 'Processing'),
 ('ORS-00003', 'On Hold'),
@@ -234,14 +236,14 @@ INSERT INTO `order_status` (`id`, `order_type`) VALUES
 ('ORS-00005', 'Cancelled');
 
 --
--- Triggers `order_status`
+-- Triggers `order_statuses`
 --
 DELIMITER $$
-CREATE TRIGGER `order_id` BEFORE INSERT ON `order_status` FOR EACH ROW BEGIN
+CREATE TRIGGER `order_id` BEFORE INSERT ON `order_statuses` FOR EACH ROW BEGIN
     DECLARE max_id INT;
     DECLARE new_id VARCHAR(10);
 
-    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM order_status;
+    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM order_statuses;
     SET new_id = CONCAT('ORS-', LPAD(IFNULL(max_id, 0) + 1, 5, '0'));
 
     SET NEW.id = new_id;
@@ -252,10 +254,10 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment`
+-- Table structure for table `payments`
 --
 
-CREATE TABLE `payment` (
+CREATE TABLE `payments` (
   `id` varchar(10) NOT NULL,
   `orderdelivery_id` varchar(10) NOT NULL,
   `paymentstatus_id` varchar(10) NOT NULL,
@@ -264,21 +266,21 @@ CREATE TABLE `payment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
--- Dumping data for table `payment`
+-- Dumping data for table `payments`
 --
 
-INSERT INTO `payment` (`id`, `orderdelivery_id`, `paymentstatus_id`, `paymentmethod_id`, `user_id`) VALUES
+INSERT INTO `payments` (`id`, `orderdelivery_id`, `paymentstatus_id`, `paymentmethod_id`, `user_id`) VALUES
 ('PAY-00001', 'ODD-00001', 'PAS-00001', 'PAM-00001', 'USE-00001');
 
 --
--- Triggers `payment`
+-- Triggers `payments`
 --
 DELIMITER $$
-CREATE TRIGGER `payment_id` BEFORE INSERT ON `payment` FOR EACH ROW BEGIN
+CREATE TRIGGER `payment_id` BEFORE INSERT ON `payments` FOR EACH ROW BEGIN
     DECLARE max_id INT;
     DECLARE new_id VARCHAR(10);
 
-    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM payment;
+    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM payments;
     SET new_id = CONCAT('PAY-', LPAD(IFNULL(max_id, 0) + 1, 5, '0'));
 
     SET NEW.id = new_id;
@@ -289,33 +291,33 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment_method`
+-- Table structure for table `payment_methods`
 --
 
-CREATE TABLE `payment_method` (
+CREATE TABLE `payment_methods` (
   `id` varchar(10) NOT NULL,
   `method_type` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
--- Dumping data for table `payment_method`
+-- Dumping data for table `payment_methods`
 --
 
-INSERT INTO `payment_method` (`id`, `method_type`) VALUES
+INSERT INTO `payment_methods` (`id`, `method_type`) VALUES
 ('PAM-00001', 'Wire Transfer'),
 ('PAM-00002', 'BPay'),
 ('PAM-00003', 'Direct Debit'),
 ('PAM-00004', 'Credit Card');
 
 --
--- Triggers `payment_method`
+-- Triggers `payment_methods`
 --
 DELIMITER $$
-CREATE TRIGGER `payment_method_id` BEFORE INSERT ON `payment_method` FOR EACH ROW BEGIN
+CREATE TRIGGER `payment_method_id` BEFORE INSERT ON `payment_methods` FOR EACH ROW BEGIN
     DECLARE max_id INT;
     DECLARE new_id VARCHAR(10);
 
-    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM payment_method;
+    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM payment_methods;
     SET new_id = CONCAT('PAM-', LPAD(IFNULL(max_id, 0) + 1, 5, '0'));
 
     SET NEW.id = new_id;
@@ -326,33 +328,33 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment_status`
+-- Table structure for table `payment_statuses`
 --
 
-CREATE TABLE `payment_status` (
+CREATE TABLE `payment_statuses` (
   `id` varchar(10) NOT NULL,
   `status_type` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
--- Dumping data for table `payment_status`
+-- Dumping data for table `payment_statuses`
 --
 
-INSERT INTO `payment_status` (`id`, `status_type`) VALUES
+INSERT INTO `payment_statuses` (`id`, `status_type`) VALUES
 ('PAS-00001', 'In Progress'),
 ('PAS-00002', 'Completed'),
 ('PAS-00003', 'Failed'),
 ('PAS-00004', 'Cancelled');
 
 --
--- Triggers `payment_status`
+-- Triggers `payment_statuses`
 --
 DELIMITER $$
-CREATE TRIGGER `payment_status_id` BEFORE INSERT ON `payment_status` FOR EACH ROW BEGIN
+CREATE TRIGGER `payment_status_id` BEFORE INSERT ON `payment_statuses` FOR EACH ROW BEGIN
     DECLARE max_id INT;
     DECLARE new_id VARCHAR(10);
 
-    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM payment_status;
+    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM payment_statuses;
     SET new_id = CONCAT('PAS-', LPAD(IFNULL(max_id, 0) + 1, 5, '0'));
 
     SET NEW.id = new_id;
@@ -363,31 +365,10 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `phinxlog`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `phinxlog` (
-  `version` bigint(20) NOT NULL,
-  `migration_name` varchar(100) DEFAULT NULL,
-  `start_time` timestamp NULL DEFAULT NULL,
-  `end_time` timestamp NULL DEFAULT NULL,
-  `breakpoint` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `phinxlog`
---
-
-INSERT INTO `phinxlog` (`version`, `migration_name`, `start_time`, `end_time`, `breakpoint`) VALUES
-(20240415024812, 'AddColumnToTable', '2024-04-14 16:50:43', '2024-04-14 16:50:43', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id` varchar(10) NOT NULL,
   `username` text NOT NULL,
   `email` text NOT NULL,
@@ -400,21 +381,22 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `address`, `phone_no`, `isAdmin`, `nonce`, `nonce_expiry`) VALUES
-('USE-00001', 'customer1', 'rmn223@gmail.com', 'xxx', 'Konawarra Street VIC ', '0452483345', 0, '', '0000-00-00');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `address`, `phone_no`, `isAdmin`, `nonce`, `nonce_expiry`) VALUES
+('USE-00001', 'customer12', 'rmn223@gmail.com', 'xxx', 'Konawarra Street VIC ', '0452483345', 0, '2332', '2024-04-16'),
+('USE-00002', 'a', 'a@test.com', '1', 'a', '1', 1, '1', '2024-04-16');
 
 --
--- Triggers `user`
+-- Triggers `users`
 --
 DELIMITER $$
-CREATE TRIGGER `user_id` BEFORE INSERT ON `user` FOR EACH ROW BEGIN
+CREATE TRIGGER `user_id` BEFORE INSERT ON `users` FOR EACH ROW BEGIN
     DECLARE max_id INT;
     DECLARE new_id VARCHAR(10);
 
-    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM user;
+    SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) INTO max_id FROM users;
     SET new_id = CONCAT('USE-', LPAD(IFNULL(max_id, 0) + 1, 5, '0'));
 
     SET NEW.id = new_id;
@@ -427,50 +409,50 @@ DELIMITER ;
 --
 
 --
--- Indexes for table `category`
+-- Indexes for table `categories`
 --
-ALTER TABLE `category`
+ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `delivery_status`
+-- Indexes for table `delivery_statuses`
 --
-ALTER TABLE `delivery_status`
+ALTER TABLE `delivery_statuses`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `flower`
+-- Indexes for table `flowers`
 --
-ALTER TABLE `flower`
+ALTER TABLE `flowers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `flower_category` (`category_id`);
 
 --
--- Indexes for table `order_delivery`
+-- Indexes for table `order_deliveries`
 --
-ALTER TABLE `order_delivery`
+ALTER TABLE `order_deliveries`
   ADD PRIMARY KEY (`id`),
   ADD KEY `deliverystatus_id` (`deliverystatus_id`),
   ADD KEY `orderstatus_id` (`orderstatus_id`);
 
 --
--- Indexes for table `order_flower`
+-- Indexes for table `order_flowers`
 --
-ALTER TABLE `order_flower`
+ALTER TABLE `order_flowers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `orderflower_flower` (`flower_id`),
   ADD KEY `orderflower_orderdelivery` (`orderdelivery_id`);
 
 --
--- Indexes for table `order_status`
+-- Indexes for table `order_statuses`
 --
-ALTER TABLE `order_status`
+ALTER TABLE `order_statuses`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `payment`
+-- Indexes for table `payments`
 --
-ALTER TABLE `payment`
+ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `paymentmethod_id` (`paymentmethod_id`),
   ADD KEY `paymentstatus_id` (`paymentstatus_id`),
@@ -478,27 +460,21 @@ ALTER TABLE `payment`
   ADD KEY `orderdelivery_id` (`orderdelivery_id`);
 
 --
--- Indexes for table `payment_method`
+-- Indexes for table `payment_methods`
 --
-ALTER TABLE `payment_method`
+ALTER TABLE `payment_methods`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `payment_status`
+-- Indexes for table `payment_statuses`
 --
-ALTER TABLE `payment_status`
+ALTER TABLE `payment_statuses`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `phinxlog`
+-- Indexes for table `users`
 --
-ALTER TABLE `phinxlog`
-  ADD PRIMARY KEY (`version`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -506,33 +482,33 @@ ALTER TABLE `user`
 --
 
 --
--- Constraints for table `flower`
+-- Constraints for table `flowers`
 --
-ALTER TABLE `flower`
-  ADD CONSTRAINT `flower_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
+ALTER TABLE `flowers`
+  ADD CONSTRAINT `flower_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
 
 --
--- Constraints for table `order_delivery`
+-- Constraints for table `order_deliveries`
 --
-ALTER TABLE `order_delivery`
-  ADD CONSTRAINT `orderdelivery_deliverystatus` FOREIGN KEY (`deliverystatus_id`) REFERENCES `delivery_status` (`id`),
-  ADD CONSTRAINT `orderdelivery_orderstatus` FOREIGN KEY (`orderstatus_id`) REFERENCES `order_status` (`id`);
+ALTER TABLE `order_deliveries`
+  ADD CONSTRAINT `orderdelivery_deliverystatus` FOREIGN KEY (`deliverystatus_id`) REFERENCES `delivery_statuses` (`id`),
+  ADD CONSTRAINT `orderdelivery_orderstatus` FOREIGN KEY (`orderstatus_id`) REFERENCES `order_statuses` (`id`);
 
 --
--- Constraints for table `order_flower`
+-- Constraints for table `order_flowers`
 --
-ALTER TABLE `order_flower`
-  ADD CONSTRAINT `orderflower_flower` FOREIGN KEY (`flower_id`) REFERENCES `flower` (`id`),
-  ADD CONSTRAINT `orderflower_orderdelivery` FOREIGN KEY (`orderdelivery_id`) REFERENCES `order_delivery` (`id`);
+ALTER TABLE `order_flowers`
+  ADD CONSTRAINT `orderflower_flower` FOREIGN KEY (`flower_id`) REFERENCES `flowers` (`id`),
+  ADD CONSTRAINT `orderflower_orderdelivery` FOREIGN KEY (`orderdelivery_id`) REFERENCES `order_deliveries` (`id`);
 
 --
--- Constraints for table `payment`
+-- Constraints for table `payments`
 --
-ALTER TABLE `payment`
-  ADD CONSTRAINT `payment_orderdelivery` FOREIGN KEY (`orderdelivery_id`) REFERENCES `order_delivery` (`id`),
-  ADD CONSTRAINT `payment_paymentmethod` FOREIGN KEY (`paymentmethod_id`) REFERENCES `payment_method` (`id`),
-  ADD CONSTRAINT `payment_paymentstatus` FOREIGN KEY (`paymentstatus_id`) REFERENCES `payment_status` (`id`),
-  ADD CONSTRAINT `payment_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `payments`
+  ADD CONSTRAINT `payment_orderdelivery` FOREIGN KEY (`orderdelivery_id`) REFERENCES `order_deliveries` (`id`),
+  ADD CONSTRAINT `payment_paymentmethod` FOREIGN KEY (`paymentmethod_id`) REFERENCES `payment_methods` (`id`),
+  ADD CONSTRAINT `payment_paymentstatus` FOREIGN KEY (`paymentstatus_id`) REFERENCES `payment_statuses` (`id`),
+  ADD CONSTRAINT `payment_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

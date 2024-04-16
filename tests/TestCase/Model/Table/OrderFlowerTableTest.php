@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\OrderFlowerTable;
+use App\Model\Table\OldTables\OrderFlowerTable;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -14,7 +14,7 @@ class OrderFlowerTableTest extends TestCase
     /**
      * Test subject
      *
-     * @var \App\Model\Table\OrderFlowerTable
+     * @var \App\Model\Table\OldTables\OrderFlowerTable
      */
     protected $OrderFlower;
 
@@ -25,7 +25,7 @@ class OrderFlowerTableTest extends TestCase
      */
     protected array $fixtures = [
         'app.OrderFlower',
-        'app.Flower',
+        'app.Flowers',
         'app.OrderDelivery',
     ];
 
@@ -57,7 +57,7 @@ class OrderFlowerTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\OrderFlowerTable::validationDefault()
+     * @uses \App\Model\Table\OldTables\OrderFlowerTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -68,7 +68,7 @@ class OrderFlowerTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\OrderFlowerTable::buildRules()
+     * @uses \App\Model\Table\OldTables\OrderFlowerTable::buildRules()
      */
     public function testBuildRules(): void
     {

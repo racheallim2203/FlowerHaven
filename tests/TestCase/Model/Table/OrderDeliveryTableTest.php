@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\OrderDeliveryTable;
+use App\Model\Table\OldTables\OrderDeliveryTable;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -14,7 +14,7 @@ class OrderDeliveryTableTest extends TestCase
     /**
      * Test subject
      *
-     * @var \App\Model\Table\OrderDeliveryTable
+     * @var \App\Model\Table\OldTables\OrderDeliveryTable
      */
     protected $OrderDelivery;
 
@@ -57,7 +57,7 @@ class OrderDeliveryTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\OrderDeliveryTable::validationDefault()
+     * @uses \App\Model\Table\OldTables\OrderDeliveryTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -68,7 +68,7 @@ class OrderDeliveryTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\OrderDeliveryTable::buildRules()
+     * @uses \App\Model\Table\OldTables\OrderDeliveryTable::buildRules()
      */
     public function testBuildRules(): void
     {

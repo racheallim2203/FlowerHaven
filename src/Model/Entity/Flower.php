@@ -6,7 +6,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Flower Entity
+ * Flowers Entity
  *
  * @property string $id
  * @property string $flower_name
@@ -14,9 +14,10 @@ use Cake\ORM\Entity;
  * @property string $flower_price
  * @property int $stock_quantity
  * @property string $category_id
+ * @property string|null $image
  *
  * @property \App\Model\Entity\Category $category
- * @property \App\Model\Entity\OrderFlower[] $order_flower
+ * @property \App\Model\Entity\OrderFlower[] $order_flowers
  */
 class Flower extends Entity
 {
@@ -35,7 +36,8 @@ class Flower extends Entity
         'flower_price' => true,
         'stock_quantity' => true,
         'category_id' => true,
+        'image' => true,
         'category' => true,
-        'order_flower' => true,
+        'order_flowers' => true,
     ];
 }

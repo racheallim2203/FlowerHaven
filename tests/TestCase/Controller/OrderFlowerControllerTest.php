@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\OrderFlowerController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\OrderFlowerController Test Case
  *
- * @uses \App\Controller\OrderFlowerController
+ * @uses \OLDFILES\OLDCONTROLLERS\OrderFlowerController
  */
 class OrderFlowerControllerTest extends TestCase
 {
@@ -23,7 +22,7 @@ class OrderFlowerControllerTest extends TestCase
      */
     protected array $fixtures = [
         'app.OrderFlower',
-        'app.Flower',
+        'app.Flowers',
         'app.OrderDelivery',
     ];
 
@@ -31,7 +30,7 @@ class OrderFlowerControllerTest extends TestCase
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\OrderFlowerController::index()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderFlowerController::index()
      */
     public function testIndex(): void
     {
@@ -42,7 +41,7 @@ class OrderFlowerControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\OrderFlowerController::view()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderFlowerController::view()
      */
     public function testView(): void
     {
@@ -53,7 +52,7 @@ class OrderFlowerControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\OrderFlowerController::add()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderFlowerController::add()
      */
     public function testAdd(): void
     {
@@ -64,7 +63,7 @@ class OrderFlowerControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\OrderFlowerController::edit()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderFlowerController::edit()
      */
     public function testEdit(): void
     {
@@ -75,7 +74,7 @@ class OrderFlowerControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\OrderFlowerController::delete()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderFlowerController::delete()
      */
     public function testDelete(): void
     {

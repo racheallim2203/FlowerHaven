@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\OrderStatusController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\OrderStatusController Test Case
  *
- * @uses \App\Controller\OrderStatusController
+ * @uses \OLDFILES\OLDCONTROLLERS\OrderStatusController
  */
 class OrderStatusControllerTest extends TestCase
 {
@@ -29,7 +28,7 @@ class OrderStatusControllerTest extends TestCase
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\OrderStatusController::index()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderStatusController::index()
      */
     public function testIndex(): void
     {
@@ -40,7 +39,7 @@ class OrderStatusControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\OrderStatusController::view()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderStatusController::view()
      */
     public function testView(): void
     {
@@ -51,7 +50,7 @@ class OrderStatusControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\OrderStatusController::add()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderStatusController::add()
      */
     public function testAdd(): void
     {
@@ -62,7 +61,7 @@ class OrderStatusControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\OrderStatusController::edit()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderStatusController::edit()
      */
     public function testEdit(): void
     {
@@ -73,7 +72,7 @@ class OrderStatusControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\OrderStatusController::delete()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderStatusController::delete()
      */
     public function testDelete(): void
     {

@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\OrderDeliveryController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\OrderDeliveryController Test Case
  *
- * @uses \App\Controller\OrderDeliveryController
+ * @uses \OLDFILES\OLDCONTROLLERS\OrderDeliveryController
  */
 class OrderDeliveryControllerTest extends TestCase
 {
@@ -31,7 +30,7 @@ class OrderDeliveryControllerTest extends TestCase
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\OrderDeliveryController::index()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderDeliveryController::index()
      */
     public function testIndex(): void
     {
@@ -42,7 +41,7 @@ class OrderDeliveryControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\OrderDeliveryController::view()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderDeliveryController::view()
      */
     public function testView(): void
     {
@@ -53,7 +52,7 @@ class OrderDeliveryControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\OrderDeliveryController::add()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderDeliveryController::add()
      */
     public function testAdd(): void
     {
@@ -64,7 +63,7 @@ class OrderDeliveryControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\OrderDeliveryController::edit()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderDeliveryController::edit()
      */
     public function testEdit(): void
     {
@@ -75,7 +74,7 @@ class OrderDeliveryControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\OrderDeliveryController::delete()
+     * @uses \OLDFILES\OLDCONTROLLERS\OrderDeliveryController::delete()
      */
     public function testDelete(): void
     {

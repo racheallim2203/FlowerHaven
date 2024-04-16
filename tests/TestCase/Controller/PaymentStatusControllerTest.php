@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\PaymentStatusController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
  * App\Controller\PaymentStatusController Test Case
  *
- * @uses \App\Controller\PaymentStatusController
+ * @uses \OLDFILES\OLDCONTROLLERS\PaymentStatusController
  */
 class PaymentStatusControllerTest extends TestCase
 {
@@ -29,7 +28,7 @@ class PaymentStatusControllerTest extends TestCase
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\PaymentStatusController::index()
+     * @uses \OLDFILES\OLDCONTROLLERS\PaymentStatusController::index()
      */
     public function testIndex(): void
     {
@@ -40,7 +39,7 @@ class PaymentStatusControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\PaymentStatusController::view()
+     * @uses \OLDFILES\OLDCONTROLLERS\PaymentStatusController::view()
      */
     public function testView(): void
     {
@@ -51,7 +50,7 @@ class PaymentStatusControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\PaymentStatusController::add()
+     * @uses \OLDFILES\OLDCONTROLLERS\PaymentStatusController::add()
      */
     public function testAdd(): void
     {
@@ -62,7 +61,7 @@ class PaymentStatusControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\PaymentStatusController::edit()
+     * @uses \OLDFILES\OLDCONTROLLERS\PaymentStatusController::edit()
      */
     public function testEdit(): void
     {
@@ -73,7 +72,7 @@ class PaymentStatusControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\PaymentStatusController::delete()
+     * @uses \OLDFILES\OLDCONTROLLERS\PaymentStatusController::delete()
      */
     public function testDelete(): void
     {
