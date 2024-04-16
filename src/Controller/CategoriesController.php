@@ -7,6 +7,7 @@ namespace App\Controller;
  * Categories Controller
  *
  * @property \App\Model\Table\CategoriesTable $Categories
+ *  * @property \App\Model\Table\FlowersTable $Flowers
  */
 class CategoriesController extends AppController
 {
@@ -64,17 +65,23 @@ class CategoriesController extends AppController
      */
     public function add()
     {
-        $category = $this->Categories->newEmptyEntity();
+        $flower = $this->Flowers->newEmptyEntity();
         if ($this->request->is('post')) {
-            $category = $this->Categories->patchEntity($category, $this->request->getData());
-            if ($this->Categories->save($category)) {
-                $this->Flash->success(__('The category has been saved.'));
-
+            $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
+            if ($this->Flowers->save($flower)) {
+                $this->Flash->success(__('The flower has been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The category could not be saved. Please, try again.'));
+            $this->Flash->error(__('The flower could not be saved. Please, try again.'));
         }
-        $this->set(compact('category'));
+
+        // Fetch categories for the drop-down
+        $categories = $this->Flowers->Categories->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'category_name'
+        ]);
+
+        $this->set(compact('flower', 'categories'));
     }
 
     /**
