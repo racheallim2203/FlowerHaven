@@ -17,12 +17,12 @@
         <?php foreach ($flowers as $flower): ?>
         <div class="col-lg-4 col-12 mb-3">
             <div class="product-thumb">
-
-                    <?= $this->Html->image('flower_placeholder.png', [
-                        'alt' => 'FlowerPlaceholder',
+                <?=$this->Html->image($flower->image, [
+                        'alt' => $flower->flower_name,
                         'style' => 'height: 360px;', // Adjust the height as needed
-                        'url' => ['action' => 'customerView', $flower->id] // TODO: temp link change to customer version
-                    ]) ?>
+                        'url' => ['action' => 'customerView', $flower->id]
+                    ]);
+                ?>
 
                 <div class="product-info d-flex">
                     <div>

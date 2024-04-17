@@ -78,9 +78,7 @@ class FlowersController extends AppController
         $flower = $this->Flowers->newEmptyEntity();
         if ($this->request->is('post')) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
-
             if(!$flower->getErrors) {
-
                 $image = $this->request->getData('image');
                 $name = $image->getClientFilename();
 
@@ -115,6 +113,7 @@ class FlowersController extends AppController
         $flower = $this->Flowers->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
+
             if ($this->Flowers->save($flower)) {
                 $this->Flash->success(__('The flower has been saved.'));
 
