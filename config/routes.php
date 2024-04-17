@@ -60,8 +60,8 @@ return function (RouteBuilder $routes): void {
         //TODO change to customer facing views at some point
         $builder->connect('/about', ['controller' => 'Pages', 'action' => 'aboutus']);
         $builder->connect('/our-flowers', ['controller' => 'Flowers', 'action' => 'customerIndex']);
-        $builder->connect('/faq', ['controller' => 'Flowers', 'action' => 'customerIndex']);
-        $builder->connect('/contact', ['controller' => 'Flowers', 'action' => 'customerIndex']);
+        $builder->connect('/faq', ['controller' => 'Pages', 'action' => 'faq']);
+        $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'contact']);
 
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
         $builder->connect('/aboutus', ['controller' => 'Pages', 'action' => 'aboutus']);
