@@ -90,9 +90,6 @@ class FlowersTable extends Table
         $validator
             ->scalar('image')
             ->maxLength('image', 255)
-            ->allowEmptyFile('image');
-
-        $validator
             ->add('image', [
                 'mimeType' => [
                     'rule' => ['mimeType', ['image/jpg', 'image/png', 'image/jpeg']],

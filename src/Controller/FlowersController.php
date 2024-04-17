@@ -81,9 +81,7 @@ class FlowersController extends AppController
             if(!$flower->getErrors) {
                 $image = $this->request->getData('image');
                 $name = $image->getClientFilename();
-
                 $targetPath = WWW_ROOT . 'img' . DS . $name;
-
                 if ($name)
                     $image->moveTo($targetPath);
 
