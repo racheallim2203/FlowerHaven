@@ -51,7 +51,7 @@ class FlowersController extends AppController
         $this->set(compact('flower'));
     }
 
-    public function customerView()
+    public function customerIndex()
     {
         $query = $this->Flowers->find('all', [
             'contain' => ['Categories']

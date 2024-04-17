@@ -10,7 +10,7 @@
     <div class="row">
 
         <div class="col-12 text-center">
-            <h2 class="mb-5">Featured Products</h2>
+            <h2 class="mb-5">Our Flowers</h2>
         </div>
 
 

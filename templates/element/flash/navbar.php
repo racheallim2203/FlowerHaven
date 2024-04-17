@@ -7,7 +7,7 @@
         <a class="navbar-brand" href="/">
             <?= $this->Html->image('F.png', [
                 'alt' => 'FlowerHeaven',
-                'style' => 'height: 80px;' // Adjust the height as needed
+                'style' => 'height: 50px;' // Adjust the height as needed
             ]) ?>
         </a>
 
