@@ -113,6 +113,7 @@ class OrderFlowersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+
     public function processOrder()
     {
         $session = $this->request->getSession();
@@ -129,6 +130,12 @@ class OrderFlowersController extends AppController
         $connection->begin();
 
         try {
+            // Initialize order ID counter
+            $orderIdCounter = 1;
+
+            // Predefined order delivery IDs (modify as needed)
+            $predefinedDeliveryIds = ['OOD-00001', 'OOD-00002', 'OOD-00003'];
+
             foreach ($cart as $flowerId => $item) {
                 $flower = $flowersTable->get($flowerId);
                 if ($flower->stock_quantity < $item['quantity']) {
@@ -143,8 +150,13 @@ class OrderFlowersController extends AppController
                     throw new Exception('Failed to update stock for ' . $flower->flower_name);
                 }
 
+                // Randomly select a predefined order delivery ID
+                $orderDeliveryId = $predefinedDeliveryIds[array_rand($predefinedDeliveryIds)];
+
                 $orderFlower = $orderFlowersTable->newEntity([
+                    'order_id' => 'ORD-' . str_pad(settype($orderIdCounter, 'string'), 5, '0', STR_PAD_LEFT),  // Type casting for str_pad
                     'flower_id' => $flowerId,
+                    'order_delivery_id' => $orderDeliveryId,
                     'quantity' => $item['quantity'],
                     'price' => $item['price'],
                     'total_price' => $item['quantity'] * $item['price']
@@ -154,16 +166,18 @@ class OrderFlowersController extends AppController
                     $connection->rollback();
                     throw new Exception('Failed to save order detail for ' . $flower->flower_name);
                 }
+
+                $orderIdCounter++; // Increment counter after use
             }
 
             $connection->commit();
             $session->delete('Cart');
-            $this->Flash->success(__('Your order has been processed.'));
+            $this->Flash->success(__('Your order has been placed successfully.'));
             return $this->redirect(['controller' => 'Pages', 'action' => 'aboutus']);
 
         } catch (Exception $e) {
             $this->Flash->error(__('Error processing your order: ' . $e->getMessage()));
             return $this->redirect(['controller' => 'Flowers', 'action' => 'customerShoppingCart']);
         }
-    }}
-
+    }
+}
