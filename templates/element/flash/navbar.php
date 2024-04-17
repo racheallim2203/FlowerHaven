@@ -14,28 +14,26 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="../team036-app_fit3047/">Home</a>
+                    <a class="nav-link active" href="./">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../team036-app_fit3047/about">Story</a>
+                    <a class="nav-link" href="./about">Story</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../team036-app_fit3047/our-flowers">Products</a>
+                    <a class="nav-link" href="./our-flowers">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../team036-app_fit3047/faq">FAQs</a>
+                    <a class="nav-link" href="./faq">FAQs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../team036-app_fit3047/contact">Contact</a>
+                    <a class="nav-link" href="./contact">Contact</a>
                 </li>
             </ul>
 
             <div class="d-none d-lg-block">
                 <a href="sign-in.html">
                     <?php if ($this->Identity->isLoggedIn()) : ?>
-                        <?= $this->Html->link('Logout', ['controller' => 'Auth', 'action' => 'logout'], ['class' => "bi-person custom-icon me-3"]) ?>
-                    <?php else : ?>
-                        <?= $this->Html->link('Login', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon me-3"]) ?>
+                        <?= $this->Html->link('', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon me-3"]) ?>
                     <?php endif; ?>
                 </a>
                 <a href="product-detail.html" class="bi-bag custom-icon"></a>

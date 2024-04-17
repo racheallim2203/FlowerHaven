@@ -91,6 +91,44 @@ class FlowersController extends AppController
         $this->set(compact('flower'));
     }
 
+    public function addToCart()
+    {
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            $flowerId = $data['flower_id'];
+            $quantity = (int)$data['quantity'];  // Cast to ensure it's an integer
+            $flower = $this->Flowers->get($flowerId);
+
+            if ($flower->stock_quantity >= $quantity && $quantity > 0) {
+                $cart = $this->request->getSession()->read('Cart') ?: [];
+                if (isset($cart[$flowerId])) {
+                    $cart[$flowerId]['quantity'] += $quantity;  // Update quantity
+                } else {
+                    $cart[$flowerId] = [
+                        'flower_id' => $flowerId,
+                        'quantity' => $quantity,
+                        'price' => $flower->flower_price,
+                        'name' => $flower->flower_name
+                    ];
+                }
+
+                $this->request->getSession()->write('Cart', $cart);
+                $this->Flash->success(__('Successfully added to cart.'));
+                return $this->redirect(['controller' => 'Flowers', 'action' => 'customerShoppingCart']);
+            } else {
+                $this->Flash->error(__('Not enough stock available or invalid quantity.'));
+                return $this->redirect($this->referer());
+            }
+        }
+    }
+
+
+    public function customerShoppingCart()
+    {
+        $cart = $this->request->getSession()->read('Cart');
+        $this->set(compact('cart'));
+    }
+
     /**
      * Add method
      *

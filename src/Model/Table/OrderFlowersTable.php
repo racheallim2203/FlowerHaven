@@ -51,6 +51,7 @@ class OrderFlowersTable extends Table
         $this->belongsTo('OrderDeliveries', [
             'foreignKey' => 'orderdelivery_id',
             'joinType' => 'INNER',
+            'dependent' => true,  // Add this line cuz if deleting an OrderDelivery should delete associated OrderFlower records
         ]);
     }
 

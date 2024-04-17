@@ -55,17 +55,15 @@ return function (RouteBuilder $routes): void {
          * its action called 'display', and we pass a param to select the view file
          * to use (in this case, templates/Pages/home.php)...
          */
-        $builder->connect('/admin', ['controller' => 'Flowers', 'action' => 'index', 'home']);
-
-        //TODO change to customer facing views at some point
         $builder->connect('/about', ['controller' => 'Pages', 'action' => 'aboutus']);
+        $builder->connect('/admin', ['controller' => 'Flowers', 'action' => 'index']);
         $builder->connect('/our-flowers', ['controller' => 'Flowers', 'action' => 'customerIndex']);
-        $builder->connect('/faq', ['controller' => 'Pages', 'action' => 'faq']);
-        $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'contact']);
-
+        $builder->connect('/faq', ['controller' => 'Flowers', 'action' => 'customerIndex']);
+        $builder->connect('/contact', ['controller' => 'Flowers', 'action' => 'customerIndex']);
+        $builder->connect('/flowers/add-to-cart', ['controller' => 'Flowers', 'action' => 'addToCart']);
+        $builder->connect('/flowers/shopping-cart', ['controller' => 'Flowers', 'action' => 'customerShoppingCart']);
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
         $builder->connect('/aboutus', ['controller' => 'Pages', 'action' => 'aboutus']);
-
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
          */
