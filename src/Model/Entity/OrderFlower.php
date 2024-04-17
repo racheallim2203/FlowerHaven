@@ -10,28 +10,26 @@ use Cake\ORM\Entity;
  *
  * @property string $id
  * @property string $flower_id
- * @property string $orderdelivery_id
  * @property int $quantity
- *
+ * @property float|null $total_price
  * @property \App\Model\Entity\Flower $flower
- * @property \App\Model\Entity\OrderDelivery $order_delivery
  */
 class OrderFlower extends Entity
 {
-    /**
-     * Fields that can be mass assigned using newEntity() or patchEntity().
-     *
-     * Note that when '*' is set to true, this allows all unspecified fields to
-     * be mass assigned. For security purposes, it is advised to set '*' to false
-     * (or remove it), and explicitly make individual fields accessible as needed.
-     *
-     * @var array<string, bool>
-     */
     protected array $_accessible = [
         'flower_id' => true,
-        'orderdelivery_id' => true,
         'quantity' => true,
         'flower' => true,
-        'order_delivery' => true,
     ];
+
+    protected array $_virtual = ['total_price']; // Add this line if you want to use it as a virtual field
+
+    // Virtual field to compute total price
+    protected function _getTotalPrice()
+    {
+        if (isset($this->flower) && isset($this->flower->flower_price)) {
+            return $this->quantity * $this->flower->flower_price;
+        }
+        return 0.0;
+    }
 }

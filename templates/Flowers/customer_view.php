@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Flower $flower
+ */
+?>
+
 <section class="preloader">
     <div class="spinner">
         <span class="sk-inner-circle"></span>
@@ -8,7 +15,6 @@
     <header class="site-header section-padding d-flex justify-content-center align-items-center">
         <div class="container">
             <div class="row">
-
                 <div class="col-lg-10 col-12">
                     <h1>
                         <span class="d-block text-primary">We provide you</span>
@@ -22,60 +28,49 @@
     <section class="product-detail section-padding">
         <div class="container">
             <div class="row">
-
                 <div class="col-lg-6 col-12">
                     <div class="product-thumb">
-                        <img src="images/product/evan-mcdougall-qnh1odlqOmk-unsplash.jpeg" class="img-fluid product-image" alt="">
+                        <?= $this->Html->image($flower->image, ['class' => 'img-fluid product-image', 'alt' => $flower->flower_name]); ?>
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-12">
                     <div class="product-info d-flex">
                         <div>
-                            <h2 class="product-title mb-0">Tree pot</h2>
-
-                            <p class="product-p">Original package design from house</p>
+                            <h2 class="product-title mb-0"><?= h($flower->flower_name); ?></h2>
                         </div>
-
-                        <small class="product-price text-muted ms-auto mt-auto mb-5">$25</small>
                     </div>
 
                     <div class="product-description">
-
-                        <strong class="d-block mt-4 mb-2">Description</strong>
-
-                        <p class="lead mb-5">Over three years in business, We’ve had the chance to work on a variety of projects, with companies</p>
+                        <strong class="lead mb-5">$<?= h($flower->flower_price); ?></strong>
+                        <p class="lead mb-5"><?= h($flower->flower_description); ?></p>
+                        <p class="lead"><strong>Available Stock: </strong><?= h($flower->stock_quantity); ?></p> <!-- Displaying stock quantity -->
                     </div>
 
-                    <div class="product-cart-thumb row">
-                        <div class="col-lg-6 col-12">
-
-                            <select class="form-select cart-form-select" id="inputGroupSelect01">
-                                <option selected>Quantity</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-
-                        <div class="col-lg-6 col-12 mt-4 mt-lg-0">
-                            <button type="submit" class="btn custom-btn cart-btn" data-bs-toggle="modal" data-bs-target="#cart-modal">Add to Cart</button>
-                        </div>
-
-                        <p>
-                            <a href="#" class="product-additional-link">Details</a>
-
-                            <a href="#" class="product-additional-link">Delivery and Payment</a>
-                        </p>
+                    <?= $this->Form->create(null, [
+                        'url' => ['controller' => 'Flowers', 'action' => 'addToCart'],
+                        'class' => 'product-cart-thumb row'
+                    ]) ?>
+                    <?= $this->Form->hidden('flower_id', ['value' => $flower->id]); ?> <!-- Ensuring flower ID is included for cart operations -->
+                    <div class="col-lg-6 col-12">
+                        <?= $this->Form->control('quantity', [
+                            'type' => 'select',
+                            'label' => false,
+                            'options' => range(0, min(5, $flower->stock_quantity)),
+                            'class' => 'form-select cart-form-select',
+                            'default' => 1
+                        ]); ?>
                     </div>
+                    <div class="col-lg-6 col-12 mt-4 mt-lg-0">
+                        <?= $this->Form->button('Add to Cart', ['class' => 'btn custom-btn cart-btn']); ?>
+                    </div>
+                    <?= $this->Form->end(); ?>
 
                 </div>
-
             </div>
         </div>
     </section>
+
 
     <section class="related-product section-padding border-top">
         <div class="container">
@@ -166,92 +161,3 @@
     </section>
 
 </main>
-
-<footer class="site-footer">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-lg-3 col-10 me-auto mb-4">
-                <h4 class="text-white mb-3"><a href="index.html">Little</a> Fashion</h4>
-                <p class="copyright-text text-muted mt-lg-5 mb-4 mb-lg-0">Copyright © 2022 <strong>Little Fashion</strong></p>
-                <br>
-                <p class="copyright-text">Designed by <a href="https://www.tooplate.com/" target="_blank">Tooplate</a></p>
-            </div>
-
-            <div class="col-lg-5 col-8">
-                <h5 class="text-white mb-3">Sitemap</h5>
-
-                <ul class="footer-menu d-flex flex-wrap">
-                    <li class="footer-menu-item"><a href="about.html" class="footer-menu-link">Story</a></li>
-
-                    <li class="footer-menu-item"><a href="#" class="footer-menu-link">Products</a></li>
-
-                    <li class="footer-menu-item"><a href="#" class="footer-menu-link">Privacy policy</a></li>
-
-                    <li class="footer-menu-item"><a href="#" class="footer-menu-link">FAQs</a></li>
-
-                    <li class="footer-menu-item"><a href="#" class="footer-menu-link">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-3 col-4">
-                <h5 class="text-white mb-3">Social</h5>
-
-                <ul class="social-icon">
-
-                    <li><a href="#" class="social-icon-link bi-youtube"></a></li>
-
-                    <li><a href="#" class="social-icon-link bi-whatsapp"></a></li>
-
-                    <li><a href="#" class="social-icon-link bi-instagram"></a></li>
-
-                    <li><a href="#" class="social-icon-link bi-skype"></a></li>
-                </ul>
-            </div>
-
-        </div>
-    </div>
-</footer>
-
-<!-- CART MODAL -->
-<div class="modal fade" id="cart-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0">
-            <div class="modal-header flex-column">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-6 col-12 mt-4 mt-lg-0">
-                        <img src="images/product/evan-mcdougall-qnh1odlqOmk-unsplash.jpeg" class="img-fluid product-image" alt="">
-                    </div>
-
-                    <div class="col-lg-6 col-12 mt-3 mt-lg-0">
-                        <h3 class="modal-title" id="exampleModalLabel">Tree pot</h3>
-
-                        <p class="product-price text-muted mt-3">$25</p>
-
-                        <p class="product-p">Quatity: <span class="ms-1">4</span></p>
-
-                        <p class="product-p">Colour: <span class="ms-1">Black</span></p>
-
-                        <p class="product-p pb-3">Size: <span class="ms-1">S/S</span></p>
-
-                        <div class="border-top mt-4 pt-3">
-                            <p class="product-p"><strong>Total: <span class="ms-1">$100</span></strong></p>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <div class="row w-50">
-                    <button type="button" class="btn custom-btn cart-btn ms-lg-4">Checkout</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
