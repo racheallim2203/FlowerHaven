@@ -21,7 +21,7 @@ class PagesController extends AppController
         parent::initialize();
 
         // Allow unauthenticated access to 'view' and 'index' actions in PagesController
-        //$this->Authentication->allowUnauthenticated(['display', 'aboutus', 'faq', 'contact']);
+        $this->Authentication->allowUnauthenticated(['display', 'aboutus', 'faq', 'contact']);
     }
 
     /**
