@@ -7,6 +7,7 @@ namespace App\Controller;
  * Categories Controller
  *
  * @property \App\Model\Table\CategoriesTable $Categories
+ *  * @property \App\Model\Table\FlowersTable $Flowers
  */
 class CategoriesController extends AppController
 {
@@ -19,21 +20,21 @@ class CategoriesController extends AppController
     {
         $query = $this->Categories->find('all', [
             'contain' => ['Flowers'],
-            'order' => ['Categories.category_name' => 'asc'] // Or any other default sorting you prefer
+            'order' => ['Categories.category_name' => 'asc']
         ]);
 
         $search = $this->request->getQuery('search');
-        $categories = $this->request->getQuery('categories');
+        $category = $this->request->getQuery('category');
 
         if (!empty($search)) {
-            // Use matching to apply conditions on associated data
             $query->matching('Flowers', function ($q) use ($search) {
                 return $q->where(['Flowers.flower_name LIKE' => '%' . $search . '%']);
             });
         }
-        if (!empty($categories)) {
-            $query->where(['Categories.id' => $categories]);
+        if (!empty($category)) {
+            $query->where(['Categories.id' => $category]);
         }
+
         $categoriesList = $this->Categories->find('list', [
             'keyField' => 'id',
             'valueField' => 'category_name'
@@ -42,6 +43,7 @@ class CategoriesController extends AppController
         $categories = $this->paginate($query);
         $this->set(compact('categories', 'categoriesList'));
     }
+
 
     /**
      * View method
@@ -66,7 +68,7 @@ class CategoriesController extends AppController
         $category = $this->Categories->newEmptyEntity();
         if ($this->request->is('post')) {
             $category = $this->Categories->patchEntity($category, $this->request->getData());
-            if ($this->Categories->save($category)) {
+            if ($this->Category->save($category)) {
                 $this->Flash->success(__('The category has been saved.'));
 
                 return $this->redirect(['action' => 'index']);

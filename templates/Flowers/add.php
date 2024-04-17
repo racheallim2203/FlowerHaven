@@ -39,7 +39,11 @@
                             <?= $this->Form->control('stock_quantity', ['class' => 'form-control form-control-lg']); ?>
                         </div>
                         <div class="form-group">
-                            <?= $this->Form->control('category_id', ['options' => $categories, 'class' => 'form-control form-control-lg']); ?>
+                            <?= $this->Form->control('category_id', [
+                                'options' => $categories,
+                                'class' => 'form-control form-control-lg',
+                                'label' => 'Category'
+                            ]); ?>
                         </div>
 
                     </fieldset>

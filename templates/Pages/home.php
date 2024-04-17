@@ -40,7 +40,7 @@ $this->assign('title', 'Home');
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-10">
-                            <h1 class="slick-title">Welcome to Blossom Haven</h1>
+                            <h1 class="slick-title">Welcome to Flower Haven</h1>
                             <p class="lead text-white mt-lg-3 mb-lg-5">Where Every Petal Tells a Story! Experience the joy of gifting with our seamless delivery service. Your chosen bouquet will arrive fresh and vibrant, ready to brighten someone's day.</p>
                             <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']); ?>" class="btn custom-btn">Learn more about us</a>
                         </div>
@@ -85,7 +85,7 @@ $this->assign('title', 'Home');
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h1 class="mb-5">Get started with <span style="color: #ad18a1">Blossom</span>Heaven</h1>
+                    <h1 class="mb-5">Get started with <span style="color: #ad18a1">Flower</span>Heaven</h1>
                 </div>
 
                 <div class="col-lg-2 col-12 mt-auto mb-auto">
