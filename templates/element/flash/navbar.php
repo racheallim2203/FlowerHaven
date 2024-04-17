@@ -4,7 +4,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="./">
             <?= $this->Html->image('F.png', [
                 'alt' => 'FlowerHeaven',
                 'style' => 'height: 50px;' // Adjust the height as needed
@@ -38,7 +38,7 @@
                         <?= $this->Html->link('Login', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon me-3"]) ?>
                     <?php endif; ?>
                 </a>
-                <a href="/flowers/shopping-cart" class="bi-bag custom-icon"></a>
+                <a href="./flowers/shopping-cart" class="bi-bag custom-icon"></a>
             </div>
         </div>
     </div>
