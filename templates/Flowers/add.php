@@ -24,7 +24,7 @@
                     <h4 class="mb-0"><?= __('Add Flowers') ?></h4>
                 </div>
                 <div class="card-body">
-                    <?= $this->Form->create($flower, ['class' => 'form']) ?>
+                    <?= $this->Form->create($flower, ['type' => 'file']) ?>
                     <fieldset>
                         <div class="form-group">
                             <?= $this->Form->control('flower_name', ['class' => 'form-control form-control-lg']); ?>
@@ -37,6 +37,9 @@
                         </div>
                         <div class="form-group">
                             <?= $this->Form->control('stock_quantity', ['class' => 'form-control form-control-lg']); ?>
+                        </div>
+                        <div class="form-group">
+                            <?= $this->Form->control('image', ['type' => 'file']); ?>
                         </div>
                         <div class="form-group">
                             <?= $this->Form->control('category_id', ['options' => $categories, 'class' => 'form-control form-control-lg']); ?>

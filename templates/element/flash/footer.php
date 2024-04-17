@@ -1,8 +1,8 @@
-<footer class="site-footer">
+<footer class="site-footer mt-10">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-10 me-auto mb-4">
-                <a class="navbar-brand" href="/" ?>
+                <a class="navbar-brand" href="/team036-app_fit3047/" ?>
                     <?= $this->Html->image('F.png', [
                         'alt' => 'FlowerHeaven',
                         'style' => 'height: 120px;'

@@ -18,10 +18,10 @@
         <div class="col-lg-4 col-12 mb-3">
             <div class="product-thumb">
 
-                    <?= $this->Html->image('iris_japonicalow.png', [
+                    <?= $this->Html->image('flower_placeholder.png', [
                         'alt' => 'FlowerPlaceholder',
                         'style' => 'height: 360px;', // Adjust the height as needed
-                        'url' => ['action' => 'view', $flower->id] // TODO: temp link change to customer version
+                        'url' => ['action' => 'customerView', $flower->id] // TODO: temp link change to customer version
                     ]) ?>
 
                 <div class="product-info d-flex">
@@ -30,7 +30,7 @@
 
                            <?= $this->Html->link(
                                h($flower->flower_name),
-                               ['action' => 'view', $flower->id]
+                               ['action' => 'customerView', $flower->id]
                             ); ?>
 
                             <small class="product-price text-muted ms-auto mt-1 mb-5 float-right "><?= $this->Number->currency($flower->flower_price) ?></small>
