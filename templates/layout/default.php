@@ -36,16 +36,16 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
                         <?= $this->Html->link('Flowers <span class="sr-only">(current)</span>', ['controller' => 'Flowers', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'Payment/index') ? 'active' : '' ?>">
-                        <a class="nav-link" href="#">Payment</a>
+                        <?= $this->Html->link('Payment', ['controller' => 'Payments', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'User/index') ? 'active' : '' ?>">
-                        <a class="nav-link" href="#">User</a>
+                        <?= $this->Html->link('User', ['controller' => 'Users', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'Categories/index') ? 'active' : '' ?>">
                         <?= $this->Html->link('Categories', ['controller' => 'Categories', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'Order/index') ? 'active' : '' ?>">
-                        <a class="nav-link" href="#">Order</a>
+                        <?= $this->Html->link('Orders', ['controller' => 'OrderDeliveries', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'Auth/logout') ? 'active' : '' ?>">
                         <?php if ($this->Identity->isLoggedIn()) : ?>
