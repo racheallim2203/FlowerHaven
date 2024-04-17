@@ -58,7 +58,7 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/admin', ['controller' => 'Flowers', 'action' => 'index', 'home']);
 
         //TODO change to customer facing views at some point
-        $builder->connect('./about', ['controller' => 'Flowers', 'action' => 'aboutus']);
+        $builder->connect('/about', ['controller' => 'Pages', 'action' => 'aboutus']);
         $builder->connect('/our-flowers', ['controller' => 'Flowers', 'action' => 'customerIndex']);
         $builder->connect('/faq', ['controller' => 'Flowers', 'action' => 'customerIndex']);
         $builder->connect('/contact', ['controller' => 'Flowers', 'action' => 'customerIndex']);
