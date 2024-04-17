@@ -12,6 +12,10 @@
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
+                    <th><?= $this->Paginator->sort('username') ?></th>
+                    <th><?= $this->Paginator->sort('email') ?></th>
+                    <th><?= $this->Paginator->sort('address') ?></th>
+                    <th><?= $this->Paginator->sort('phone_no') ?></th>
                     <th><?= $this->Paginator->sort('isAdmin') ?></th>
                     <th><?= $this->Paginator->sort('nonce') ?></th>
                     <th><?= $this->Paginator->sort('nonce_expiry') ?></th>
@@ -22,6 +26,10 @@
                 <?php foreach ($users as $user): ?>
                 <tr>
                     <td><?= h($user->id) ?></td>
+                    <td><?= h($user->username) ?></td>
+                    <td><?= h($user->email) ?></td>
+                    <td><?= h($user->address) ?></td>
+                    <td><?= h($user->phone_no) ?></td>
                     <td><?= h($user->isAdmin) ?></td>
                     <td><?= h($user->nonce) ?></td>
                     <td><?= h($user->nonce_expiry) ?></td>
