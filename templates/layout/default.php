@@ -23,7 +23,7 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
         <div class="navbar navbar-expand-xl navbar-light bg-light">
             <a class="navbar-brand" href="<?= $this->Url->build('/') ?>">
                 <?= $this->Html->image('F.png', [
-                    'alt' => 'FlowerHeaven',
+                    'alt' => 'FlowerHaven',
                     'style' => 'height: 60px;' // Adjust the height as needed
                 ]) ?>
             </a>

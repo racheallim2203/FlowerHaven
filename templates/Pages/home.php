@@ -85,7 +85,7 @@ $this->assign('title', 'Home');
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h1 class="mb-5">Get started with <span style="color: #ad18a1">Flower</span>Heaven</h1>
+                    <h1 class="mb-5">Get started with <span style="color: #ad18a1">Flower</span>Haven</h1>
                 </div>
 
                 <div class="col-lg-2 col-12 mt-auto mb-auto">
@@ -150,7 +150,7 @@ $this->assign('title', 'Home');
                                 </div>
                                 <div class="col-lg-5 col-12">
                                     <div class="d-flex flex-column h-100 ms-lg-4 mt-lg-0 mt-5">
-                                        <h4 class="mb-3" style="font-weight: bolder">Discover the Artistry of FlowerHeaven</h4>
+                                        <h4 class="mb-3" style="font-weight: bolder">Discover the Artistry of FlowerHaven</h4>
                                         <p style="font-size: 20px">No matter the occasion or sentiment, PetalCraft offers a diverse range of flower arrangements to suit every taste and style. Explore our collection and let your emotions bloom!</p>
                                         <div class="skill-thumb mt-3">
                                             <strong>Arrangements</strong>
@@ -190,9 +190,9 @@ $this->assign('title', 'Home');
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="px-5 py-5 py-lg-0">
-                        <h1 class="mb-4"><span style="color: #e632d7">Flower</span>Heaven Florist</h1>
-                        <p class=" mb-4">Meet Lily, the passionate soul behind FlowerHeaven, where her love for flowers blossoms into vibrant creations that captivate hearts and souls.</p>
-                        <p> As the owner of FlowerHeaven, Lily is committed to sourcing the finest blooms from trusted growers, ensuring each stem is a testament to nature's bounty and beauty. From classic roses to exotic orchids, every flower that graces her shop is handpicked with love and care </p>
+                        <h1 class="mb-4"><span style="color: #e632d7">Flower</span>Haven Florist</h1>
+                        <p class=" mb-4">Meet Lily, the passionate soul behind FlowerHaven, where her love for flowers blossoms into vibrant creations that captivate hearts and souls.</p>
+                        <p> As the owner of FlowerHaven, Lily is committed to sourcing the finest blooms from trusted growers, ensuring each stem is a testament to nature's bounty and beauty. From classic roses to exotic orchids, every flower that graces her shop is handpicked with love and care </p>
                         <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']); ?>" class="custom-link">
                             Explore Flowers
                             <i class="bi-arrow-right ms-2"></i>
