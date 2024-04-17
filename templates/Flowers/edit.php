@@ -2,7 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Flower $flower
- * @var string[]|\Cake\Collection\CollectionInterface $category
+ * @var string[]|\Cake\Collection\CollectionInterface $categories
  */
 ?>
 <br>
@@ -45,7 +45,9 @@
                             <?= $this->Form->control('stock_quantity', ['class' => 'form-control form-control-lg']); ?>
                         </div>
                         <div class="form-group">
-                            <?= $this->Form->control('category_id', ['options' => $category, 'class' => 'form-control form-control-lg']); ?>
+                            <?= $this->Form->control('image', ['type' => 'file']); ?>
+                        <div class="form-group">
+                            <?= $this->Form->control('category_id', ['options' => $categories, 'class' => 'form-control form-control-lg']); ?>
                         </div>
                     </fieldset>
                     <div class="form-group mt-4">
