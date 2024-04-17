@@ -88,8 +88,6 @@ class FlowersTable extends Table
             ->notEmptyString('category_id');
 
         $validator
-            ->scalar('image')
-            ->maxLength('image', 255)
             ->add('image', [
                 'mimeType' => [
                     'rule' => ['mimeType', ['image/jpg', 'image/png', 'image/jpeg']],
@@ -97,8 +95,8 @@ class FlowersTable extends Table
                 ],
                 'fileSize' => [
                     'rule' => ['fileSize', '<=', '1MB'],
-                    'message' => 'File should be less than 1MB.'
-                ]
+                    'message' => 'File should be less than 1MB.',
+                ],
             ]);
 
         return $validator;
