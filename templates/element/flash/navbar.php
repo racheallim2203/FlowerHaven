@@ -37,7 +37,11 @@ $activePage = strtolower($currentController) . '/' . strtolower($currentAction);
             </ul>
 
             <div class="d-none d-lg-block">
-                <a href="sign-in.html" class="bi-person custom-icon me-3"></a>
+                <a href="sign-in.html">
+                    <?php if ($this->Identity->isLoggedIn()) : ?>
+                        <?= $this->Html->link('', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon me-3"]) ?>
+                    <?php endif; ?>
+                </a>
                 <a href="product-detail.html" class="bi-bag custom-icon"></a>
             </div>
         </div>

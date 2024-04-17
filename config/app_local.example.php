@@ -43,11 +43,9 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-
-            'username' => 'my_app',
-            'password' => 'secret',
-
-            'database' => 'my_app',
+            'username' => 'fit3047',
+            'password' => 'fit3047',
+            'database' => 'flowerheaven_team36',
             /*
              * If not using the default 'public' schema with the PostgreSQL driver
              * set it here.

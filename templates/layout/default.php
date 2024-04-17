@@ -47,8 +47,10 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
                     <li class="nav-item <?= ($activePage == 'Order/index') ? 'active' : '' ?>">
                         <a class="nav-link" href="#">Order</a>
                     </li>
-                    <li class="nav-item <?= ($activePage == 'LogOut/index') ? 'active' : '' ?>">
-                        <a class="nav-link" href="#">Log Out</a>
+                    <li class="nav-item <?= ($activePage == 'Auth/logout') ? 'active' : '' ?>">
+                        <?php if ($this->Identity->isLoggedIn()) : ?>
+                            <?= $this->Html->link('Log Out', ['controller' => 'Auth', 'action' => 'logout'], ['class' => 'nav-link']) ?>
+                        <?php endif; ?>
                     </li>
                 </ul>
             </div>
