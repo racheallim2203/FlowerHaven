@@ -14,19 +14,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="./">Home</a>
+                    <a class="nav-link active" href="../team036-app_fit3047/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./about">Story</a>
+                    <a class="nav-link" href="../team036-app_fit3047/about">Story</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./our-flowers">Products</a>
+                    <a class="nav-link" href="../team036-app_fit3047/our-flowers">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./faq">FAQs</a>
+                    <a class="nav-link" href="../team036-app_fit3047/faq">FAQs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./contact">Contact</a>
+                    <a class="nav-link" href="../team036-app_fit3047/contact">Contact</a>
                 </li>
             </ul>
 
