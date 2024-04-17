@@ -91,7 +91,21 @@ class PagesController extends AppController
     public function aboutus()
     {
         $this->viewBuilder()->setLayout('default2');
-        $this->set('title', 'About Us - Little Fashion');
+        $this->set('title', 'About Us - Flower Haven');
+        // Ensure the view file 'aboutus.php' is being used
+        return $this->render();
+    }
+    public function faq()
+    {
+        $this->viewBuilder()->setLayout('default2');
+        $this->set('title', 'FAQ');
+        // Ensure the view file 'aboutus.php' is being used
+        return $this->render();
+    }
+    public function contact()
+    {
+        $this->viewBuilder()->setLayout('default2');
+        $this->set('title', 'Contact Us');
         // Ensure the view file 'aboutus.php' is being used
         return $this->render();
     }
