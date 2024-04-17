@@ -33,7 +33,9 @@
             <div class="d-none d-lg-block">
                 <a href="sign-in.html">
                     <?php if ($this->Identity->isLoggedIn()) : ?>
-                        <?= $this->Html->link('', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon me-3"]) ?>
+                        <?= $this->Html->link('Logout', ['controller' => 'Auth', 'action' => 'logout'], ['class' => "bi-person custom-icon me-3"]) ?>
+                    <?php else : ?>
+                        <?= $this->Html->link('Login', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon me-3"]) ?>
                     <?php endif; ?>
                 </a>
                 <a href="product-detail.html" class="bi-bag custom-icon"></a>

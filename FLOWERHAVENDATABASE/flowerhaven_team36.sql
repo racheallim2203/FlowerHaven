@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 16, 2024 at 07:34 AM
+-- Generation Time: Apr 17, 2024 at 12:25 PM
 -- Server version: 11.3.2-MariaDB
 -- PHP Version: 8.3.4
 
@@ -119,9 +119,8 @@ CREATE TABLE `flowers` (
 --
 
 INSERT INTO `flowers` (`id`, `flower_name`, `flower_description`, `flower_price`, `stock_quantity`, `category_id`, `image`) VALUES
-('FLO-00001', 'Elegant White Lilies', 'These pristine white lilies symbolize purity and grace. Each stem typically bears multiple large, trumpet-shaped blooms with a sweet, captivating fragrance.', 12, 42, 'CAT-00001', NULL),
-('FLO-00002', 'Radiant Sunflowers', 'Bright and cheerful, these radiant sunflowers symbolize happiness and warmth. ', 12, 24, 'CAT-00005', NULL),
-('FLO-00003', 'a', 'a', 1, 1, 'CAT-00001', NULL);
+('FLO-00001', 'Test 1', 'Description 2', 12, 12, 'CAT-00001', 'flower_placeholder.png'),
+('FLO-00002', 'Test 2', 'Test 2', 12, 12, 'CAT-00001', 'flower_placeholder.png');
 
 --
 -- Triggers `flowers`
