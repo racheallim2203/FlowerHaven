@@ -14,22 +14,23 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/">Home</a>
+                    <a class="nav-link active" href="./">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/about">Story</a>
+                    <a class="nav-link" href="./about">Story</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/products">Products</a>
+                    <a class="nav-link" href="./our-flowers">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/faq">FAQs</a>
+                    <a class="nav-link" href="./faq">FAQs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
+                    <a class="nav-link" href="./contact">Contact</a>
                 </li>
             </ul>
 
+            <!--TODO: route to login page -->
             <div class="d-none d-lg-block">
                 <a href="sign-in.html" class="bi-person custom-icon me-3"></a>
                 <a href="product-detail.html" class="bi-bag custom-icon"></a>

@@ -56,7 +56,13 @@ return function (RouteBuilder $routes): void {
          * to use (in this case, templates/Pages/home.php)...
          */
         $builder->connect('/admin', ['controller' => 'Flowers', 'action' => 'index', 'home']);
+
+        //TODO change to customer facing views at some point
+        $builder->connect('/about', ['controller' => 'Flowers', 'action' => 'customerView']);
         $builder->connect('/our-flowers', ['controller' => 'Flowers', 'action' => 'customerView']);
+        $builder->connect('/faq', ['controller' => 'Flowers', 'action' => 'customerView']);
+        $builder->connect('/contact', ['controller' => 'Flowers', 'action' => 'customerView']);
+
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
 
         /*
