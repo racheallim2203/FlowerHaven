@@ -91,6 +91,23 @@ class FlowersController extends AppController
         $this->set(compact('flower'));
     }
 
+    public function updateCart()
+    {
+        $session = $this->request->getSession();
+        $cart = $session->read('Cart');
+        $updatedCart = $this->request->getData('cart');
+
+        foreach ($updatedCart as $index => $item) {
+            if (isset($cart[$index])) {
+                $cart[$index]['quantity'] = max(1, (int) $item['quantity']); // Ensure a minimum of 1
+            }
+        }
+
+        $session->write('Cart', $cart);
+        $this->Flash->success('Cart updated successfully.');
+        return $this->redirect(['action' => 'customerShoppingCart']);
+    }
+
     public function addToCart()
     {
         if ($this->request->is('post')) {
