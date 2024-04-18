@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Datasource\ConnectionManager;
+
 /**
  * Flowers Controller
  *
@@ -143,7 +145,21 @@ class FlowersController extends AppController
     public function customerShoppingCart()
     {
         $cart = $this->request->getSession()->read('Cart');
-        $this->set(compact('cart'));
+
+        // Check if the cart is empty and set a message
+        if (empty($cart)) {
+            $this->Flash->error(__('Your shopping cart is empty.'));
+        } else {
+            // Calculate the total price for the cart if it's not empty
+            $totalPrice = array_sum(array_map(function ($item) {
+                return $item['quantity'] * $item['price'];
+            }, $cart));
+
+            // Pass the total price to the view
+            $this->set('totalPrice', $totalPrice);
+        }
+
+        $this->set('cart', $cart);
     }
 
     /**

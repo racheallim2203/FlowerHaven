@@ -11,6 +11,8 @@ $this->assign('title', 'Shopping Cart');
 ?>
 <div class="container">
     <br><br>
+    <!-- Include Flash Messages -->
+    <?= $this->Flash->render() ?>
     <h1>Shopping Cart</h1>
 
     <?php if (!empty($cart)): ?>
@@ -50,7 +52,7 @@ $this->assign('title', 'Shopping Cart');
         <p>Total Price: $<?= h($totalPrice) ?></p>  <?= $this->Form->button('Update Cart', ['class' => 'btn btn-primary']) ?>
         <?= $this->Form->end() ?>
         <div class="text-right mt-3">
-            <?= $this->Html->link('Checkout', ['controller' => 'OrderFlowers', 'action' => 'processOrder'], ['class' => 'btn btn-success']) ?>
+            <?= $this->Html->link('Checkout', ['controller' => 'OrderDeliveries', 'action' => 'processOrder'], ['class' => 'btn btn-success']) ?>
         </div>
     <?php else: ?>
         <p>Your cart is empty.</p>

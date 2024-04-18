@@ -5,7 +5,7 @@
  */
 
 ?>
-
+<br>
 <div class="container">
     <div class="row">
 
@@ -44,11 +44,10 @@
         </div>
         <?php endforeach; ?>
 
-
-
         <div class="col-12 text-center">
             <a href="" class="view-all">View All Products</a>
         </div>
+        <br><br><br><br><br>
 
     </div>
 </div>

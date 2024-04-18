@@ -44,10 +44,11 @@ class OrderDeliveriesTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Orderstatuses', [
+        $this->belongsTo('OrderStatuses', [
             'foreignKey' => 'orderstatus_id',
             'joinType' => 'INNER',
         ]);
+
         $this->belongsTo('DeliveryStatuses', [
             'foreignKey' => 'deliverystatus_id',
             'joinType' => 'INNER',
@@ -104,4 +105,6 @@ class OrderDeliveriesTable extends Table
 
         return $rules;
     }
+
+
 }

@@ -63,6 +63,7 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/flowers/add-to-cart', ['controller' => 'Flowers', 'action' => 'addToCart']);
         $builder->connect('/flowers/shopping-cart', ['controller' => 'Flowers', 'action' => 'customerShoppingCart']);
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        $builder->connect('/order-deliveries', ['controller' => 'OrderDeliveries', 'action' => 'index']);
         $builder->connect('/aboutus', ['controller' => 'Pages', 'action' => 'aboutus']);
         /*
          * ...and connect the rest of 'Pages' controller's URLs.

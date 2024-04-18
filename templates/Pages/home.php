@@ -42,7 +42,7 @@ $this->assign('title', 'Home');
                         <div class="col-lg-6 col-10">
                             <h1 class="slick-title">Welcome to Flower Haven</h1>
                             <p class="lead text-white mt-lg-3 mb-lg-5">Where Every Petal Tells a Story! Experience the joy of gifting with our seamless delivery service. Your chosen bouquet will arrive fresh and vibrant, ready to brighten someone's day.</p>
-                            <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']); ?>" class="btn custom-btn">Learn more about us</a>
+                            <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'aboutus']); ?>" class="btn custom-btn">Learn more about us</a>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ $this->assign('title', 'Home');
                         <div class="col-lg-6 col-10">
                             <h1 class="slick-title"> Explore our Garden of Endless Delights! </h1>
                             <p class="lead text-white mt-lg-3 mb-lg-5">From vibrant roses to delicate orchids, our online florist store is your sanctuary of floral fantasies. Whether you're celebrating love, saying congratulations, or simply sending a smile, our blooms speak volumes.</p>
-                            <a href="<?= $this->Url->build('/products'); ?>" class="btn custom-btn">Explore products</a>
+                            <a href="<?= $this->Url->build('/our-flowers'); ?>" class="btn custom-btn">Explore products</a>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ $this->assign('title', 'Home');
                         <div class="col-lg-6 col-10">
                             <h1 class="slick-title">Handcrafted Bouquets for Every Occasion! 💐</h1>
                             <p class="lead text-white mt-lg-3 mb-lg-5">Browse through our curated collections, each arrangement a masterpiece of color, fragrance, and elegance. Let your emotions bloom with every carefully selected petal.</p>
-                            <a href="<?= $this->Url->build('/contact'); ?>" class="btn custom-btn">Work with us</a>
+                            <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' =>'contact']); ?>" class="btn custom-btn">Contact Us</a>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@ $this->assign('title', 'Home');
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h1 class="mb-5">Get started with <span style="color: #ad18a1">Flower</span>Heaven</h1>
+                    <h1 class="mb-5">Get started with <span style="color: #ad18a1">Flower</span>Haven</h1>
                 </div>
 
                 <div class="col-lg-2 col-12 mt-auto mb-auto">
@@ -193,7 +193,7 @@ $this->assign('title', 'Home');
                         <h1 class="mb-4"><span style="color: #e632d7">Flower</span>Heaven Florist</h1>
                         <p class=" mb-4">Meet Lily, the passionate soul behind FlowerHeaven, where her love for flowers blossoms into vibrant creations that captivate hearts and souls.</p>
                         <p> As the owner of FlowerHeaven, Lily is committed to sourcing the finest blooms from trusted growers, ensuring each stem is a testament to nature's bounty and beauty. From classic roses to exotic orchids, every flower that graces her shop is handpicked with love and care </p>
-                        <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']); ?>" class="custom-link">
+                        <a href="<?= $this->Url->build('/our-flowers'); ?>" class="custom-link">
                             Explore Flowers
                             <i class="bi-arrow-right ms-2"></i>
                         </a>

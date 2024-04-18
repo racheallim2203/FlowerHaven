@@ -44,7 +44,7 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
                     <li class="nav-item <?= ($activePage == 'Categories/index') ? 'active' : '' ?>">
                         <?= $this->Html->link('Categories', ['controller' => 'Categories', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
-                    <li class="nav-item <?= ($activePage == 'Order/index') ? 'active' : '' ?>">
+                    <li class="nav-item <?= ($activePage == 'OrderDeliveries/index') ? 'active' : '' ?>">
                         <?= $this->Html->link('Orders', ['controller' => 'OrderDeliveries', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'Auth/logout') ? 'active' : '' ?>">
