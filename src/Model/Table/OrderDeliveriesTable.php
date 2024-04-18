@@ -26,6 +26,15 @@ class OrderDeliveriesTable extends Table
     {
         parent::initialize($config);
 
+        $this->hasMany('OrderFlowers', [
+            'foreignKey' => 'order_delivery_id',
+        ]);
+
+        $this->hasMany('Flowers', [
+            'foreignKey' => 'id',
+            'through' => 'OrderFlowers',
+        ]);
+
         // Define the table used
         $this->setTable('order_deliveries');
 

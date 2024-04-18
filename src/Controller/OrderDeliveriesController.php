@@ -6,11 +6,14 @@ namespace App\Controller;
 use Cake\Datasource\ConnectionManager;
 use DateTime;
 use Exception;
+use Cake\ORM\TableRegistry;
 
 /**
  * OrderDeliveries Controller
  *
  * @property \App\Model\Table\OrderDeliveriesTable $OrderDeliveries
+ * @property \App\Model\Table\FlowersTable $Flowers
+ *
  */
 class OrderDeliveriesController extends AppController
 {
@@ -109,6 +112,7 @@ class OrderDeliveriesController extends AppController
 
     public function processOrder()
     {
+        $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
         $session = $this->request->getSession();
         $cart = $session->read('Cart');
 
@@ -129,7 +133,7 @@ class OrderDeliveriesController extends AppController
             // Set the order date to the current date
             $orderDate = date('Y-m-d');
 
-            // Set the delivery date to a specific number of days from the order date
+            // Set the delivery date to 5 days from the order date
             $deliveryDate = (new DateTime($orderDate))->modify('+5 days')->format('Y-m-d');
 
             $orderDelivery = $this->OrderDeliveries->newEntity([
@@ -140,28 +144,37 @@ class OrderDeliveriesController extends AppController
                 'delivery_date' => $deliveryDate,
             ]);
 
-            if ($this->OrderDeliveries->save($orderDelivery)) {
-                // Now, use $orderDelivery->id as the foreign key for each order_flower entry
-                // Process the cart and create order_flower entries, and save them
-            } else {
-                // Handle the error in case the order_delivery wasn't saved
+            if (!$this->OrderDeliveries->save($orderDelivery)) {
                 throw new Exception('Unable to save order delivery.');
+            }
+
+            // Update stock quantity for each flower in the cart
+            foreach ($cart as $item) {
+                $flowerId = $item['flower_id'];
+                $quantity = $item['quantity'];
+
+                $flower = $flowersTable->get($flowerId);
+                if ($flower->stock_quantity < $quantity) {
+                    throw new Exception('Not enough stock for some items.');
+                }
+                $flower->stock_quantity -= $quantity;
+                if (!$flowersTable->save($flower)) {
+                    throw new Exception('Unable to update stock for flower ID: ' . $flowerId);
+                }
             }
 
             // If everything goes well, commit the transaction
             $connection->commit();
             $session->delete('Cart');
             $this->Flash->success(__('You\'ve successfully checked out your cart!'));
-            // Redirect to a confirmation page or back to the cart
             return $this->redirect(['controller' => 'Flowers', 'action' => 'customerShoppingCart']);
-
 
         } catch (Exception $e) {
             // If there is an error, rollback the transaction
             $connection->rollback();
             $this->Flash->error(__('Error processing your order: ' . $e->getMessage()));
+            return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
         }
-        return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
     }
 
 }

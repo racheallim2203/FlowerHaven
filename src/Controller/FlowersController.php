@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Datasource\ConnectionManager;
+use Cake\ORM\TableRegistry;
 
 /**
  * Flowers Controller
@@ -107,6 +108,30 @@ class FlowersController extends AppController
 
         $session->write('Cart', $cart);
         $this->Flash->success('Cart updated successfully.');
+        return $this->redirect(['action' => 'customerShoppingCart']);
+    }
+
+    public function updateStock()
+    {
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $cart = $this->request->getData('cart');
+            $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
+
+            foreach ($cart as $index => $item) {
+                $flower = $flowersTable->get($index);
+                if ($flower) {
+                    $flower->stock_quantity = max(0, $item['quantity']); // Ensure non-negative stock
+                    if (!$flowersTable->save($flower)) {
+                        $this->Flash->error(__('Could not update quantity for ' . $flower->flower_name));
+                        return $this->redirect(['action' => 'customerShoppingCart']);
+                    }
+                }
+            }
+
+            $this->Flash->success(__('Cart updated successfully.'));
+            return $this->redirect(['action' => 'customerShoppingCart']);
+        }
+        $this->Flash->error(__('Invalid request.'));
         return $this->redirect(['action' => 'customerShoppingCart']);
     }
 
