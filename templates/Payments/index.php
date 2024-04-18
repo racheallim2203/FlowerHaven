@@ -1,50 +1,66 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var iterable<\App\Model\Entity\Payment> $payments
- */
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\Datasource\ConnectionManager;
+use Cake\Error\Debugger;
+use Cake\Http\Exception\NotFoundException;
+
+$this->layout = 'default2';
+$this->assign('title', 'Payment');
 ?>
-<div class="payments index content">
-    <?= $this->Html->link(__('New Payment'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Payments') ?></h3>
-    <div class="table-responsive">
-        <table>
+<div class="container">
+    <br><br>
+    <?= $this->Flash->render() ?>
+    <h1>Shopping Cart</h1>
+
+    <?php if (!empty($cart)): ?>
+        <?= $this->Form->create(null, ['url' => ['controller' => 'Flowers', 'action' => 'updateStock']]) ?>
+        <table class="table">
             <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('orderdelivery_id') ?></th>
-                    <th><?= $this->Paginator->sort('paymentstatus_id') ?></th>
-                    <th><?= $this->Paginator->sort('paymentmethod_id') ?></th>
-                    <th><?= $this->Paginator->sort('user_id') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
+            <tr>
+                <th>Flower Name</th>
+                <th>Quantity / Remove</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
             </thead>
             <tbody>
-                <?php foreach ($payments as $payment): ?>
+            <?php $totalPrice = 0; ?>
+            <?php foreach ($cart as $index => $item): ?>
                 <tr>
-                    <td><?= h($payment->id) ?></td>
-                    <td><?= $payment->hasValue('order_delivery') ? $this->Html->link($payment->order_delivery->id, ['controller' => 'OrderDeliveries', 'action' => 'view', $payment->order_delivery->id]) : '' ?></td>
-                    <td><?= $payment->hasValue('payment_status') ? $this->Html->link($payment->payment_status->id, ['controller' => 'PaymentStatuses', 'action' => 'view', $payment->payment_status->id]) : '' ?></td>
-                    <td><?= $payment->hasValue('payment_method') ? $this->Html->link($payment->payment_method->id, ['controller' => 'PaymentMethods', 'action' => 'view', $payment->payment_method->id]) : '' ?></td>
-                    <td><?= $payment->hasValue('user') ? $this->Html->link($payment->user->id, ['controller' => 'Users', 'action' => 'view', $payment->user->id]) : '' ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $payment->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $payment->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $payment->id], ['confirm' => __('Are you sure you want to delete # {0}?', $payment->id)]) ?>
+                    <td><?= h($item['name']) ?></td>
+                    <td>
+                        <?= $this->Form->control("cart.$index.quantity", [
+                            'label' => false,
+                            'type' => 'select',
+                            'options' => range(0, $item['stock'] ?? 5),
+                            'default' => $item['quantity'],
+                            'class' => 'form-select'
+                        ]) ?>
+                        <?= $this->Form->button('Remove', [
+                            'type' => 'submit',
+                            'formaction' => $this->Url->build(['action' => 'removeFromCart', $index]),
+                            'class' => 'btn btn-danger btn-sm',
+                            'onClick' => 'return confirm("Are you sure you want to remove this item?");'
+                        ]) ?>
+                    </td>
+                    <td>$<?= h($item['price']) ?></td>
+                    <td>$<?= h($item['quantity'] * $item['price']) ?>
+                        <?php $totalPrice += $item['quantity'] * $item['price']; ?>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
+        <p>Total Price: $<?= h($totalPrice) ?></p>
+        <?= $this->Form->button('Update Cart', ['class' => 'btn btn-primary']) ?>
+        <?= $this->Form->end() ?>
+        <div class="text-right mt-3">
+            <?= $this->Html->link('Checkout', ['controller' => 'OrderDeliveries', 'action' => 'processOrder'], ['class' => 'btn btn-success']) ?>
+        </div>
+    <?php else: ?>
+        <p>Your cart is empty.</p>
+    <?php endif; ?>
+    <br><br>
 </div>

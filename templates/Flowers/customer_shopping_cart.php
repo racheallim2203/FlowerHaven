@@ -15,21 +15,19 @@ $this->assign('title', 'Shopping Cart');
     <?= $this->Flash->render() ?>
     <h1>Shopping Cart</h1>
 
-    <!-- Check if the cart is not empty -->
     <?php if (!empty($cart)): ?>
-        <!-- Start form here -->
-        <?= $this->Form->create(null, ['url' => ['controller' => 'Flowers', 'action' => 'updateStock']]) ?>
+        <?= $this->Form->create(null, ['url' => ['controller' => 'Flowers', 'action' => 'updateCart']]) ?>
         <table class="table">
             <thead>
             <tr>
                 <th>Flower Name</th>
-                <th>Quantity</th>
+                <th>Quantity / Remove</th>
                 <th>Price</th>
                 <th>Total</th>
             </tr>
             </thead>
             <tbody>
-            <?php $totalPrice = 0; // Initialize total price ?>
+            <?php $totalPrice = 0; ?>
             <?php foreach ($cart as $index => $item): ?>
                 <tr>
                     <td><?= h($item['name']) ?></td>
@@ -37,14 +35,21 @@ $this->assign('title', 'Shopping Cart');
                         <?= $this->Form->control("cart.$index.quantity", [
                             'label' => false,
                             'type' => 'select',
-                            'options' => range(0, min(5, $item['stock'] ?? 5)),  // Ensure only available stock can be selected
+                            'options' => range(0, min(5, $item['stock'] ?? 5)),
                             'default' => $item['quantity'],
                             'class' => 'form-select'
+                        ]) ?>
+                        <!-- Add Remove Button -->
+                        <?= $this->Form->button('Remove', [
+                            'type' => 'submit',
+                            'formaction' => $this->Url->build(['action' => 'removeFromCart', $index]),
+                            'class' => 'btn btn-danger btn-sm',
+                            'onClick' => 'return confirm("Are you sure you want to remove this item?");'
                         ]) ?>
                     </td>
                     <td>$<?= h($item['price']) ?></td>
                     <td>$<?= h($item['quantity'] * $item['price']) ?>
-                        <?php $totalPrice += $item['quantity'] * $item['price']; // Update total price for each item ?>
+                        <?php $totalPrice += $item['quantity'] * $item['price']; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
