@@ -39,7 +39,7 @@
                         <?= $this->Html->link('Login', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon me-3"]) ?>
                     <?php endif; ?>
                 </a>
-                <a href="/flowers/shopping-cart" class="bi-bag custom-icon"></a>
+                <a class="bi-bag custom-icon"<?= $this->Html->link('', ['controller' => 'flowers', 'action' => 'shopping-cart'])?></a>
             </div>
         </div>
     </div>

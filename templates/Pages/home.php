@@ -57,7 +57,7 @@ $this->assign('title', 'Home');
                         <div class="col-lg-6 col-10">
                             <h1 class="slick-title"> Explore our Garden of Endless Delights! </h1>
                             <p class="lead text-white mt-lg-3 mb-lg-5">From vibrant roses to delicate orchids, our online florist store is your sanctuary of floral fantasies. Whether you're celebrating love, saying congratulations, or simply sending a smile, our blooms speak volumes.</p>
-                            <a href="<?= $this->Url->build('/our-flowers'); ?>" class="btn custom-btn">Explore products</a>
+                            <a href="<?= $this->Url->build(['controller' => 'flowers', 'action' =>'our-flowers']); ?>" class="btn custom-btn">Explore products</a>
                         </div>
                     </div>
                 </div>
@@ -134,7 +134,7 @@ $this->assign('title', 'Home');
                                         <p>We honor the beauty and resilience of nature, embracing its diversity and nurturing its resources with respect and gratitude.</p>
                                         <p> We uphold the highest standards of craftsmanship and creativity, infusing each creation with passion, skill, and attention to detail.</p>
                                         <div class="mt-2 mt-lg-auto">
-                                            <a href="<?= $this->Url->build('/contact'); ?>" class="custom-link mb-2">
+                                            <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' =>'contact']); ?>" class="custom-link mb-2">
                                                 Contact Us
                                                 <i class="bi-arrow-right ms-2"></i>
                                             </a>
@@ -150,7 +150,7 @@ $this->assign('title', 'Home');
                                 </div>
                                 <div class="col-lg-5 col-12">
                                     <div class="d-flex flex-column h-100 ms-lg-4 mt-lg-0 mt-5">
-                                        <h4 class="mb-3" style="font-weight: bolder">Discover the Artistry of FlowerHeaven</h4>
+                                        <h4 class="mb-3" style="font-weight: bolder">Discover the Artistry of FlowerHaven</h4>
                                         <p style="font-size: 20px">No matter the occasion or sentiment, PetalCraft offers a diverse range of flower arrangements to suit every taste and style. Explore our collection and let your emotions bloom!</p>
                                         <div class="skill-thumb mt-3">
                                             <strong>Arrangements</strong>
@@ -190,9 +190,9 @@ $this->assign('title', 'Home');
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="px-5 py-5 py-lg-0">
-                        <h1 class="mb-4"><span style="color: #e632d7">Flower</span>Heaven Florist</h1>
-                        <p class=" mb-4">Meet Lily, the passionate soul behind FlowerHeaven, where her love for flowers blossoms into vibrant creations that captivate hearts and souls.</p>
-                        <p> As the owner of FlowerHeaven, Lily is committed to sourcing the finest blooms from trusted growers, ensuring each stem is a testament to nature's bounty and beauty. From classic roses to exotic orchids, every flower that graces her shop is handpicked with love and care </p>
+                        <h1 class="mb-4"><span style="color: #e632d7">Flower</span>Haven Florist</h1>
+                        <p class=" mb-4">Meet Lily, the passionate soul behind FlowerHaven, where her love for flowers blossoms into vibrant creations that captivate hearts and souls.</p>
+                        <p> As the owner of FlowerHaven, Lily is committed to sourcing the finest blooms from trusted growers, ensuring each stem is a testament to nature's bounty and beauty. From classic roses to exotic orchids, every flower that graces her shop is handpicked with love and care </p>
                         <a href="<?= $this->Url->build('/our-flowers'); ?>" class="custom-link">
                             Explore Flowers
                             <i class="bi-arrow-right ms-2"></i>
