@@ -26,7 +26,7 @@ class FlowersController extends AppController
         parent::initialize();
 
         // Allow unauthenticated access to 'view' and 'index' actions
-        //$this->Authentication->allowUnauthenticated(['customerView', 'customerIndex']);
+        $this->Authentication->allowUnauthenticated(['customerView', 'customerIndex', 'addToCart', 'customerShoppingCart']);
     }
 
     /**

@@ -4,11 +4,11 @@
             <div class="col-lg-3 col-10 me-auto mb-4">
                 <a class="navbar-brand" href="/team036-app_fit3047/" ?>
                     <?= $this->Html->image('F.png', [
-                        'alt' => 'FlowerHeaven',
+                        'alt' => 'FlowerHaven',
                         'style' => 'height: 120px;'
                     ]) ?>
                 </a>
-                <p class="copyright-text text-muted mt-lg-5 mb-4 mb-lg-0">Copyright © 2022 <strong>Flower Heaven</strong></p>
+                <p class="copyright-text text-muted mt-lg-5 mb-4 mb-lg-0">Copyright © 2022 <strong>Flower Haven</strong></p>
             </div>
             <div class="col-lg-5 col-8">
                 <h5 class="text-white mb-3">Sitemap</h5>

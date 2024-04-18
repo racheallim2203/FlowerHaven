@@ -19,16 +19,26 @@ $this->assign('title', 'Register new user');
 
             <?= $this->Form->control('email'); ?>
 
+            <?= $this->Form->control('username'); ?>
+
+            <?= $this->Form->control('address'); ?>
+
             <div class="row">
-                <?= $this->Form->control('first_name', ['templateVars' => ['container_class' => 'column']]); ?>
-                <?= $this->Form->control('last_name', ['templateVars' => ['container_class' => 'column']]); ?>
+                <?= $this->Form->control('phone_no', ['templateVars' => ['container_class' => 'column']]); ?>
+                <?= $this->Form->control('isAdmin', ['templateVars' => ['container_class' => 'column']]); ?>
+            </div>
+
+            <div class="row">
+                <?= $this->Form->control('nonce', ['templateVars' => ['container_class' => 'column']]); ?>
+                <?= $this->Form->control('nonce_expiry', ['templateVars' => ['container_class' => 'column']]); ?>
             </div>
 
             <div class="row">
                 <?php
                 echo $this->Form->control('password', [
-                    'value' => '',  // Ensure password is not sending back to the client side
-                    'templateVars' => ['container_class' => 'column']
+                        'type' => 'password',
+                        'value' => '',  // Ensure password is not sending back to the client side
+                        'templateVars' => ['container_class' => 'column']
                 ]);
                 // Validate password by repeating it
                 echo $this->Form->control('password_confirm', [

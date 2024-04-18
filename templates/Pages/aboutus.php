@@ -139,7 +139,7 @@ $this->assign('title', 'AboutUs');
     <div class="container">
         <div class="row">
             <div class="col-lg-9 mx-auto col-11">
-                <h2 class="text-center">Customer love, <br> <span>Flower</span> Heaven</h2>
+                <h2 class="text-center">Customer love, <br> <span>Flower</span> Haven</h2>
                 <div class="slick-testimonial">
                     <div class="slick-testimonial-caption">
                         <p class="lead">
