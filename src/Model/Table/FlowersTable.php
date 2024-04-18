@@ -97,7 +97,8 @@ class FlowersTable extends Table
                     'rule' => ['fileSize', '<=', '1MB'],
                     'message' => 'File should be less than 1MB.',
                 ],
-            ]);
+            ])
+            ->allowEmptyFile('edit_image');
 
         return $validator;
     }
