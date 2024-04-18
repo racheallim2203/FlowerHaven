@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link active">  <?= $this->Html->link('Home', ['controller' => 'Pages', 'action' => 'display'])?></a>
+                    <a class="nav-link">  <?= $this->Html->link('Home', ['controller' => 'Pages', 'action' => 'display'])?></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"><?= $this->Html->link('About', ['controller' => 'Pages', 'action' => 'aboutus'])?></a>
@@ -24,7 +24,7 @@
                     <a class="nav-link"><?= $this->Html->link('Products', ['controller' => 'Flowers', 'action' => 'customerIndex'])?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"><?= $this->Html->link('FAQ', ['controller' => 'Pages', 'action' => 'faq', 'class' => 'nav-link'])?></a>
+                    <a class="nav-link"><?= $this->Html->link('FAQ', ['controller' => 'Pages', 'action' => 'faq'])?></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"> <?= $this->Html->link('Contact Us', ['controller' => 'Pages', 'action' => 'contact'])?></a>

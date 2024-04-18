@@ -39,7 +39,7 @@
                             <?= $this->Form->control('stock_quantity', ['class' => 'form-control form-control-lg']); ?>
                         </div>
                         <div class="form-group">
-                            <?= $this->Form->control('image_file', ['type' => 'file']); ?>
+                            <?= $this->Form->control('image_file', ['type' => 'file', 'accept' => 'image/png,image/gif,image/jpeg']); ?>
                         </div>
                         <div class="form-group">
                             <?= $this->Form->control('category_id', [

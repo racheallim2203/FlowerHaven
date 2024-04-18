@@ -88,7 +88,7 @@ class FlowersTable extends Table
             ->notEmptyString('category_id');
 
         $validator
-            ->add('image', [
+            ->add('image_file', [
                 'mimeType' => [
                     'rule' => ['mimeType', ['image/jpg', 'image/png', 'image/jpeg']],
                     'message' => 'Please only upload jpg and png',
