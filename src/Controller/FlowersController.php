@@ -235,8 +235,27 @@ class FlowersController extends AppController
     public function edit($id = null)
     {
         $flower = $this->Flowers->get($id, contain: []);
+
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
+
+            if(!$flower->getErrors()) {
+                $image = $this->request->getData('change_image');
+                $name = $image->getClientFilename();
+
+                if ($name){
+                    $targetPath = WWW_ROOT . 'img' . DS . $name;
+
+                    $image->moveTo($targetPath);
+                    $imgpath = WWW_ROOT.'img'.DS.$flower->image;
+                    if(file_exists($imgpath)){
+                        unlink($imgpath);
+                    }
+                    $flower->image = $name;
+                }
+            }
+
 
             if ($this->Flowers->save($flower)) {
                 $this->Flash->success(__('The flower has been saved.'));

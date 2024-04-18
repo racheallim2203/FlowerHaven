@@ -30,7 +30,7 @@
                     <h4 class="mb-0"><?= __('Edit Flowers') ?></h4>
                 </div>
                 <div class="card-body">
-                    <?= $this->Form->create($flower, ['class' => 'form']) ?>
+                    <?= $this->Form->create($flower, ['class' => 'form', 'type' => 'file']) ?>
                     <fieldset>
                         <div class="form-group">
                             <?= $this->Form->control('flower_name', ['class' => 'form-control form-control-lg']); ?>
@@ -45,7 +45,7 @@
                             <?= $this->Form->control('stock_quantity', ['class' => 'form-control form-control-lg']); ?>
                         </div>
                         <div class="form-group">
-                            <?= $this->Form->control('image', ['type' => 'file']); ?>
+                            <?= $this->Form->control('change_image', ['type' => 'file']); ?>
                         <div class="form-group">
                             <?= $this->Form->control('category_id', ['options' => $categories, 'class' => 'form-control form-control-lg']); ?>
                         </div>
