@@ -32,7 +32,7 @@
             </ul>
 
             <div class="d-none d-lg-block">
-                <a href="sign-in.html">
+                <a>
                     <?php if ($this->Identity->isLoggedIn()) : ?>
                         <?= $this->Html->link('Logout', ['controller' => 'Auth', 'action' => 'logout'], ['class' => "bi-person custom-icon me-3"]) ?>
                     <?php else : ?>
