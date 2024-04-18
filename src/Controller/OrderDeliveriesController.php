@@ -58,7 +58,7 @@ class OrderDeliveriesController extends AppController
             }
             $this->Flash->error(__('The order delivery could not be saved. Please, try again.'));
         }
-        $orderstatuses = $this->OrderDeliveries->Orderstatuses->find('list', limit: 200)->all();
+        $orderstatuses = $this->OrderDeliveries->OrderStatuses->find('list', ['limit' => 200])->all();
         $deliveryStatuses = $this->OrderDeliveries->DeliveryStatuses->find('list', limit: 200)->all();
         $this->set(compact('orderDelivery', 'orderstatuses', 'deliveryStatuses'));
     }
@@ -82,7 +82,7 @@ class OrderDeliveriesController extends AppController
             }
             $this->Flash->error(__('The order delivery could not be saved. Please, try again.'));
         }
-        $orderstatuses = $this->OrderDeliveries->Orderstatuses->find('list', limit: 200)->all();
+        $orderstatuses = $this->OrderDeliveries->OrderStatuses->find('list', ['limit' => 200])->all();
         $deliveryStatuses = $this->OrderDeliveries->DeliveryStatuses->find('list', limit: 200)->all();
         $this->set(compact('orderDelivery', 'orderstatuses', 'deliveryStatuses'));
     }

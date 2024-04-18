@@ -18,7 +18,7 @@
                 <div class="col-lg-10 col-12">
                     <h1>
                         <span class="d-block text-primary">We provide you</span>
-                        <span class="d-block text-dark">Fashionable Stuffs</span>
+                        <span class="d-block text-dark">Elegance in Every Petal</span>
                     </h1>
                 </div>
             </div>
@@ -88,6 +88,7 @@
 
                         <div class="product-top d-flex">
                             <span class="product-alert me-auto">New arrival</span>
+                            <br><br><br><br><br><br>
 
                             <a href="#" class="bi-heart-fill product-icon"></a>
                         </div>
@@ -114,7 +115,7 @@
 
                         <div class="product-top d-flex">
                             <span class="product-alert">Low Price</span>
-
+                            <br><br><br><br><br><br>
                             <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
                         </div>
 

@@ -129,7 +129,7 @@ a:hover {
 }
 
 .text-primary {
-    color: var(--primary-color) !important;
+    color: #e009c4 !important;
 }
 
 ::selection {
@@ -960,7 +960,6 @@ button:focus:not(:focus-visible) {
 }
 
 .product-alert {
-    background: var(--white-color);
     color: var(--p-color);
     font-size: var(--custom-link-font-size);
     font-weight: var(--font-weight-bold);

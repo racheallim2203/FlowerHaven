@@ -11,22 +11,8 @@ use Cake\Validation\Validator;
 /**
  * OrderDeliveries Model
  *
- * @property \App\Model\Table\OrderStatusesTable&\Cake\ORM\Association\BelongsTo $Orderstatuses
+ * @property \App\Model\Table\OrderStatusesTable&\Cake\ORM\Association\BelongsTo $OrderStatuses
  * @property \App\Model\Table\DeliveryStatusesTable&\Cake\ORM\Association\BelongsTo $DeliveryStatuses
- *
- * @method \App\Model\Entity\OrderDelivery newEmptyEntity()
- * @method \App\Model\Entity\OrderDelivery newEntity(array $data, array $options = [])
- * @method array<\App\Model\Entity\OrderDelivery> newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\OrderDelivery get(mixed $primaryKey, array|string $finder = 'all', \Psr\SimpleCache\CacheInterface|string|null $cache = null, \Closure|string|null $cacheKey = null, mixed ...$args)
- * @method \App\Model\Entity\OrderDelivery findOrCreate($search, ?callable $callback = null, array $options = [])
- * @method \App\Model\Entity\OrderDelivery patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method array<\App\Model\Entity\OrderDelivery> patchEntities(iterable $entities, array $data, array $options = [])
- * @method \App\Model\Entity\OrderDelivery|false save(\Cake\Datasource\EntityInterface $entity, array $options = [])
- * @method \App\Model\Entity\OrderDelivery saveOrFail(\Cake\Datasource\EntityInterface $entity, array $options = [])
- * @method iterable<\App\Model\Entity\OrderDelivery>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\OrderDelivery>|false saveMany(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\OrderDelivery>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\OrderDelivery> saveManyOrFail(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\OrderDelivery>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\OrderDelivery>|false deleteMany(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\OrderDelivery>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\OrderDelivery> deleteManyOrFail(iterable $entities, array $options = [])
  */
 class OrderDeliveriesTable extends Table
 {
@@ -40,18 +26,17 @@ class OrderDeliveriesTable extends Table
     {
         parent::initialize($config);
 
+        // Define the table used
         $this->setTable('order_deliveries');
-        $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
 
+        // Define associations
         $this->belongsTo('OrderStatuses', [
             'foreignKey' => 'orderstatus_id',
-            'joinType' => 'INNER',
+            'joinType' => 'INNER'
         ]);
-
         $this->belongsTo('DeliveryStatuses', [
             'foreignKey' => 'deliverystatus_id',
-            'joinType' => 'INNER',
+            'joinType' => 'INNER'
         ]);
     }
 
@@ -100,11 +85,9 @@ class OrderDeliveriesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['orderstatus_id'], 'Orderstatuses'), ['errorField' => 'orderstatus_id']);
+        $rules->add($rules->existsIn(['orderstatus_id'], 'OrderStatuses'), ['errorField' => 'orderstatus_id']);
         $rules->add($rules->existsIn(['deliverystatus_id'], 'DeliveryStatuses'), ['errorField' => 'deliverystatus_id']);
 
         return $rules;
     }
-
-
 }
