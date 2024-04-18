@@ -4,29 +4,30 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a class="navbar-brand" href="/">
+
             <?= $this->Html->image('F.png', [
                 'alt' => 'FlowerHaven',
-                'style' => 'height: 50px;' // Adjust the height as needed
+                'url'=> ['controller' => 'Pages', 'action' => 'display'],
+                'style' => 'height: 50px;',// Adjust the height as needed
             ]) ?>
-        </a>
+
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/">Home</a>
+                    <a class="nav-link active">  <?= $this->Html->link('Home', ['controller' => 'Pages', 'action' => 'display'])?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/aboutus">Story</a>
+                    <a class="nav-link"><?= $this->Html->link('About', ['controller' => 'Pages', 'action' => 'aboutus'])?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/our-flowers">Products</a>
+                    <a class="nav-link"><?= $this->Html->link('Products', ['controller' => 'Flowers', 'action' => 'customerIndex'])?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/faq">FAQs</a>
+                    <a class="nav-link"><?= $this->Html->link('FAQ', ['controller' => 'Pages', 'action' => 'faq', 'class' => 'nav-link'])?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
+                    <a class="nav-link"> <?= $this->Html->link('Contact Us', ['controller' => 'Pages', 'action' => 'contact'])?></a>
                 </li>
             </ul>
 
