@@ -287,4 +287,21 @@ class FlowersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function removeFromCart($index)
+    {
+        $session = $this->request->getSession();
+        $cart = $session->read('Cart');
+
+        if (isset($cart[$index])) {
+            unset($cart[$index]);  // Remove the item from the cart
+            $session->write('Cart', $cart);
+            $this->Flash->success(__('Item removed from cart.'));
+        } else {
+            $this->Flash->error(__('Item could not be found in your cart.'));
+        }
+
+        return $this->redirect(['action' => 'customerShoppingCart']);
+    }
+
 }
