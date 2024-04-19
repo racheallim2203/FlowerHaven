@@ -69,6 +69,8 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
         $builder->connect('/order-deliveries', ['controller' => 'OrderDeliveries', 'action' => 'index']);
         $builder->connect('/aboutus', ['controller' => 'Pages', 'action' => 'aboutus']);
+        $builder->connect('/customerpayments', ['controller' => 'Payments', 'action' => 'index']);
+        $builder->connect('/payments', ['controller' => 'Payments', 'action' => 'admin_index']);
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
          */

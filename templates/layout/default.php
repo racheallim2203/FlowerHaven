@@ -36,7 +36,7 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
                         <?= $this->Html->link('Flowers <span class="sr-only">(current)</span>', ['controller' => 'Flowers', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'Payment/index') ? 'active' : '' ?>">
-                        <?= $this->Html->link('Payment', ['controller' => 'Payments', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link('Payment', ['controller' => 'Payments', 'action' => 'admin_index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'User/index') ? 'active' : '' ?>">
                         <?= $this->Html->link('User', ['controller' => 'Users', 'action' => 'index'], ['class' => 'nav-link']) ?>

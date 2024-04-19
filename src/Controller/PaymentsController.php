@@ -18,6 +18,11 @@ class PaymentsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    public function adminIndex() {
+        $query = $this->Payments->find()
+            ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']);
+        $this->set('payments', $this->paginate($query));
+    }
     public function index() {
         $payments = $this->paginate($this->Payments->find()
             ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']));
@@ -126,7 +131,7 @@ class PaymentsController extends AppController
             $this->Flash->error(__('The payment could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'adminIndex']);
     }
 
     public function processPayment()
