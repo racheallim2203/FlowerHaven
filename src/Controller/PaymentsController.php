@@ -18,14 +18,23 @@ class PaymentsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function adminIndex() {
+    public function adminIndex()
+    {
         $query = $this->Payments->find()
-            ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']);
+            ->leftJoinWith('OrderDeliveries')
+            ->leftJoinWith('PaymentStatuses')
+            ->leftJoinWith('PaymentMethods')
+            ->leftJoinWith('Users');
         $this->set('payments', $this->paginate($query));
     }
-    public function index() {
-        $payments = $this->paginate($this->Payments->find()
-            ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']));
+    public function index()
+    {
+        $query = $this->Payments->find()
+            ->leftJoinWith('OrderDeliveries')
+            ->leftJoinWith('PaymentStatuses')
+            ->leftJoinWith('PaymentMethods')
+            ->leftJoinWith('Users');
+        $payments = $this->paginate($query);
 
         $paymentMethodsTable = TableRegistry::getTableLocator()->get('PaymentMethods');
         $paymentMethods = $paymentMethodsTable->find('list', [
@@ -49,6 +58,7 @@ class PaymentsController extends AppController
 
         $this->set(compact('paymentMethods', 'payments', 'cart', 'totalPrice'));
     }
+
 
 
     /**
@@ -142,37 +152,6 @@ class PaymentsController extends AppController
             $this->Flash->error(__('Your cart is empty.'));
             return $this->redirect(['controller' => 'Flowers', 'action' => 'customerIndex']);
         }
-
-        $validator = new Validator();
-        $validator
-            ->requirePresence('payment_method_id')
-            ->notEmptyString('payment_method_id', 'Payment method is required.');
-
-        $validator
-            ->requirePresence('card_number')
-            ->notEmptyString('card_number', 'Card number is required.')
-            ->add('card_number', 'validFormat', [
-                'rule' => ['custom', '/^\d{16}$/'],
-                'message' => 'Card number must be a 16-digit number.'
-            ]);
-
-        $validator
-            ->requirePresence('expiry_date')
-            ->notEmptyString('expiry_date', 'Expiry date is required.')
-            ->add('expiry_date', 'validFormat', [
-                'rule' => ['custom', '/^\d{2}\/\d{2}$/'],
-                'message' => 'Expiry date must be in MM/YY format.'
-            ]);
-
-        $validator
-            ->requirePresence('cvv')
-            ->notEmptyString('cvv', 'CVV is required.')
-            ->add('cvv', 'validFormat', [
-                'rule' => ['custom', '/^\d{3}$/'],
-                'message' => 'CVV must be a 3-digit number.'
-            ]);
-
-        $errors = $validator->validate($this->request->getData());
 
         if (empty($errors)) {
             $totalPrice = array_sum(array_map(function ($item) {
