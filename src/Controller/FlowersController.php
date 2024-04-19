@@ -52,11 +52,7 @@ class FlowersController extends AppController
         $flowers = $this->paginate($query);
 
         // Fetch category names for the dropdown
-        $categories = $this->Flowers->Categories->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'category_name'
-        ]);
-
+        $categories = $this->Flowers->Categories->find('list', keyField: 'id', valueField: 'category_name');
         $this->set(compact('flowers', 'categories'));
     }
 

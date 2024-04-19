@@ -34,11 +34,7 @@ class CategoriesController extends AppController
             $query->where(['Categories.id' => $category]);
         }
 
-        $categoriesList = $this->Categories->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'category_name'
-        ])->toArray();
-
+        $categoriesList = $this->Categories->find('list', keyField: 'id', valueField: 'category_name')->toArray();
         $categories = $this->paginate($query);
         $this->set(compact('categories', 'categoriesList'));
     }
