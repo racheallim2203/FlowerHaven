@@ -13,10 +13,10 @@
             <div class="col-lg-5 col-8">
                 <h5 class="text-white mb-3">Sitemap</h5>
                 <ul class="footer-menu d-flex flex-wrap">
-                    <li class="footer-menu-item"><a href="/aboutus" class="footer-menu-link">Story</a></li>
-                    <li class="footer-menu-item"><a href="/products" class="footer-menu-link">Products</a></li>
-                    <li class="footer-menu-item"><a href="/faq" class="footer-menu-link">FAQs</a></li>
-                    <li class="footer-menu-item"><a href="/contact" class="footer-menu-link">Contact</a></li>
+                    <li class="footer-menu-item"><?= $this->Html->link('About', ['class' => 'footer-menu-link', 'controller' => 'Pages', 'action' => 'aboutus'])?></li>
+                    <li class="footer-menu-item"><?= $this->Html->link('Our Flowers', ['class' => 'footer-menu-link', 'controller' => 'Flowers', 'action' => 'customerIndex'])?></li>
+                    <li class="footer-menu-item"><?= $this->Html->link('FAQs', ['class' => 'footer-menu-link', 'controller' => 'Pages', 'action' => 'faq'])?></li>
+                    <li class="footer-menu-item"><?= $this->Html->link('Contact', ['class' => 'footer-menu-link', 'controller' => 'Pages', 'action' => 'contact'])?></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-4">
