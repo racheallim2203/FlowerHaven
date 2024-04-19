@@ -21,7 +21,7 @@
                     <a class="nav-link"><?= $this->Html->link('About', ['controller' => 'Pages', 'action' => 'aboutus'])?></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"><?= $this->Html->link('Products', ['controller' => 'Flowers', 'action' => 'customerIndex'])?></a>
+                    <a class="nav-link"><?= $this->Html->link('Productss', ['controller' => 'Flowers', 'action' => 'customerIndex'])?></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"><?= $this->Html->link('FAQ', ['controller' => 'Pages', 'action' => 'faq'])?></a>
