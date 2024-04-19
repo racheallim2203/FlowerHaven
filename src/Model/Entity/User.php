@@ -5,6 +5,7 @@ namespace App\Model\Entity;
 
 use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Cake\ORM\Entity;
+use Cake\Validation\Validator;
 
 /**
  * User Entity
@@ -68,5 +69,6 @@ class User extends Entity
 
         return $password;
     }
+
 
 }
