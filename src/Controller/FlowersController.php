@@ -37,11 +37,7 @@ class FlowersController extends AppController
      */
     public function index()
     {
-        $query = $this->Flowers->find('all', [
-            'contain' => ['Categories'],
-            'order' => ['Flowers.stock_quantity' => 'asc']
-        ]);
-
+        $query = $this->Flowers->find('all', contain: ['Categories'], order: ['Flowers.stock_quantity' => 'asc']);
         $search = $this->request->getQuery('search');
         $category = $this->request->getQuery('category');
 
@@ -79,9 +75,7 @@ class FlowersController extends AppController
 
     public function customerIndex()
     {
-        $query = $this->Flowers->find('all', [
-            'contain' => ['Categories']
-        ]);
+        $query = $this->Flowers->find('all', contain: ['Categories']);
         $flowers = $this->paginate($query);
         $this->viewBuilder()->setLayout('default2');
         $this->set(compact('flowers'));

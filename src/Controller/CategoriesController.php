@@ -18,10 +18,9 @@ class CategoriesController extends AppController
      */
     public function index()
     {
-        $query = $this->Categories->find('all', [
-            'contain' => ['Flowers'],
-            'order' => ['Categories.category_name' => 'asc']
-        ]);
+        $query = $this->Categories->find('all',
+            contain: ['Flowers'],
+            order: ['Categories.category_name' => 'asc']);
 
         $search = $this->request->getQuery('search');
         $category = $this->request->getQuery('category');
