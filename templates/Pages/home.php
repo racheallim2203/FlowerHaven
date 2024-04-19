@@ -98,7 +98,7 @@ $this->assign('title', 'Home');
                                         <h4  style="font-weight: bolder" class="mb-3">Where <span>Every Petal</span> <br>Tells A <span>Story</span></h4>
                                         <p>Our brand is synonymous with exquisite craftsmanship and unparalleled quality. Each bloom is carefully selected and expertly arranged, ensuring that every bouquet tells a unique story of elegance and refinement.</p>
                                         <div class="mt-2 mt-lg-auto">
-                                            <a href="<?= $this->Url->build('/about'); ?>" class="custom-link mb-2">
+                                            <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' =>'aboutus']); ?>" class="custom-link mb-2">
                                                 Learn more about us
                                                 <i class="bi-arrow-right ms-2"></i>
                                             </a>
@@ -149,10 +149,7 @@ $this->assign('title', 'Home');
                                             </div>
                                         </div>
                                         <div class="mt-2 mt-lg-auto">
-                                            <a href="<?= $this->Url->build('/products'); ?>" class="custom-link mb-2">
-                                                Explore more arrangements
-                                                <i class="bi-arrow-right ms-2"></i>
-                                            </a>
+                                            <?= $this->Html->link('Explore more arrangements', ['class' => 'custom-link mb2', 'controller' => 'Flowers', 'action' => 'customerIndex'])?>
                                         </div>
                                     </div>
                                 </div>
@@ -177,7 +174,7 @@ $this->assign('title', 'Home');
                         <h1 class="mb-4"><span style="color: #e632d7">Flower</span>Haven Florist</h1>
                         <p class=" mb-4">Meet Lily, the passionate soul behind FlowerHaven, where her love for flowers blossoms into vibrant creations that captivate hearts and souls.</p>
                         <p> As the owner of FlowerHaven, Lily is committed to sourcing the finest blooms from trusted growers, ensuring each stem is a testament to nature's bounty and beauty. From classic roses to exotic orchids, every flower that graces her shop is handpicked with love and care </p>
-                        <a href="<?= $this->Url->build('/our-flowers'); ?>" class="custom-link">
+                        <a href="<?= $this->Url->build(['controller' => 'Flowers', 'action' =>'customerIndex']); ?>" class="custom-link mb-2">
                             Explore Flowers
                             <i class="bi-arrow-right ms-2"></i>
                         </a>
@@ -188,52 +185,7 @@ $this->assign('title', 'Home');
     </section>
 
     <br><br>
-    <!-- Featured Products Section -->
-    <section class="featured-product section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h2 class="mb-5" style="font-weight: bolder">Featured Flowers</h2>
-                </div>
 
-                <?php
-                // Example products array, you might load this from a database
-                $products = [
-                    ['image' => 'product/evan-mcdougall-qnh1odlqOmk-unsplash.jpeg', 'title' => 'Tree pot', 'description' => 'Original package design from house', 'price' => '$25'],
-                    ['image' => 'product/jordan-nix-CkCUvwMXAac-unsplash.jpeg', 'title' => 'Fashion Set', 'description' => 'Costume Package', 'price' => '$35'],
-                    ['image' => 'product/nature-zen-3Dn1BZZv3m8-unsplash.jpeg', 'title' => 'Juice Drinks', 'description' => 'Nature made another world', 'price' => '$45']
-                ];
-                foreach ($products as $product):
-                    ?>
-                    <div class="col-lg-4 col-12 mb-3">
-                        <div class="product-thumb">
-                            <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'view', $product['title']]); ?>">
-                                <img src="<?= $this->Url->image($product['image']); ?>" class="img-fluid product-image" alt="">
-                            </a>
-                            <div class="product-top d-flex">
-                                <span class="product-alert me-auto">New Arrival</span>
-                                <a href="#" class="bi-heart-fill product-icon"></a>
-                            </div>
-                            <div class="product-info d-flex">
-                                <div>
-                                    <h5 class="product-title mb-0">
-                                        <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'view', $product['title']]); ?>" class="product-title-link"><?= $product['title']; ?></a>
-                                    </h5>
-                                    <p class="product-p"><?= $product['description']; ?></p>
-                                </div>
-                                <small class="product-price text-muted ms-auto mt-auto mb-5"><?= $product['price']; ?></small>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-
-                <div class="col-12 text-center">
-                    <?= $this->Html->link('View Our Flowers', ['class' => 'viewAll', 'controller' => 'Flowers', 'action' => 'customerIndex'])?>
-                </div>
-            </div>
-        </div>
-        <br><br><br>
-    </section>
 </main>
 
 </body>
