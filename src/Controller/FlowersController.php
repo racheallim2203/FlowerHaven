@@ -99,17 +99,52 @@ class FlowersController extends AppController
         $session = $this->request->getSession();
         $cart = $session->read('Cart');
         $updatedCart = $this->request->getData('cart');
+        $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
+        $errors = false;  // Track if any errors occurred
 
         foreach ($updatedCart as $index => $item) {
-            if (isset($cart[$index])) {
-                $cart[$index]['quantity'] = max(1, (int) $item['quantity']); // Ensure a minimum of 1
+            $requestedQuantity = (int) $item['quantity'];
+            if ($requestedQuantity <= 0) {
+                // Remove item if quantity is zero or less
+                unset($cart[$index]);
+                continue;
+            }
+
+            try {
+                $flower = $flowersTable->get($index);
+                if ($requestedQuantity > $flower->stock_quantity) {
+                    $this->Flash->error(__('Requested quantity for ' . $flower->flower_name . ' exceeds available stock.'));
+                    $errors = true;
+                    continue; // Skip this item but continue processing others
+                }
+
+                // Update the cart item with the correct quantity and refresh stock info
+                if (isset($cart[$index])) {
+                    $cart[$index]['quantity'] = $requestedQuantity;
+                    $cart[$index]['stock'] = $flower->stock_quantity; // Update stock in cart to reflect current stock
+                }
+            } catch (\Cake\Datasource\Exception\RecordNotFoundException $e) {
+                // Handle case where flower no longer exists in the database
+                $this->Flash->error(__('The flower with ID ' . $index . ' could not be found.'));
+                unset($cart[$index]);  // Remove the missing item from the cart
+                $errors = true;
             }
         }
 
-        $session->write('Cart', $cart);
-        $this->Flash->success('Cart updated successfully.');
+        // Write the possibly updated cart back to the session
+        if (!empty($cart)) {
+            $session->write('Cart', $cart);
+            if (!$errors) {
+                $this->Flash->success(__('Cart updated successfully.'));
+            }
+        } else {
+            $session->delete('Cart');
+            $this->Flash->error(__('Your cart is empty.'));
+        }
+
         return $this->redirect(['action' => 'customerShoppingCart']);
     }
+
 
     public function updateStock()
     {
@@ -137,55 +172,74 @@ class FlowersController extends AppController
 
     public function addToCart()
     {
-        if ($this->request->is('post')) {
-            $data = $this->request->getData();
-            $flowerId = $data['flower_id'];
-            $quantity = (int)$data['quantity'];  // Cast to ensure it's an integer
-            $flower = $this->Flowers->get($flowerId);
+        $data = $this->request->getData();
+        $flowerId = $data['flower_id'];
+        $quantity = (int)$data['quantity'];
+        $flower = $this->Flowers->get($flowerId);
 
-            if ($flower->stock_quantity >= $quantity && $quantity > 0) {
-                $cart = $this->request->getSession()->read('Cart') ?: [];
-                if (isset($cart[$flowerId])) {
-                    $cart[$flowerId]['quantity'] += $quantity;  // Update quantity
-                } else {
-                    $cart[$flowerId] = [
-                        'flower_id' => $flowerId,
-                        'quantity' => $quantity,
-                        'price' => $flower->flower_price,
-                        'name' => $flower->flower_name
-                    ];
-                }
-
-                $this->request->getSession()->write('Cart', $cart);
-                $this->Flash->success(__('Successfully added to cart.'));
-                return $this->redirect(['controller' => 'Flowers', 'action' => 'customerShoppingCart']);
+        if ($flower->stock_quantity >= $quantity && $quantity > 0) {
+            $cart = $this->request->getSession()->read('Cart') ?: [];
+            if (isset($cart[$flowerId])) {
+                $cart[$flowerId]['quantity'] += $quantity;
             } else {
-                $this->Flash->error(__('Not enough stock available or invalid quantity.'));
-                return $this->redirect($this->referer());
+                $cart[$flowerId] = [
+                    'flower_id' => $flowerId,
+                    'quantity' => $quantity,
+                    'price' => $flower->flower_price,
+                    'name' => $flower->flower_name,
+                    'stock' => $flower->stock_quantity  // Adding stock information
+                ];
             }
+
+            $this->request->getSession()->write('Cart', $cart);
+            $this->Flash->success(__('Successfully added to cart.'));
+            return $this->redirect(['controller' => 'Flowers', 'action' => 'customerShoppingCart']);
+        } else {
+            $this->Flash->error(__('Not enough stock available or invalid quantity.'));
+            return $this->redirect($this->referer());
         }
-    }
 
 
+}
     public function customerShoppingCart()
     {
-        $cart = $this->request->getSession()->read('Cart');
+        $session = $this->request->getSession();
+        $cart = $session->read('Cart') ?? []; // Ensuring $cart is always an array
+        $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
+        $canProceedToCheckout = true;
 
-        // Check if the cart is empty and set a message
-        if (empty($cart)) {
-            $this->Flash->error(__('Your shopping cart is empty.'));
-        } else {
-            // Calculate the total price for the cart if it's not empty
-            $totalPrice = array_sum(array_map(function ($item) {
-                return $item['quantity'] * $item['price'];
-            }, $cart));
-
-            // Pass the total price to the view
-            $this->set('totalPrice', $totalPrice);
+        foreach ($cart as $index => &$item) {
+            try {
+                $flower = $flowersTable->get($item['flower_id']);
+                // Check if requested quantity exceeds available stock
+                if ($item['quantity'] > $flower->stock_quantity) {
+                    $item['stock_exceeded'] = true;
+                    $canProceedToCheckout = false; // Block checkout if any item exceeds available stock
+                    $this->Flash->error(__("The quantity for {$flower->flower_name} exceeds the available stock."));
+                } else {
+                    $item['stock_exceeded'] = false;
+                }
+                // Refresh stock info for accuracy
+                $item['stock'] = $flower->stock_quantity;
+            } catch (\Cake\Datasource\Exception\RecordNotFoundException $e) {
+                // Handle case where the flower no longer exists in the database
+                unset($cart[$index]);
+                $this->Flash->error(__("A flower in your cart could not be found and has been removed."));
+                continue;
+            }
         }
 
-        $this->set('cart', $cart);
+        // Update the session after potentially modifying cart items
+        $session->write('Cart', $cart);
+
+        // Calculate the total price
+        $totalPrice = array_sum(array_map(function ($item) {
+            return $item['quantity'] * $item['price'];
+        }, $cart));
+
+        $this->set(compact('cart', 'totalPrice', 'canProceedToCheckout'));
     }
+
 
     /**
      * Add method

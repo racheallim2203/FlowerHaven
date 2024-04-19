@@ -21,8 +21,10 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
+use Cake\Core\Plugin;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
 
 /*
  * This file is loaded in the context of the `Application` class.
@@ -48,13 +50,15 @@ return function (RouteBuilder $routes): void {
      * `{action}` markers.
      */
     $routes->setRouteClass(DashedRoute::class);
+    $routes->setExtensions(['json']); // Allow JSON extension for routes
+
+// Add route for processOrder action
+    $routes->connect('/orderdeliveries/processorder', [
+        'controller' => 'OrderDeliveries',
+        'action' => 'processOrder',
+    ])->setMethods(['POST']); // Restrict to POST method
 
     $routes->scope('/', function (RouteBuilder $builder): void {
-        /*
-         * Here, we are connecting '/' (base path) to a controller called 'Pages',
-         * its action called 'display', and we pass a param to select the view file
-         * to use (in this case, templates/Pages/home.php)...
-         */
         $builder->connect('/about', ['controller' => 'Pages', 'action' => 'aboutus']);
         $builder->connect('/admin', ['controller' => 'Flowers', 'action' => 'index']);
         $builder->connect('/our-flowers', ['controller' => 'Flowers', 'action' => 'customerIndex']);

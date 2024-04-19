@@ -10,59 +10,65 @@ $this->layout = 'default2';
 $this->assign('title', 'Shopping Cart');
 ?>
 <div class="container">
-    <br><br>
-    <!-- Include Flash Messages -->
-    <?= $this->Flash->render() ?>
     <h1>Shopping Cart</h1>
-
+    <?= $this->Flash->render() ?>
     <?php if (!empty($cart)): ?>
-        <?= $this->Form->create(null, ['url' => ['controller' => 'Flowers', 'action' => 'updateCart']]) ?>
+        <?= $this->Form->create(null, ['url' => ['action' => 'updateCart']]) ?>
         <table class="table">
             <thead>
             <tr>
                 <th>Flower Name</th>
-                <th>Quantity / Remove</th>
+                <th>Quantity</th>
                 <th>Price</th>
                 <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <?php $totalPrice = 0; ?>
             <?php foreach ($cart as $index => $item): ?>
-                <tr>
+                <tr class="<?= $item['stock_exceeded'] ? 'table-danger' : '' ?>">
                     <td><?= h($item['name']) ?></td>
                     <td>
-                        <?= $this->Form->control("cart.$index.quantity", [
+                        <?= $this->Form->control("cart[$index][quantity]", [
+                            'type' => 'number',
                             'label' => false,
-                            'type' => 'select',
-                            'options' => range(0, min(5, $item['stock'] ?? 5)),
-                            'default' => $item['quantity'],
-                            'class' => 'form-select'
-                        ]) ?>
-                        <!-- Add Remove Button -->
-                        <?= $this->Form->button('Remove', [
-                            'type' => 'submit',
-                            'formaction' => $this->Url->build(['action' => 'removeFromCart', $index]),
-                            'class' => 'btn btn-danger btn-sm',
-                            'onClick' => 'return confirm("Are you sure you want to remove this item?");'
-                        ]) ?>
+                            'value' => $item['quantity'],
+                            'min' => 1,
+                            'class' => 'form-control'
+                        ]); ?>
                     </td>
                     <td>$<?= h($item['price']) ?></td>
-                    <td>$<?= h($item['quantity'] * $item['price']) ?>
-                        <?php $totalPrice += $item['quantity'] * $item['price']; ?>
+                    <td>$<?= h($item['quantity'] * $item['price']) ?></td>
+                    <td>
+                        <?php if ($item['stock_exceeded']): ?>
+                            <span class="text-danger">Stock limit exceeded!</span>
+                        <?php else: ?>
+                            <span class="text-success">In stock</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?= $this->Form->button(__('Update'), ['class' => 'btn btn-info']) ?>
+                        <?= $this->Form->postLink(__('Remove'), ['action' => 'removeFromCart', $index], [
+                            'confirm' => 'Are you sure?',
+                            'class' => 'btn btn-danger'
+                        ]) ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
-        <p>Total Price: $<?= h($totalPrice) ?></p>
-        <?= $this->Form->button('Update Cart', ['class' => 'btn btn-primary']) ?>
         <?= $this->Form->end() ?>
-        <div class="text-right mt-3">
-            <?= $this->Html->link('Checkout', ['controller' => 'OrderDeliveries', 'action' => 'processOrder'], ['class' => 'btn btn-success']) ?>
-        </div>
+        <p>Total Price: $<?= h($totalPrice) ?></p>
+        <?php if ($canProceedToCheckout): ?>
+            <?= $this->Html->link('Checkout', ['controller' => 'Payments', 'action' => 'index'], ['class' => 'btn btn-success']) ?>
+        <?php else: ?>
+            <button class="btn btn-success" disabled>Checkout</button>
+            <div class="alert alert-warning">Please adjust your cart to proceed to checkout.</div>
+        <?php endif; ?>
     <?php else: ?>
         <p>Your cart is empty.</p>
     <?php endif; ?>
     <br><br>
 </div>
+

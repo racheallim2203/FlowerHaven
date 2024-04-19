@@ -1,12 +1,15 @@
 <?php
 declare(strict_types=1);
-
 namespace App\Controller;
+use Cake\Event\EventInterface;
+use Cake\ORM\TableRegistry;
+use Cake\Validation\Validator;
 
 /**
  * Payments Controller
  *
  * @property \App\Model\Table\PaymentsTable $Payments
+ * @property \App\Model\Table\PaymentMethodsTable $PaymentMethods
  */
 class PaymentsController extends AppController
 {
@@ -15,14 +18,33 @@ class PaymentsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
-    {
-        $query = $this->Payments->find()
-            ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']);
-        $payments = $this->paginate($query);
+    public function index() {
+        $payments = $this->paginate($this->Payments->find()
+            ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']));
 
-        $this->set(compact('payments'));
+        $paymentMethodsTable = TableRegistry::getTableLocator()->get('PaymentMethods');
+        $paymentMethods = $paymentMethodsTable->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'method_type'
+        ])->toArray();
+
+        // Retrieve the cart from session
+        $session = $this->request->getSession();
+        $cart = $session->read('Cart') ?? [];
+
+        if (empty($cart)) {
+            $this->Flash->error(__('Your cart is empty.'));
+            return $this->redirect(['controller' => 'Flowers', 'action' => 'customerIndex']); // Assuming this is the correct redirect
+        }
+
+        // Calculate the total price
+        $totalPrice = array_sum(array_map(function ($item) {
+            return $item['quantity'] * $item['price'];
+        }, $cart));
+
+        $this->set(compact('paymentMethods', 'payments', 'cart', 'totalPrice'));
     }
+
 
     /**
      * View method
@@ -106,4 +128,54 @@ class PaymentsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function processPayment()
+    {
+        $session = $this->request->getSession();
+        $cart = $session->read('Cart');
+        if (empty($cart)) {
+            $this->Flash->error(__('Your cart is empty.'));
+            return $this->redirect(['controller' => 'Flowers', 'action' => 'customerIndex']);
+        }
+
+        $payment = $this->Payments->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $payment = $this->Payments->patchEntity($payment, $this->request->getData());
+            if ($this->Payments->save($payment)) {
+                $this->Flash->success(__('Payment processed successfully.'));
+                // Clear cart after successful order
+                $session->delete('Cart');
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('Failed to process payment. Please, try again.'));
+            }
+        }
+
+        $this->set(compact('payment'));
+    }
+
+
+    private function updateStock($cart)
+    {
+        $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
+        foreach ($cart as $item) {
+            $flower = $flowersTable->get($item['flower_id']);
+            $flower->stock_quantity -= $item['quantity'];
+            $flowersTable->save($flower);
+        }
+    }
+
+    private function simulatePaymentProcessing($amount)
+    {
+        // Simulate payment gateway processing
+        return true; // Simulate a successful payment
+    }
+
+    public function confirmation($orderId)
+    {
+        $order = $this->Payments->OrderDeliveries->get($orderId);
+        $this->set(compact('order'));
+    }
+
+
 }

@@ -112,28 +112,27 @@ class OrderDeliveriesController extends AppController
 
     public function processOrder()
     {
-        $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
+        $this->autoRender = false;
         $session = $this->request->getSession();
         $cart = $session->read('Cart');
-
         if (empty($cart)) {
-            $this->Flash->error(__('Your cart is empty.'));
-            return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
+            if (empty($cart)) {
+                return $this->responseJson(['success' => false, 'message' => 'Your cart is empty.']);
+//            } else {
+//                return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
+            }
         }
 
+        $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
         $connection = ConnectionManager::get('default');
         $connection->begin();
 
         try {
-            // Calculate the total amount
             $totalAmount = array_sum(array_map(function ($item) {
                 return $item['quantity'] * $item['price'];
             }, $cart));
 
-            // Set the order date to the current date
             $orderDate = date('Y-m-d');
-
-            // Set the delivery date to 5 days from the order date
             $deliveryDate = (new DateTime($orderDate))->modify('+5 days')->format('Y-m-d');
 
             $orderDelivery = $this->OrderDeliveries->newEntity([
@@ -148,31 +147,37 @@ class OrderDeliveriesController extends AppController
                 throw new Exception('Unable to save order delivery.');
             }
 
-            // Update stock quantity for each flower in the cart
             foreach ($cart as $item) {
-                $flowerId = $item['flower_id'];
-                $quantity = $item['quantity'];
-
-                $flower = $flowersTable->get($flowerId);
-                if ($flower->stock_quantity < $quantity) {
+                $flower = $flowersTable->get($item['flower_id']);
+                if ($flower->stock_quantity < $item['quantity']) {
                     throw new Exception('Not enough stock for some items.');
                 }
-                $flower->stock_quantity -= $quantity;
+                $flower->stock_quantity -= $item['quantity'];
                 if (!$flowersTable->save($flower)) {
-                    throw new Exception('Unable to update stock for flower ID: ' . $flowerId);
+                    throw new Exception('Unable to update stock for flower ID: ' . $item['flower_id']);
                 }
             }
 
-            // If everything goes well, commit the transaction
             $connection->commit();
             $session->delete('Cart');
-            $this->Flash->success(__('You\'ve successfully checked out your cart!'));
-            return $this->redirect(['controller' => 'Flowers', 'action' => 'customerShoppingCart']);
+            // Return JSON response with orderDeliveryId
+            return $this->responseJson([
+                'success' => true,
+                'message' => 'Payment processed successfully',
+                'orderDeliveryId' => $orderDelivery->id
+            ]);
 
         } catch (Exception $e) {
-            // If there is an error, rollback the transaction
             $connection->rollback();
-            $this->Flash->error(__('Error processing your order: ' . $e->getMessage()));
+            return $this->responseJson(['success' => false, 'message' => 'Error processing your order: ' . $e->getMessage()]);
+        }
+    }
+    private function responseJson($data) {
+        $this->autoRender = false;
+        if ($this->request->is('ajax')) {
+            return $this->response->withType('application/json')
+                ->withStringBody(json_encode($data));
+        } else {
             return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
         }
     }
