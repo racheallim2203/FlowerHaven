@@ -46,25 +46,43 @@ echo $this->Html->css('payment');
                             'options' => $paymentMethods,
                             'empty' => 'Select a method',
                             'required' => true,
-                            'class' => 'form-control'
+                            'class' => 'form-control',
+                            'error' => [
+                                'required' => 'Payment method is required.'
+                            ]
                         ]); ?>
                         <?= $this->Form->control('card_number', [
                             'class' => 'form-control',
                             'placeholder' => '0000 0000 0000 0000',
                             'label' => ['text' => 'Card Number', 'class' => 'font-weight-normal card-text'],
-                            'required' => true
+                            'required' => true,
+                            'error' => [
+                                'custom' => 'Card number must be a 16-digit number.'
+                            ],
+                            'pattern' => '\d{16}', // Regular expression for 16 digits
+                            'title' => 'Please enter a 16-digit card number.' // Optional, shows a tooltip on hover
                         ]); ?>
                         <?= $this->Form->control('expiry_date', [
                             'class' => 'form-control',
                             'placeholder' => 'MM/YY',
                             'label' => ['text' => 'Expiry Date', 'class' => 'font-weight-normal card-text'],
-                            'required' => true
+                            'required' => true,
+                            'error' => [
+                                'custom' => 'Expiry date must be in MM/YY format (e.g., 03/25).'
+                            ],
+                            'pattern' => '^(0[1-9]|1[0-2])\/[0-9]{2}$', // Regular expression for MM/YY format
+                            'title' => 'Please enter the expiry date in MM/YY format.' // Optional, shows a tooltip on hover
                         ]); ?>
                         <?= $this->Form->control('cvv', [
                             'class' => 'form-control',
                             'placeholder' => '000',
                             'label' => ['text' => 'CVC/CVV', 'class' => 'font-weight-normal card-text'],
-                            'required' => true
+                            'required' => true,
+                            'error' => [
+                                'custom' => 'CVV must be a 3-digit number.'
+                            ],
+                            'pattern' => '^\d{3}$', // Regular expression for 3 digits
+                            'title' => 'Please enter a 3-digit CVV number.' // Optional, shows a tooltip on hover
                         ]); ?>
                         <span class="text-muted certificate-text"><i class="fa fa-lock"></i> Your transaction is secured with SSL encryption.</span>
                     </div>

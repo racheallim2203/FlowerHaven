@@ -42,36 +42,4 @@ class Payment extends Entity
         'user' => true,
     ];
 
-    protected function _validationDefault(Validator $validator): Validator
-    {
-        $validator
-            ->requirePresence('payment_method_id')
-            ->notEmptyString('payment_method_id', 'Payment method is required.');
-
-        $validator
-            ->requirePresence('card_number')
-            ->notEmptyString('card_number', 'Card number is required.')
-            ->add('card_number', 'validFormat', [
-                'rule' => ['custom', '/^\d{16}$/'],
-                'message' => 'Card number must be a 16-digit number.'
-            ]);
-
-        $validator
-            ->requirePresence('expiry_date')
-            ->notEmptyString('expiry_date', 'Expiry date is required.')
-            ->add('expiry_date', 'validFormat', [
-                'rule' => ['custom', '/^\d{2}\/\d{2}$/'],
-                'message' => 'Expiry date must be in MM/YY format.'
-            ]);
-
-        $validator
-            ->requirePresence('cvv')
-            ->notEmptyString('cvv', 'CVV is required.')
-            ->add('cvv', 'validFormat', [
-                'rule' => ['custom', '/^\d{3}$/'],
-                'message' => 'CVV must be a 3-digit number.'
-            ]);
-
-        return $validator;
-    }
 }

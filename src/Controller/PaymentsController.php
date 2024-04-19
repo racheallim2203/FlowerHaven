@@ -138,20 +138,69 @@ class PaymentsController extends AppController
             return $this->redirect(['controller' => 'Flowers', 'action' => 'customerIndex']);
         }
 
-        $payment = $this->Payments->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $payment = $this->Payments->patchEntity($payment, $this->request->getData());
-            if ($this->Payments->save($payment)) {
-                $this->Flash->success(__('Payment processed successfully.'));
-                // Clear cart after successful order
-                $session->delete('Cart');
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('Failed to process payment. Please, try again.'));
-            }
-        }
+        $validator = new Validator();
+        $validator
+            ->requirePresence('payment_method_id')
+            ->notEmptyString('payment_method_id', 'Payment method is required.');
 
-        $this->set(compact('payment'));
+        $validator
+            ->requirePresence('card_number')
+            ->notEmptyString('card_number', 'Card number is required.')
+            ->add('card_number', 'validFormat', [
+                'rule' => ['custom', '/^\d{16}$/'],
+                'message' => 'Card number must be a 16-digit number.'
+            ]);
+
+        $validator
+            ->requirePresence('expiry_date')
+            ->notEmptyString('expiry_date', 'Expiry date is required.')
+            ->add('expiry_date', 'validFormat', [
+                'rule' => ['custom', '/^\d{2}\/\d{2}$/'],
+                'message' => 'Expiry date must be in MM/YY format.'
+            ]);
+
+        $validator
+            ->requirePresence('cvv')
+            ->notEmptyString('cvv', 'CVV is required.')
+            ->add('cvv', 'validFormat', [
+                'rule' => ['custom', '/^\d{3}$/'],
+                'message' => 'CVV must be a 3-digit number.'
+            ]);
+
+        $errors = $validator->validate($this->request->getData());
+
+        if (empty($errors)) {
+            $totalPrice = array_sum(array_map(function ($item) {
+                return $item['quantity'] * $item['price'];
+            }, $cart));
+
+            $orderDelivery = $this->Payments->OrderDeliveries->newEntity([
+                'user_id' => $session->read('Auth.User.id'),
+                'total_amount' => $totalPrice,
+                'status' => 'Completed',
+                'delivery_date' => date('Y-m-d', strtotime('+7 days'))  // Example delivery date
+            ]);
+
+            if ($this->Payments->OrderDeliveries->save($orderDelivery)) {
+                $session->delete('Cart'); // Clear cart after successful order
+                $orderId = $orderDelivery->id; // Get the ID of the newly created order delivery
+                // Pass orderId to the view
+                $this->set(compact('orderId'));
+                $this->response->set_status(200); // Set success status code
+                $this->response->body(json_encode([
+                    'success' => true,
+                    'orderId' => $orderId,
+                ]));
+                return $this->response;
+
+            } else {
+                $this->Flash->error(__('Failed to process order.'));
+                return $this->redirect(['action' => 'index']);
+            }
+        } else {
+            $this->Flash->error(__('Validation error. Please check your input.'));
+            return $this->redirect(['action' => 'index']);
+        }
     }
 
 
