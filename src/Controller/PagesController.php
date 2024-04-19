@@ -38,6 +38,7 @@ class PagesController extends AppController
      */
     public function display(string ...$path): ?Response
     {
+        $this->viewBuilder()->setLayout('default2');
         if (!$path) {
             return $this->redirect('/');
         }

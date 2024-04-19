@@ -9,27 +9,11 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Error\Debugger;
 use Cake\Http\Exception\NotFoundException;
 
-$this->layout = 'default2';
 $this->assign('title', 'Home');
 
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        CakePHP: the rapid development PHP framework:
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
-
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'fonts', 'cake', 'home']) ?>
-
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
-</head>
 <body>
 <main class="main">
     <!-- Slick Slideshow -->
@@ -244,7 +228,7 @@ $this->assign('title', 'Home');
                 <?php endforeach; ?>
 
                 <div class="col-12 text-center">
-                    <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']); ?>" class="view-all">View All Products</a>
+                    <?= $this->Html->link('View Our Flowers', ['class' => 'viewAll', 'controller' => 'Flowers', 'action' => 'customerIndex'])?>
                 </div>
             </div>
         </div>
