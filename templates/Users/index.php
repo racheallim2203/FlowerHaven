@@ -4,53 +4,75 @@
  * @var iterable<\App\Model\Entity\User> $users
  */
 ?>
-<div class="users index content">
-    <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Users') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('username') ?></th>
-                    <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('address') ?></th>
-                    <th><?= $this->Paginator->sort('phone_no') ?></th>
-                    <th><?= $this->Paginator->sort('isAdmin') ?></th>
-                    <th><?= $this->Paginator->sort('nonce') ?></th>
-                    <th><?= $this->Paginator->sort('nonce_expiry') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($users as $user): ?>
-                <tr>
-                    <td><?= h($user->id) ?></td>
-                    <td><?= h($user->username) ?></td>
-                    <td><?= h($user->email) ?></td>
-                    <td><?= h($user->address) ?></td>
-                    <td><?= h($user->phone_no) ?></td>
-                    <td><?= h($user->isAdmin) ?></td>
-                    <td><?= h($user->nonce) ?></td>
-                    <td><?= h($user->nonce_expiry) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+
+<div class="container-fluid">
+
+    <div class="row tm-content-row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <br>
+            <div class="bg-white tm-block h-100">
+                <div class="table-responsive">
+                    <h2 class="text-center" style="font-weight: bold;">Users</h2>
+                    <br>
+                    <table class="table table-bordered" style="background-color: #f8f9fa;">
+                        <thead>
+                        <tr class="table-pink">
+                            <th style="color: #9e297e;">ID</th>
+                            <th style="color: #9e297e;">Username</th>
+                            <th style="color: #9e297e;">Email</th>
+                            <th style="color: #9e297e;">Address</th>
+                            <th style="color: #9e297e;">Phone Number</th>
+                            <th style="color: #9e297e;">isAdmin</th>
+                            <th style="color: #9e297e;">Nonce</th>
+                            <th style="color: #9e297e;">Nonce Expiry</th>
+                            <th class="actions" style="color: #9e297e;"><?= __('Actions') ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($users as $user): ?>
+                            <tr>
+                                <td><?= h($user->id) ?></td>
+                                <td><?= h($user->username) ?></td>
+                                <td><?= h($user->email) ?></td>
+                                <td><?= h($user->address) ?></td>
+                                <td><?= h($user->phone_no) ?></td>
+                                <td><?= $this->Number->format($user->isAdmin) ?></td>
+                                <td><?= h($user->nonce) ?></td>
+                                <td><?= $user->hasValue('nonce_expiry') ?></td>
+                                <td class="actions">
+                                    <div class="d-block mb-2">
+                                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                    </div>
+                                    <div class="d-block mb-2">
+                                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class' => 'btn btn-primary btn-sm']) ?>
+                                    </div>
+                                    <div class="d-block">
+                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn btn-danger btn-sm']) ?>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="paginator">
+                    <ul class="pagination justify-content-center">
+                        <?= $this->Paginator->first('<< ' . __('First')) ?>
+                        <?= $this->Paginator->prev('< ' . __('Previous')) ?>
+                        <?= $this->Paginator->numbers() ?>
+                        <?= $this->Paginator->next(__('Next') . ' >') ?>
+                        <?= $this->Paginator->last(__('Last') . ' >>') ?>
+                    </ul>
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center mb-3">
+                            <?= $this->Html->link('Add New User', ['action' => 'add'], ['class' => 'btn btn-success']) ?>
+                        </div>
+                    </div>
+                    <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
+
 </div>
