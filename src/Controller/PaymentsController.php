@@ -169,6 +169,7 @@ class PaymentsController extends AppController
                 $session->delete('Cart'); // Clear cart after successful order
                 $orderId = $orderDelivery->id; // Get the ID of the newly created order delivery
                 // Pass orderId to the view
+                var_dump($orderDelivery);
                 $this->set(compact('orderId'));
                 $this->response->set_status(200); // Set success status code
                 $this->response->body(json_encode([

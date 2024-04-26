@@ -9,6 +9,7 @@ use Cake\Http\Exception\NotFoundException;
 $this->layout = 'default2';
 $this->assign('title', 'Shopping Cart');
 ?>
+<br><br>
 <div class="container">
     <h1>Shopping Cart</h1>
     <?= $this->Flash->render() ?>
@@ -30,6 +31,7 @@ $this->assign('title', 'Shopping Cart');
                 <tr class="<?= $item['stock_exceeded'] ? 'table-danger' : '' ?>">
                     <td><?= h($item['name']) ?></td>
                     <td>
+                        <?= $this->Form->create(null, ['url' => ['action' => 'updateCart', $index]]) ?>
                         <?= $this->Form->control("cart[$index][quantity]", [
                             'type' => 'number',
                             'label' => false,
@@ -37,6 +39,8 @@ $this->assign('title', 'Shopping Cart');
                             'min' => 1,
                             'class' => 'form-control'
                         ]); ?>
+                        <?= $this->Form->button(__('Update'), ['class' => 'btn btn-info']) ?>
+                        <?= $this->Form->end() ?>
                     </td>
                     <td>$<?= h($item['price']) ?></td>
                     <td>$<?= h($item['quantity'] * $item['price']) ?></td>
@@ -48,11 +52,9 @@ $this->assign('title', 'Shopping Cart');
                         <?php endif; ?>
                     </td>
                     <td>
-                        <?= $this->Form->button(__('Update'), ['class' => 'btn btn-info']) ?>
-                        <?= $this->Form->postLink(__('Remove'), ['action' => 'removeFromCart', $index], [
-                            'confirm' => 'Are you sure?',
-                            'class' => 'btn btn-danger'
-                        ]) ?>
+                        <?= $this->Form->create(null, ['url' => ['action' => 'removeFromCart', $index], 'class' => 'remove-form']) ?>
+                        <?= $this->Form->button(__('Remove'), ['class' => 'btn btn-danger', 'type' => 'submit']) ?>
+                        <?= $this->Form->end() ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -71,4 +73,5 @@ $this->assign('title', 'Shopping Cart');
     <?php endif; ?>
     <br><br>
 </div>
+
 
