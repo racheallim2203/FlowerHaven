@@ -259,7 +259,7 @@ strong {
 
 .custom-icon {
     color: var(--p-color);
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .custom-icon {
@@ -963,7 +963,6 @@ button:focus:not(:focus-visible) {
     color: var(--p-color);
     font-size: var(--custom-link-font-size);
     font-weight: var(--font-weight-bold);
-    padding: 3px 10px;
 }
 
 .product-p {

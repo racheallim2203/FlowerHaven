@@ -40,8 +40,8 @@ $this->assign('title', 'Home');
                     <div class="row">
                         <div class="col-lg-6 col-10">
                             <h1 class="slick-title"> Explore our Garden of Endless Delights! </h1>
-                            <p class="lead text-white mt-lg-3 mb-lg-5">From vibrant roses to delicate orchids, our online florist store is your sanctuary of floral fantasies. Whether you're celebrating love, saying congratulations, or simply sending a smile, our blooms speak volumes.</p>
-                            <a href="<?= $this->Url->build(['controller' => 'flowers', 'action' =>'our-flowers']); ?>" class="btn custom-btn">Explore products</a>
+                            <p class="lead text-white mt-lg-3 mb-lg-5">From vibrant roses to delicate orchids, our online florist store is your sanctuary of floral fantasies.</p>
+                            <a href="<?= $this->Url->build(['controller' => 'flowers', 'action' =>'customerIndex']); ?>" class="btn custom-btn">Explore products</a><br><br>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@ $this->assign('title', 'Home');
                     <div class="row">
                         <div class="col-lg-6 col-10">
                             <h1 class="slick-title">Handcrafted Bouquets for Every Occasion! 💐</h1>
-                            <p class="lead text-white mt-lg-3 mb-lg-5">Browse through our curated collections, each arrangement a masterpiece of color, fragrance, and elegance. Let your emotions bloom with every carefully selected petal.</p>
+                            <p class="lead text-white mt-lg-3 mb-lg-5">Browse through our curated collections, each arrangement a masterpiece of color, fragrance, and elegance.</p>
                             <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' =>'contact']); ?>" class="btn custom-btn">Contact Us</a>
                         </div>
                     </div>

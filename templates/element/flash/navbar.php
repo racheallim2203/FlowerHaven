@@ -23,9 +23,9 @@
                 <li class="nav-item">
                     <a class="nav-link"><?= $this->Html->link('Products', ['controller' => 'Flowers', 'action' => 'customerIndex'])?></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link"><?= $this->Html->link('FAQ', ['controller' => 'Pages', 'action' => 'faq'])?></a>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link">--><?php //= $this->Html->link('FAQ', ['controller' => 'Pages', 'action' => 'faq'])?><!--</a>-->
+<!--                </li>-->
                 <li class="nav-item">
                     <a class="nav-link"> <?= $this->Html->link('Contact Us', ['controller' => 'Pages', 'action' => 'contact'])?></a>
                 </li>
@@ -39,7 +39,7 @@
                         <?= $this->Html->link('Login', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon me-3"]) ?>
                     <?php endif; ?>
                 </a>
-                <a class="bi-bag custom-icon"<?= $this->Html->link('', ['controller' => 'flowers', 'action' => 'shopping-cart'])?></a>
+                <a class="bi-bag custom-icon"<?= $this->Html->link('Cart', ['controller' => 'flowers', 'action' => 'shopping-cart'])?></a>
             </div>
         </div>
     </div>
