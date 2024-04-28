@@ -24,6 +24,7 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
             <a class="navbar-brand" href="<?= $this->Url->build('/') ?>">
                 <?= $this->Html->image('F.png', [
                     'alt' => 'FlowerHaven',
+                    'url'=> ['controller' => 'Admin', 'action' => 'index'],
                     'style' => 'height: 60px;' // Adjust the height as needed
                 ]) ?>
             </a>
@@ -32,6 +33,9 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+                    <li class="nav-item <?= ($activePage == 'Pages/index') ? 'active' : '' ?>">
+                        <?= $this->Html->link('Home <span class="sr-only">(current)</span>', ['controller' => 'Pages', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
+                    </li>
                     <li class="nav-item <?= ($activePage == 'Flowers/index') ? 'active' : '' ?>">
                         <?= $this->Html->link('Flowers <span class="sr-only">(current)</span>', ['controller' => 'Flowers', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
                     </li>
@@ -47,9 +51,13 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
                     <li class="nav-item <?= ($activePage == 'OrderDeliveries/index') ? 'active' : '' ?>">
                         <?= $this->Html->link('Orders', ['controller' => 'OrderDeliveries', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
+                </ul>
+            </div>
+            <div class="d-none d-lg-block" id="navbarNav">
+                <ul class="navbar-nav">
                     <li class="nav-item <?= ($activePage == 'Auth/logout') ? 'active' : '' ?>">
                         <?php if ($this->Identity->isLoggedIn()) : ?>
-                            <?= $this->Html->link('Log Out', ['controller' => 'Auth', 'action' => 'logout'], ['class' => 'nav-link']) ?>
+                            <?= $this->Html->link('Logout', ['controller' => 'Auth', 'action' => 'logout'], ['class' => 'nav-link']) ?>
                         <?php endif; ?>
                     </li>
                 </ul>

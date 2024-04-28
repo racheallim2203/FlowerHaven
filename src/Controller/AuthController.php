@@ -205,9 +205,10 @@ class AuthController extends AppController
             if ($user->isAdmin == 0) {
                 // If user is not an admin, redirect to non-admin page
                 return $this->redirect(['controller' => 'pages', 'action' => 'index']);
-            } else
+            } else {
                 // If user is an admin, redirect to admin page
                 return $this->redirect(['controller' => 'flowers', 'action' => 'index']);
+            }
             }
         // display error if user submitted their credentials but authentication failed
         if ($this->request->is('post') && !$result->isValid()) {
@@ -231,6 +232,6 @@ class AuthController extends AppController
         }
 
         // Otherwise just send them to the login page
-        return $this->redirect(['controller' => 'Auth', 'action' => 'login']);
+        return $this->redirect(['controller' => 'pages', 'action' => 'index']);
     }
 }

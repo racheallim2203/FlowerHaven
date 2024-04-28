@@ -4,7 +4,9 @@
  * @var iterable<\App\Model\Entity\User> $users
  */
 ?>
+
 <div class="container-fluid">
+
     <div class="row tm-content-row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <br>
@@ -15,14 +17,14 @@
                     <table class="table table-bordered" style="background-color: #f8f9fa;">
                         <thead>
                         <tr class="table-pink">
-                            <th style="color: #9e297e;"><?= $this->Paginator->sort('id') ?></th>
-                            <th style="color: #9e297e;"><?= $this->Paginator->sort('username') ?></th>
-                            <th style="color: #9e297e;"><?= $this->Paginator->sort('email') ?></th>
-                            <th style="color: #9e297e;"><?= $this->Paginator->sort('address') ?></th>
-                            <th style="color: #9e297e;"><?= $this->Paginator->sort('phone_no') ?></th>
-                            <th style="color: #9e297e;"><?= $this->Paginator->sort('isAdmin') ?></th>
-                            <th style="color: #9e297e;"><?= $this->Paginator->sort('nonce') ?></th>
-                            <th style="color: #9e297e;"><?= $this->Paginator->sort('nonce_expiry') ?></th>
+                            <th style="color: #9e297e;">ID</th>
+                            <th style="color: #9e297e;">Username</th>
+                            <th style="color: #9e297e;">Email</th>
+                            <th style="color: #9e297e;">Address</th>
+                            <th style="color: #9e297e;">Phone Number</th>
+                            <th style="color: #9e297e;">isAdmin</th>
+                            <th style="color: #9e297e;">Nonce</th>
+                            <th style="color: #9e297e;">Nonce Expiry</th>
                             <th class="actions" style="color: #9e297e;"><?= __('Actions') ?></th>
                         </tr>
                         </thead>
@@ -34,18 +36,26 @@
                                 <td><?= h($user->email) ?></td>
                                 <td><?= h($user->address) ?></td>
                                 <td><?= h($user->phone_no) ?></td>
-                                <td><?= h($user->isAdmin) ?></td>
+                                <td><?= $this->Number->format($user->isAdmin) ?></td>
                                 <td><?= h($user->nonce) ?></td>
-                                <td><?= h($user->nonce_expiry) ?></td>
+                                <td><?= $user->hasValue('nonce_expiry') ?></td>
                                 <td class="actions">
-                                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class' => 'btn btn-primary btn-sm']) ?>
-                                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn btn-danger btn-sm']) ?>
+                                    <div class="d-block mb-2">
+                                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                    </div>
+                                    <div class="d-block mb-2">
+                                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class' => 'btn btn-primary btn-sm']) ?>
+                                    </div>
+                                    <div class="d-block">
+                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn btn-danger btn-sm']) ?>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
+
                 <div class="paginator">
                     <ul class="pagination justify-content-center">
                         <?= $this->Paginator->first('<< ' . __('First')) ?>
@@ -64,4 +74,5 @@
             </div>
         </div>
     </div>
+
 </div>
