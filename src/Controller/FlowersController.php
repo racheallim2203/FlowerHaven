@@ -308,7 +308,11 @@ class FlowersController extends AppController
             }
             $this->Flash->error(__('The flower could not be saved. Please, try again.'));
         }
-        $categories = $this->Flowers->Categories->find('list', limit: 200)->all();
+        $categories = $this->Flowers->Categories->find('list', [
+            'limit' => 200,
+            'keyField' => 'id',
+            'valueField' => 'category_name'
+        ]);
         $this->set(compact('flower', 'categories'));
     }
 
