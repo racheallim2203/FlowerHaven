@@ -33,8 +33,6 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item <?= ($activePage == 'Pages/index') ? 'active' : '' ?>">
-                        <?= $this->Html->link('Home <span class="sr-only">(current)</span>', ['controller' => 'Pages', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'Flowers/index') ? 'active' : '' ?>">
                         <?= $this->Html->link('Flowers <span class="sr-only">(current)</span>', ['controller' => 'Flowers', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
