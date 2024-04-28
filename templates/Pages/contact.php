@@ -65,17 +65,17 @@ $this->assign('title', 'Contact Us');
                     'required' => true,
                     'type' => 'textarea',
                     'style' => 'height: 160px',
-                    'placeholder' => 'Tell us about the project'
+                    'placeholder' => 'Enquiries'
                 ]) ?>
                 <br>
-                <?= $this->Form->button('Send', ['class' => 'btn btn-primary']) ?>
+                <?= $this->Form->button('Send', ['class' => 'btn btn-primary', 'style' => 'width:100%;']) ?>
                 <?= $this->Form->end() ?>
             </div>
 
             <div class="col-lg-6 col-12 mt-5 ms-auto">
                 <div class="row">
                     <div class="col-6 border-end contact-info">
-                        <h6 class="mb-3">New Business</h6>
+                        <h6 class="mb-3">Email Address</h6>
                         <?= $this->Html->link(
                             'hello@company.com',
                             'mailto:hello@company.com',
@@ -84,7 +84,7 @@ $this->assign('title', 'Contact Us');
                     </div>
 
                     <div class="col-6 contact-info">
-                        <h6 class="mb-3">Main Studio</h6>
+                        <h6 class="mb-3">Company Email</h6>
                         <?= $this->Html->link(
                             'studio@company.com',
                             'mailto:studio@company.com',
@@ -93,7 +93,7 @@ $this->assign('title', 'Contact Us');
                     </div>
 
                     <div class="col-6 border-top border-end contact-info">
-                        <h6 class="mb-3">Our Office</h6>
+                        <h6 class="mb-3">Shop Address</h6>
                         <p class="text-muted">Akershusstranda 20, 0150 Oslo, Norway</p>
                     </div>
 

@@ -1369,7 +1369,7 @@ url("../fonts/bootstrap-icons.woff?856008caa5eb66df68595e734e59580d") format("wo
 .bi-headset-vr::before { content: "\f645"; }
 .bi-info-lg::before { content: "\f646"; }
 .bi-mastodon::before { content: "\f647"; }
-.bi-messenger::before { content: "\f648"; }
+.bi-messenger::before { content: "\f648"; font-size: xx-large; }
 .bi-piggy-bank-fill::before { content: "\f649"; }
 .bi-piggy-bank::before { content: "\f64a"; }
 .bi-pin-map-fill::before { content: "\f64b"; }
