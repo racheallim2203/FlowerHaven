@@ -30,6 +30,8 @@ class OrderDelivery extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
+        '*' => true,
+        'id' => false,  // `id` should not be mass assignable
         'orderstatus_id' => true,
         'deliverystatus_id' => true,
         'order_date' => true,

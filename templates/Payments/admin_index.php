@@ -2,7 +2,10 @@
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Payment> $payments
+ * @var iterable<\App\Model\Entity\PaymentStatus> $paymentstatus
+ * @var iterable<\App\Model\Entity\PaymentMethod> $paymentmethods
  */
+
 ?>
 
 <div class="container-fluid">
@@ -29,11 +32,10 @@
                             <tr>
                                 <td><?= h($payment->id) ?></td>
                                 <td><?= $this->Html->link(h($payment->orderdelivery_id), ['controller' => 'OrderDeliveries', 'action' => 'view', $payment->orderdelivery_id]) ?></td>
-                                <td><?= $this->Html->link(h($payment->paymentstatus_id), ['controller' => 'PaymentStatuses', 'action' => 'view', $payment->paymentstatus_id]) ?></td>
-                                <td><?= $this->Html->link(h($payment->paymentmethod_id), ['controller' => 'PaymentMethods', 'action' => 'view', $payment->paymentmethod_id]) ?></td>
+                                <td><?= $payment->payment_status ? h($payment->payment_status->status_type) : __('No Payment Status') ?></td>
+                                <td><?= $payment->payment_method ? h($payment->payment_method->method_type) : __('No Payment Method') ?></td>
                                 <td><?= $this->Html->link(h($payment->user_id), ['controller' => 'Users', 'action' => 'view', $payment->user_id]) ?></td>
                                 <td class="actions">
-                                    <?= $this->Html->link(__('View'), ['action' => 'view', $payment->id], ['class' => 'btn btn-info btn-sm']) ?>
                                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $payment->id], ['class' => 'btn btn-primary btn-sm']) ?>
                                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $payment->id], ['confirm' => __('Are you sure you want to delete # {0}?', $payment->id), 'class' => 'btn btn-danger btn-sm']) ?>
                                 </td>

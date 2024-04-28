@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\Payment;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -41,10 +42,11 @@ class PaymentsTable extends Table
     public function initialize(array $config): void
     {
         parent::initialize($config);
-
+        $this->setEntityClass(Payment::class);
         $this->setTable('payments');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
 
         $this->belongsTo('OrderDeliveries', [
             'foreignKey' => 'orderdelivery_id',
@@ -94,6 +96,7 @@ class PaymentsTable extends Table
 
         return $validator;
     }
+
 
     /**
      * Returns a rules checker object that will be used for validating

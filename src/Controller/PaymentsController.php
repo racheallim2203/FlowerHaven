@@ -21,10 +21,7 @@ class PaymentsController extends AppController
     public function adminIndex()
     {
         $query = $this->Payments->find()
-            ->leftJoinWith('OrderDeliveries')
-            ->leftJoinWith('PaymentStatuses')
-            ->leftJoinWith('PaymentMethods')
-            ->leftJoinWith('Users');
+            ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']);
         $this->set('payments', $this->paginate($query));
     }
     public function index()
@@ -107,21 +104,23 @@ class PaymentsController extends AppController
      */
     public function edit($id = null)
     {
-        $payment = $this->Payments->get($id, contain: []);
+        $payment = $this->Payments->get($id, [
+            'contain' => ['OrderDeliveries', 'PaymentMethods', 'Users', 'PaymentStatuses'],
+        ]);
+        $paymentStatuses = $this->Payments->PaymentStatuses->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'status_type'
+        ])->toArray();
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $payment = $this->Payments->patchEntity($payment, $this->request->getData());
             if ($this->Payments->save($payment)) {
                 $this->Flash->success(__('The payment has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'admin-index']);
             }
             $this->Flash->error(__('The payment could not be saved. Please, try again.'));
         }
-        $orderDeliveries = $this->Payments->OrderDeliveries->find('list', limit: 200)->all();
-        $paymentStatuses = $this->Payments->PaymentStatuses->find('list', limit: 200)->all();
-        $paymentMethods = $this->Payments->PaymentMethods->find('list', limit: 200)->all();
-        $users = $this->Payments->Users->find('list', limit: 200)->all();
-        $this->set(compact('payment', 'orderDeliveries', 'paymentStatuses', 'paymentMethods', 'users'));
+        $this->set(compact('payment', 'paymentStatuses'));
     }
 
     /**
@@ -142,73 +141,6 @@ class PaymentsController extends AppController
         }
 
         return $this->redirect(['action' => 'adminIndex']);
-    }
-
-    public function processPayment()
-    {
-        $session = $this->request->getSession();
-        $cart = $session->read('Cart');
-        if (empty($cart)) {
-            $this->Flash->error(__('Your cart is empty.'));
-            return $this->redirect(['controller' => 'Flowers', 'action' => 'customerIndex']);
-        }
-
-        if (empty($errors)) {
-            $totalPrice = array_sum(array_map(function ($item) {
-                return $item['quantity'] * $item['price'];
-            }, $cart));
-
-            $orderDelivery = $this->Payments->OrderDeliveries->newEntity([
-                'user_id' => $session->read('Auth.User.id'),
-                'total_amount' => $totalPrice,
-                'status' => 'Completed',
-                'delivery_date' => date('Y-m-d', strtotime('+7 days'))  // Example delivery date
-            ]);
-
-            if ($this->Payments->OrderDeliveries->save($orderDelivery)) {
-                $session->delete('Cart'); // Clear cart after successful order
-                $orderId = $orderDelivery->id; // Get the ID of the newly created order delivery
-                // Pass orderId to the view
-                var_dump($orderDelivery);
-                $this->set(compact('orderId'));
-                $this->response->set_status(200); // Set success status code
-                $this->response->body(json_encode([
-                    'success' => true,
-                    'orderId' => $orderId,
-                ]));
-                return $this->response;
-
-            } else {
-                $this->Flash->error(__('Failed to process order.'));
-                return $this->redirect(['action' => 'index']);
-            }
-        } else {
-            $this->Flash->error(__('Validation error. Please check your input.'));
-            return $this->redirect(['action' => 'index']);
-        }
-    }
-
-
-    private function updateStock($cart)
-    {
-        $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
-        foreach ($cart as $item) {
-            $flower = $flowersTable->get($item['flower_id']);
-            $flower->stock_quantity -= $item['quantity'];
-            $flowersTable->save($flower);
-        }
-    }
-
-    private function simulatePaymentProcessing($amount)
-    {
-        // Simulate payment gateway processing
-        return true; // Simulate a successful payment
-    }
-
-    public function confirmation($orderId)
-    {
-        $order = $this->Payments->OrderDeliveries->get($orderId);
-        $this->set(compact('order'));
     }
 
 

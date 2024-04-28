@@ -7,13 +7,17 @@ use Cake\Datasource\ConnectionManager;
 use DateTime;
 use Exception;
 use Cake\ORM\TableRegistry;
+use Cake\Log\Log;
 
 /**
  * OrderDeliveries Controller
  *
  * @property \App\Model\Table\OrderDeliveriesTable $OrderDeliveries
+ *  @property \App\Model\Table\PaymentsTable $Payments
+ *  *  @property \App\Model\Table\UsersTable $Users
  * @property \App\Model\Table\FlowersTable $Flowers
- *
+ *  @property \App\Model\Table\PaymentMethodsTable $PaymentMethods
+ *  *  @property \App\Model\Entity\Payment $Payment
  */
 class OrderDeliveriesController extends AppController
 {
@@ -116,14 +120,11 @@ class OrderDeliveriesController extends AppController
         $session = $this->request->getSession();
         $cart = $session->read('Cart');
         if (empty($cart)) {
-            if (empty($cart)) {
-                return $this->responseJson(['success' => false, 'message' => 'Your cart is empty.']);
-//            } else {
-//                return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
-            }
+            return $this->responseJson(['success' => false, 'message' => 'Your cart is empty.']);
         }
 
         $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
+        $paymentsTable = TableRegistry::getTableLocator()->get('Payments');
         $connection = ConnectionManager::get('default');
         $connection->begin();
 
@@ -132,21 +133,50 @@ class OrderDeliveriesController extends AppController
                 return $item['quantity'] * $item['price'];
             }, $cart));
 
-            $orderDate = date('Y-m-d');
-            $deliveryDate = (new DateTime($orderDate))->modify('+5 days')->format('Y-m-d');
-
             $orderDelivery = $this->OrderDeliveries->newEntity([
                 'orderstatus_id' => 'ORS-00001',
                 'deliverystatus_id' => 'DEL-00001',
-                'order_date' => $orderDate,
+                'order_date' => date('Y-m-d'),
                 'total_amount' => $totalAmount,
-                'delivery_date' => $deliveryDate,
+                'delivery_date' => (new DateTime())->modify('+5 days')->format('Y-m-d'),
             ]);
 
-            if (!$this->OrderDeliveries->save($orderDelivery)) {
-                throw new Exception('Unable to save order delivery.');
+            if ($this->OrderDeliveries->save($orderDelivery)) {
+                // If the ID isn't being set automatically, fetch it explicitly
+                $freshOrderDelivery = $this->OrderDeliveries->find()
+                    ->select(['id'])
+                    ->where(['order_date' => $orderDelivery->order_date, 'total_amount' => $orderDelivery->total_amount])
+                    // You might want to use more specific conditions to ensure uniqueness
+                    ->first();
+                if ($freshOrderDelivery) {
+                    $orderDeliveryId = $freshOrderDelivery->id;
+                } else {
+                    throw new Exception('Failed to retrieve order delivery ID.');
+                }
             }
 
+//            // Retrieve user_id from the session
+//            $user_id = $this->request->getSession()->read('user_id');
+//            if (!$user_id) {
+//                return $this->responseJson(['success' => false, 'message' => 'User not logged in.']);
+//            }
+
+            $paymentData = [
+                'orderdelivery_id' => $orderDeliveryId,
+                'paymentstatus_id' => 'PAS-00001',
+                'paymentmethod_id' =>  $this->request->getData('payment_method_id'),
+                'user_id' => 'USE-00003',
+            ];
+
+            $payment = $paymentsTable->newEntity($paymentData);
+            if (!$paymentsTable->save($payment)) {
+                throw new Exception('Unable to save payment details.');
+            } else {
+                $paymentId = $payment->id;  // Make sure this is after a successful save
+            }
+
+
+            // Reduce stock count once successful payment made
             foreach ($cart as $item) {
                 $flower = $flowersTable->get($item['flower_id']);
                 if ($flower->stock_quantity < $item['quantity']) {
@@ -158,28 +188,31 @@ class OrderDeliveriesController extends AppController
                 }
             }
 
+            // Proceed with the rest of the transaction handling
             $connection->commit();
             $session->delete('Cart');
-            // Return JSON response with orderDeliveryId
             return $this->responseJson([
                 'success' => true,
                 'message' => 'Payment processed successfully',
-                'orderDeliveryId' => $orderDelivery->id
+                'orderDeliveryId' => $orderDeliveryId,
+                'paymentId' => $paymentId
             ]);
 
-        } catch (Exception $e) {
-            $connection->rollback();
-            return $this->responseJson(['success' => false, 'message' => 'Error processing your order: ' . $e->getMessage()]);
+        }catch (Exception $e) {
+                // Log the exception message to understand what went wrong
+                Log::debug('Error processing order: ' . $e->getMessage());
+                $connection->rollback();
+                return $this->responseJson(['success' => false, 'message' => 'Error processing your order: ' . $e->getMessage()]);
         }
     }
     private function responseJson($data) {
         $this->autoRender = false;
-        if ($this->request->is('ajax')) {
-            return $this->response->withType('application/json')
-                ->withStringBody(json_encode($data));
-        } else {
-            return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
-        }
+        // Always return a response object
+        return $this->response
+            ->withType('application/json')
+            ->withStringBody(json_encode($data));
     }
+
+
 
 }

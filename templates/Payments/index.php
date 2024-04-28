@@ -21,6 +21,7 @@ $this->request->getSession()->write('Cart', $cart);
 $cart = $this->request->getSession()->read('Cart');
 $this->layout = 'default2';
 $this->assign('title', 'Credit Card Payment Form');
+$user_id = $this->request->getSession()->read('Auth.User.id');
 echo $this->Html->css('payment');
 ?>
 <div class="container d-flex justify-content-center mt-5 mb-5">
@@ -88,7 +89,7 @@ echo $this->Html->css('payment');
                     </div>
                 </div>
             </div>
-            <?= $this->Form->button('Pay $' . h($totalPrice), ['class' => 'btn btn-primary btn-block']) ?>
+            <?= $this->Form->button('Pay $' . h($totalPrice), ['class' => 'btn btn-primary btn-block', 'type' => 'submit']) ?>
             <?= $this->Form->end() ?>
         </div>
         <div class="col-md-6">
@@ -124,24 +125,27 @@ echo $this->Html->css('payment');
 </div>
 <script>
     $(document).ready(function() {
+        console.log("Script loaded and ready."); // Check if script loads
         $('#paymentForm').on('submit', function(e) {
             e.preventDefault();
+            console.log("Submit intercepted."); // Check if submit is intercepted
             const formData = $(this).serialize();
+            console.log("Form Data: ", formData); // Display form data for debugging
             $.ajax({
                 url: '/orderdeliveries/processorder',
                 type: 'post',
                 data: formData,
-                dataType: 'json',  // Expecting JSON response
+                dataType: 'json',
                 success: function(data) {
-                    console.log('Response data:', data); // Log the response data for debugging
-                    if (data.success) {
-                        console.log('Order ID:', data.orderDeliveryId); // Log the orderDeliveryId for debugging
-                        alert('Payment successful! Your Order ID is: ' + data.orderDeliveryId + '. Thanks for shopping with us!');
-                        window.location.href = '/';
-                    } else {
-                        alert('Error: ' + data.message);
-                    }
+                    console.log('Response data:', data);
+                    alert('Payment successful! Your Order ID is: ' + data.orderDeliveryId + '. Thanks for shopping with us!');
+                    window.location.href = '/';
                 },
+                error: function(xhr, status, error) {
+                    console.error("Error returned from server: ", status, error);
+                    console.error("Server response: ", xhr.responseText);
+                    alert("Failed to process order: " + xhr.responseText);
+                }
             });
         });
     });

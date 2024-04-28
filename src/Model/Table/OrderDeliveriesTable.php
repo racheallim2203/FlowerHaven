@@ -26,6 +26,10 @@ class OrderDeliveriesTable extends Table
     {
         parent::initialize($config);
 
+        $this->setTable('order_deliveries');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
+
         $this->hasMany('OrderFlowers', [
             'foreignKey' => 'order_delivery_id',
         ]);
@@ -35,14 +39,14 @@ class OrderDeliveriesTable extends Table
             'through' => 'OrderFlowers',
         ]);
 
-        // Define the table used
-        $this->setTable('order_deliveries');
 
         // Define associations
         $this->belongsTo('OrderStatuses', [
             'foreignKey' => 'orderstatus_id',
             'joinType' => 'INNER'
         ]);
+
+
         $this->belongsTo('DeliveryStatuses', [
             'foreignKey' => 'deliverystatus_id',
             'joinType' => 'INNER'
