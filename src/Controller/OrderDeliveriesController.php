@@ -4,19 +4,20 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Datasource\ConnectionManager;
+use Cake\Log\Log;
+use Cake\Mailer\Mailer;
+use Cake\ORM\TableRegistry;
 use DateTime;
 use Exception;
-use Cake\ORM\TableRegistry;
-use Cake\Log\Log;
 
 /**
  * OrderDeliveries Controller
  *
  * @property \App\Model\Table\OrderDeliveriesTable $OrderDeliveries
- *  @property \App\Model\Table\PaymentsTable $Payments
+ * @property \App\Model\Table\PaymentsTable $Payments
  *  *  @property \App\Model\Table\UsersTable $Users
  * @property \App\Model\Table\FlowersTable $Flowers
- *  @property \App\Model\Table\PaymentMethodsTable $PaymentMethods
+ * @property \App\Model\Table\PaymentMethodsTable $PaymentMethods
  *  *  @property \App\Model\Entity\Payment $Payment
  */
 class OrderDeliveriesController extends AppController
@@ -42,7 +43,7 @@ class OrderDeliveriesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null)
     {
         $orderDelivery = $this->OrderDeliveries->get($id, contain: ['Orderstatuses', 'DeliveryStatuses']);
         $this->set(compact('orderDelivery'));
@@ -77,7 +78,7 @@ class OrderDeliveriesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit(?string $id = null)
     {
         $orderDelivery = $this->OrderDeliveries->get($id, [
             'contain' => [],
@@ -85,18 +86,19 @@ class OrderDeliveriesController extends AppController
 
         $orderstatuses = $this->OrderDeliveries->OrderStatuses->find('list', [
             'keyField' => 'id',
-            'valueField' => 'order_type'
+            'valueField' => 'order_type',
         ])->toArray();
 
         $deliveryStatuses = $this->OrderDeliveries->DeliveryStatuses->find('list', [
             'keyField' => 'id',
-            'valueField' => 'delivery_status'
+            'valueField' => 'delivery_status',
         ])->toArray();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $orderDelivery = $this->OrderDeliveries->patchEntity($orderDelivery, $this->request->getData());
             if ($this->OrderDeliveries->save($orderDelivery)) {
                 $this->Flash->success(__('The order delivery has been saved.'));
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The order delivery could not be saved. Please, try again.'));
@@ -111,7 +113,7 @@ class OrderDeliveriesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $orderDelivery = $this->OrderDeliveries->get($id);
@@ -152,39 +154,42 @@ class OrderDeliveriesController extends AppController
             ]);
 
             if ($this->OrderDeliveries->save($orderDelivery)) {
-                // If the ID isn't being set automatically, fetch it explicitly
-                $freshOrderDelivery = $this->OrderDeliveries->find()
+                // Fetch the last order with the highest custom ID
+                $lastOrderDelivery = $this->OrderDeliveries->find()
                     ->select(['id'])
-                    ->where(['order_date' => $orderDelivery->order_date, 'total_amount' => $orderDelivery->total_amount])
-                    // You might want to use more specific conditions to ensure uniqueness
+                    ->order(['id' => 'DESC'])  // Order by ID in descending order to get the latest one
                     ->first();
-                if ($freshOrderDelivery) {
-                    $orderDeliveryId = $freshOrderDelivery->id;
+
+                if ($lastOrderDelivery) {
+                    // Extract the ID from the entity
+                    $orderDeliveryId = $lastOrderDelivery->id;
+
+                    // Output or log the extracted ID
+                    $this->log('Retrieved orderDeliveryId: ' . $orderDeliveryId, 'debug');
                 } else {
-                    throw new Exception('Failed to retrieve order delivery ID.');
+                    // Log error or handle the case where no entity was found
+                    $this->log('No order delivery was found to extract ID.', 'debug');
+                    throw new Exception('No order delivery was found to extract ID.');
                 }
             }
 
-//            // Retrieve user_id from the session
-//            $user_id = $this->request->getSession()->read('user_id');
-//            if (!$user_id) {
-//                return $this->responseJson(['success' => false, 'message' => 'User not logged in.']);
-//            }
-
+            $this->log('Retrieved orderDeliveryId: ' . $orderDeliveryId, 'debug');
             $paymentData = [
                 'orderdelivery_id' => $orderDeliveryId,
                 'paymentstatus_id' => 'PAS-00001',
-                'paymentmethod_id' =>  $this->request->getData('payment_method_id'),
+                'paymentmethod_id' => $this->request->getData('payment_method_id'),
                 'user_id' => 'USE-00003',
             ];
 
+            // Create a new entity for Payments
             $payment = $paymentsTable->newEntity($paymentData);
+
+            // Attempt to save the entity to the database
             if (!$paymentsTable->save($payment)) {
                 throw new Exception('Unable to save payment details.');
             } else {
-                $paymentId = $payment->id;  // Make sure this is after a successful save
+                $paymentId = $payment->id;  // Successfully saved
             }
-
 
             // Reduce stock count once successful payment made
             foreach ($cart as $item) {
@@ -198,31 +203,60 @@ class OrderDeliveriesController extends AppController
                 }
             }
 
+            $mailer = new Mailer();
+            $mailer->setEmailFormat('html');
+            $mailer->setTo('racheallim0322@gmail.com', 'Customer Name');  // Dynamically set the customer's email and name
+            $mailer->setFrom(['flowerhaven@example.com' => 'Flower Haven Customer Service Team']);
+            $mailer->setSubject('Flower Haven: Order Confirmation');
+
+            $orderDetails = "<ul>";
+            foreach ($cart as $item) {
+                $orderDetails .= "<li><strong>Item:</strong> " . h($item['name']) . " - <strong>Quantity:</strong> " . h($item['quantity']) . "</li>";
+            }
+            $orderDetails .= "</ul>";
+
+            $mailer->deliver("
+            <h1>Order Confirmation</h1>
+            <h3>Thank you for your order!</h3>
+            <p>Your order has been processed successfully. Below are your order details:</p>
+            <ul>
+                <li><strong>Order ID:</strong> {$orderDeliveryId}</li>
+                <li><strong>Total Amount:</strong> \${$totalAmount}</li>
+                <li><strong>Expected Delivery Date:</strong> " . (new DateTime())->modify('+5 days')->format('Y-m-d') . "</li>
+            </ul>
+            <h3>Order Items:</h3>
+            {$orderDetails}
+            <p>If you have any questions, please reply to this email or contact our support team.</p>
+            <br><br>
+            <p>Kind regards,</p>
+            <p>Kind regards,</p>
+");
+
             // Proceed with the rest of the transaction handling
             $connection->commit();
             $session->delete('Cart');
+
             return $this->responseJson([
                 'success' => true,
                 'message' => 'Payment processed successfully',
                 'orderDeliveryId' => $orderDeliveryId,
-                'paymentId' => $paymentId
+                'paymentId' => $paymentId,
             ]);
-
-        }catch (Exception $e) {
+        } catch (Exception $e) {
                 // Log the exception message to understand what went wrong
                 Log::debug('Error processing order: ' . $e->getMessage());
                 $connection->rollback();
+
                 return $this->responseJson(['success' => false, 'message' => 'Error processing your order: ' . $e->getMessage()]);
         }
     }
-    private function responseJson($data) {
+
+    private function responseJson($data)
+    {
         $this->autoRender = false;
         // Always return a response object
         return $this->response
             ->withType('application/json')
             ->withStringBody(json_encode($data));
     }
-
-
-
 }

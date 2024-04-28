@@ -214,24 +214,34 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => MailTransport::class,
-            /*
-             * The keys host, port, timeout, username, password, client and tls
-             * are used in SMTP transports
-             */
-            'host' => 'localhost',
-            'port' => 25,
+            'className' => 'Smtp',
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'username' => 'racheallim0322@gmail.com',
+            'password' => 'fangchinglim2203',
+            'tls' => true,
             'timeout' => 30,
-            /*
-             * It is recommended to set these options through your environment or app_local.php
-             */
-            //'username' => null,
-            //'password' => null,
             'client' => null,
-            'tls' => false,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
     ],
+
+
+//        'EmailTransport' => [
+//            'default' => [
+//                'className' => 'Smtp',
+//                // The following keys are used for SMTP transports
+//                'host' => 'smtp.example.com',
+//                'port' => 587,
+//                'timeout' => 30,
+//                'username' => 'user@example.com',
+//                'password' => 'secret',
+//                'client' => null,
+//                'tls' => true,
+//                'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+//            ],
+//        ],
+
 
     /*
      * Email delivery profiles
@@ -245,12 +255,9 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'you@localhost',
-            /*
-             * Will by default be set to config value of App.encoding, if that exists otherwise to UTF-8.
-             */
-            //'charset' => 'utf-8',
-            //'headerCharset' => 'utf-8',
+            'from' => ['flowerhaven@example.com' => 'FlowerHaven'],
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
         ],
     ],
 
