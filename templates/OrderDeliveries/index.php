@@ -35,7 +35,6 @@
                                 <td><?= $this->Number->currency($orderDelivery->total_amount) ?></td>
                                 <td><?= h($orderDelivery->delivery_date->format('Y-m-d')) ?></td>
                                 <td class="actions">
-                                    <?= $this->Html->link(__('View'), ['action' => 'view', $orderDelivery->id], ['class' => 'btn btn-info btn-sm']) ?>
                                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $orderDelivery->id], ['class' => 'btn btn-primary btn-sm']) ?>
                                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $orderDelivery->id], ['confirm' => __('Are you sure you want to delete # {0}?', $orderDelivery->id), 'class' => 'btn btn-danger btn-sm']) ?>
                                 </td>

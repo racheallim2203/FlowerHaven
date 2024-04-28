@@ -79,18 +79,28 @@ class OrderDeliveriesController extends AppController
      */
     public function edit($id = null)
     {
-        $orderDelivery = $this->OrderDeliveries->get($id, contain: []);
+        $orderDelivery = $this->OrderDeliveries->get($id, [
+            'contain' => [],
+        ]);
+
+        $orderstatuses = $this->OrderDeliveries->OrderStatuses->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'order_type'
+        ])->toArray();
+
+        $deliveryStatuses = $this->OrderDeliveries->DeliveryStatuses->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'delivery_status'
+        ])->toArray();
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $orderDelivery = $this->OrderDeliveries->patchEntity($orderDelivery, $this->request->getData());
             if ($this->OrderDeliveries->save($orderDelivery)) {
                 $this->Flash->success(__('The order delivery has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The order delivery could not be saved. Please, try again.'));
         }
-        $orderstatuses = $this->OrderDeliveries->OrderStatuses->find('list', ['limit' => 200])->all();
-        $deliveryStatuses = $this->OrderDeliveries->DeliveryStatuses->find('list', limit: 200)->all();
         $this->set(compact('orderDelivery', 'orderstatuses', 'deliveryStatuses'));
     }
 

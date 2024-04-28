@@ -5,12 +5,6 @@
  */
 ?>
 <br>
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Flower $flower
- */
-?>
 <br>
 <div class="container-fluid">
     <div class="row">
@@ -94,12 +88,6 @@
                                         <td><?= $this->Html->link($orderFlower->flower_id, ['controller' => 'Flowers', 'action' => 'view', $orderFlower->flower_id]) ?></td>
                                         <td><?= h($orderFlower->quantity) ?></td>
                                         <td class="actions">
-                                            <div class="d-block mb-2">
-                                                <?= $this->Html->link(__('View'), ['controller' => 'OrderFlower', 'action' => 'view', $orderFlower->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                            </div>
-                                            <div class="d-block mb-2">
-                                                <?= $this->Html->link(__('Edit'), ['controller' => 'OrderFlower', 'action' => 'edit', $orderFlower->id], ['class' => 'btn btn-primary btn-sm']) ?>
-                                            </div>
                                             <div class="d-block">
                                                 <?= $this->Form->postLink(__('Delete'), ['controller' => 'OrderFlower', 'action' => 'delete', $orderFlower->id], ['confirm' => __('Are you sure you want to delete # {0}?', $orderFlower->id), 'class' => 'btn btn-danger btn-sm']) ?>
                                             </div>

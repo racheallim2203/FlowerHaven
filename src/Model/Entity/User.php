@@ -70,5 +70,29 @@ class User extends Entity
         return $password;
     }
 
+    public function validationDefault(Validator $validator): Validator
+    {
+        $validator
+            ->requirePresence('username', 'create')
+            ->notEmptyString('username')
+            ->add('username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->email('email')
+            ->requirePresence('email', 'create')
+            ->notEmptyString('email')
+            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->scalar('password')
+            ->maxLength('password', 255)
+            ->requirePresence('password', 'create')
+            ->notEmptyString('password');
+
+        // Add similar validation for other fields as necessary.
+
+        return $validator;
+    }
+
 
 }
