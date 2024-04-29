@@ -98,7 +98,17 @@ class FlowersTable extends Table
                     'message' => 'File should be less than 1MB.',
                 ],
             ])
-            ->allowEmptyFile('edit_image');
+            ->allowEmptyFile('change_image')
+            ->add('change_image', [
+                'mimeType' => [
+                    'rule' => ['mimeType', ['image/jpg', 'image/png', 'image/jpeg']],
+                    'message' => 'Please only upload jpg and png',
+                ],
+                'fileSize' => [
+                    'rule' => ['fileSize', '<=', '1MB'],
+                    'message' => 'File should be less than 1MB.',
+                ],
+            ]);
 
         return $validator;
     }
