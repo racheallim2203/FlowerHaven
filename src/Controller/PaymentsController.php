@@ -34,11 +34,7 @@ class PaymentsController extends AppController
         $payments = $this->paginate($query);
 
         $paymentMethodsTable = TableRegistry::getTableLocator()->get('PaymentMethods');
-        $paymentMethods = $paymentMethodsTable->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'method_type'
-        ])->toArray();
-
+        $paymentMethods = $paymentMethodsTable->find('list', keyField: 'id', valueField: 'method_type');
         // Retrieve the cart from session
         $session = $this->request->getSession();
         $cart = $session->read('Cart') ?? [];
