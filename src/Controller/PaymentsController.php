@@ -107,10 +107,8 @@ class PaymentsController extends AppController
         $payment = $this->Payments->get($id, [
             'contain' => ['OrderDeliveries', 'PaymentMethods', 'Users', 'PaymentStatuses'],
         ]);
-        $paymentStatuses = $this->Payments->PaymentStatuses->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'status_type'
-        ])->toArray();
+
+        $paymentStatuses = $this->Payments->PaymentStatuses->find('list', keyField: 'id', valueField: 'status_type');
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $payment = $this->Payments->patchEntity($payment, $this->request->getData());
