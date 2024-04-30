@@ -6,7 +6,6 @@
     <?= $this->Html->meta('description', '') ?>
     <?= $this->Html->meta('author', '') ?>
 
-    <!-- Ensure these are at the top of your <head> section -->
     <?= $this->Html->css('bootstrap.min') ?>
     <?= $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js') ?>
     <?= $this->Html->script('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js') ?>

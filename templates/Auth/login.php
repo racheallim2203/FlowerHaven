@@ -35,13 +35,17 @@ $this->assign('title', 'Login');
                     echo $this->Form->control('email', [
                         'type' => 'email',
                         'required' => true,
-                        'autofocus' => true,
-                        'value' => $debug ? "test@example.com" : "",
-                    ]);
+                        'label' => 'Email',
+                        'placeholder' => 'email@example.com',
+                        'class' => 'form-control',
+                        'autofocus' => true
+                    ]);;
                     echo $this->Form->control('password', [
                         'type' => 'password',
                         'required' => true,
-                        'value' => $debug ? 'password' : '',
+                        'label' => 'Password',
+                        'placeholder' => 'Password',
+                        'class' => 'form-control'
                     ]);
                     ?>
                 </fieldset>

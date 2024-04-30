@@ -13,7 +13,7 @@ html {
 body {
   margin: 0;
 }
-article,
+/* article,
 aside,
 details,
 figcaption,
@@ -27,7 +27,7 @@ nav,
 section,
 summary {
   display: block;
-}
+} */
 audio,
 canvas,
 progress,
@@ -3085,10 +3085,29 @@ fieldset[disabled] .btn-default.active {
   color: #fff;
   background-color: #333;
 }
-.btn-primary {
+.form-control {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.users form {
+  margin-top: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+.btn-primary, .btn-outline-primary  {
   color: #fff;
   background-color: #337ab7;
   border-color: #2e6da4;
+}
+.btn-outline-primary {
+  color: #007bff;
+  background-color: transparent;
 }
 .btn-primary:hover,
 .btn-primary:focus,
