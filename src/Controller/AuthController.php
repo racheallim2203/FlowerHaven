@@ -48,8 +48,16 @@ class AuthController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            
+            // Default sets the user as a customer, not an admin
+            $user->isAdmin = 0;
+
+            // Generate a nonce and set an expiry date (7 days from now)
+            $user->nonce = Security::randomString(32);  // Length can be adjusted as necessary
+            $user->nonce_expiry = new \DateTime('+7 days');  // This sets the expiry to 7 days from registration date
+
             if ($this->Users->save($user)) {
-                $this->Flash->success('You have been registered. Please log in. ');
+                $this->Flash->success('You have been registered. Please log in.');
 
                 return $this->redirect(['action' => 'login']);
             }

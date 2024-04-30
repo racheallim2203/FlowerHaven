@@ -27,8 +27,10 @@ $this->assign('title', 'Forget Password');
                     echo $this->Form->control('email', [
                         'type' => 'email',
                         'required' => true,
-                        'autofocus' => true,
-                        'label' => false,
+                        'label' => 'Email',
+                        'placeholder' => 'email@example.com',
+                        'class' => 'form-control',
+                        'autofocus' => true
                     ]);
                     ?>
 
