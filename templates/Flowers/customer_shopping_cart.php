@@ -9,9 +9,20 @@ use Cake\Http\Exception\NotFoundException;
 $this->layout = 'default2';
 $this->assign('title', 'Shopping Cart');
 ?>
-<br><br>
+
+<header class="site-header section-padding-img site-header-image">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12 header-info">
+                <h1>
+                    <span class="d-block text-dark bi-cart" > Your Cart</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+
 <div class="container">
-    <h1>Shopping Cart</h1>
     <?= $this->Flash->render() ?>
     <?php if (!empty($cart)): ?>
         <?= $this->Form->create(null, ['url' => ['action' => 'updateCart']]) ?>
