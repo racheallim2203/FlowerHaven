@@ -125,7 +125,7 @@ a {
 }
 
 a:hover {
-    color: var(--primary-color);
+    color: #e009c4;
 }
 
 .text-primary {
@@ -133,7 +133,7 @@ a:hover {
 }
 
 ::selection {
-    background: var(--primary-color);
+    background: #e009c4;
     color: var(--white-color);
 }
 
@@ -423,7 +423,7 @@ box-shadow: 0 2px 10px rgba(0,0,0,0.1); // Optional: adds shadow for better visi
 
 .navbar .nav-link.active,
 .navbar .nav-link:hover {
-    color: var(--primary-color);
+    color: #e009c4;
 }
 
 .nav-link:focus,
