@@ -10,7 +10,7 @@ $this->layout = 'default2';
 $this->assign('title', 'Shopping Cart');
 ?>
 
-<header class="site-header section-padding-img site-header-image">
+<header class="site-header section-padding-img site-header-image front-product">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-12 header-info">
