@@ -5,12 +5,25 @@
  */
 
 ?>
-<br>
+<header class="site-header section-padding-img site-header-image">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12 header-info">
+                <h1>
+                    <span class="d-block" style="color: #ff30c1">Our</span>
+                    <span class="d-block text-dark">Flowers</span>
+                    <p>A flower for every occasion</p>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <img src="<?= $this->Url->image('flowerindex.jpg') ?>" class="header-image img-fluid" alt="">
+</header>
 <div class="container">
     <div class="row">
 
         <div class="col-12 text-center">
-            <h2 class="mb-5">Our Flowers</h2>
+            <h2 class="mb-5">All Products</h2>
         </div>
 
 
@@ -51,3 +64,4 @@
 
     </div>
 </div>
+

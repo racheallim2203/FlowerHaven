@@ -8,7 +8,7 @@
             <?= $this->Html->image('F.png', [
                 'alt' => 'FlowerHaven',
                 'url'=> ['controller' => 'Pages', 'action' => 'index'],
-                'style' => 'height: 50px;',// Adjust the height as needed
+                'style' => 'height: 125px;',// Adjust the height as needed
             ]) ?>
 
 
