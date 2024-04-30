@@ -203,34 +203,34 @@ class OrderDeliveriesController extends AppController
                 }
             }
 
-            $mailer = new Mailer();
-            $mailer->setEmailFormat('html');
-            $mailer->setTo('racheallim0322@gmail.com', 'Customer Name');  // Dynamically set the customer's email and name
-            $mailer->setFrom(['flowerhaven@example.com' => 'Flower Haven Customer Service Team']);
-            $mailer->setSubject('Flower Haven: Order Confirmation');
-
-            $orderDetails = "<ul>";
-            foreach ($cart as $item) {
-                $orderDetails .= "<li><strong>Item:</strong> " . h($item['name']) . " - <strong>Quantity:</strong> " . h($item['quantity']) . "</li>";
-            }
-            $orderDetails .= "</ul>";
-
-            $mailer->deliver("
-            <h1>Order Confirmation</h1>
-            <h3>Thank you for your order!</h3>
-            <p>Your order has been processed successfully. Below are your order details:</p>
-            <ul>
-                <li><strong>Order ID:</strong> {$orderDeliveryId}</li>
-                <li><strong>Total Amount:</strong> \${$totalAmount}</li>
-                <li><strong>Expected Delivery Date:</strong> " . (new DateTime())->modify('+5 days')->format('Y-m-d') . "</li>
-            </ul>
-            <h3>Order Items:</h3>
-            {$orderDetails}
-            <p>If you have any questions, please reply to this email or contact our support team.</p>
-            <br><br>
-            <p>Kind regards,</p>
-            <p>Kind regards,</p>
-");
+//            $mailer = new Mailer();
+//            $mailer->setEmailFormat('html');
+//            $mailer->setTo('customer@review.flowerhaven.u24s1036.monash-ie.me', 'Customer Name');
+//            $mailer->setFrom(['flowerhaven@example.com' => 'Flower Haven Customer Service Team']);
+//            $mailer->setSubject('Flower Haven: Order Confirmation');
+//
+//            $orderDetails = '<ul>';
+//            foreach ($cart as $item) {
+//                $orderDetails .= '<li><strong>Item:</strong> ' . h($item['name']) . ' - <strong>Quantity:</strong> ' . h($item['quantity']) . '</li>';
+//            }
+//            $orderDetails .= '</ul>';
+//
+//            $htmlMessage = "
+//            <h1>Order Confirmation</h1>
+//            <h3>Thank you for your order!</h3>
+//            <p>Your order has been processed successfully. Below are your order details:</p>
+//            <ul>
+//                <li><strong>Order ID:</strong> {$orderDeliveryId}</li>
+//                <li><strong>Total Amount:</strong> \${$totalAmount}</li>
+//                <li><strong>Expected Delivery Date:</strong> " . (new DateTime())->modify('+5 days')->format('Y-m-d') . "</li>
+//            </ul>
+//            <h3>Order Items:</h3>
+//            {$orderDetails}
+//            <p>If you have any questions, please reply to this email or contact our support team.</p>
+//            <br><br>
+//            <p>Kind regards,</p>
+//            ";
+//            $mailer->deliver($htmlMessage);
 
             // Proceed with the rest of the transaction handling
             $connection->commit();

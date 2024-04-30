@@ -50,7 +50,7 @@ return [
         'namespace' => 'App',
         'encoding' => env('APP_ENCODING', 'UTF-8'),
         'defaultLocale' => env('APP_DEFAULT_LOCALE', 'en_US'),
-        'defaultTimezone' => env('APP_DEFAULT_TIMEZONE', 'UTC'),
+        'defaultTimezone' => env('APP_DEFAULT_TIMEZONE', 'Australia/Melbourne'),
         'base' => false,
         'dir' => 'src',
         'webroot' => 'webroot',
@@ -212,54 +212,45 @@ return [
      * appropriate file to src/Mailer/Transport. Transports should be named
      * 'YourTransport.php', where 'Your' is the name of the transport.
      */
+//    'EmailTransport' => [
+//        'default' => [
+//            'className' => 'Smtp',
+//            'host' => 'review.flowerhaven.u24s1036.monash-ie.me',
+//            'port' => 465,
+//            'username' => 'customer@review.flowerhaven.u24s1036.monash-ie.me',
+//            'password' => 'customerflowerhaven', // Replace with the actual password
+//            'tls' => false, // Use TLS encryption; set to 'ssl' if you are using SSL encryption
+//            'timeout' => 30,
+//            'client' => null,
+//            'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+//        ],
+//    ],
+//
+//    'Email' => [
+//        'default' => [
+//            'transport' => 'default',
+//            'from' => ['customer@review.flowerhaven.u24s1036.monash-ie.me' => 'Flower Haven'],
+//            // The 'from' array takes the email address as key and sender's name as value
+//            'charset' => 'utf-8',
+//            'headerCharset' => 'utf-8',
+//        ],
+//    ],
+
     'EmailTransport' => [
         'default' => [
-            'className' => 'Smtp',
-            'host' => 'smtp.gmail.com',
-            'port' => 587,
-            'username' => 'racheallim0322@gmail.com',
-            'password' => 'fangchinglim2203',
-            'tls' => true,
-            'timeout' => 30,
-            'client' => null,
-            'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            'className' => 'Mail',  // Using PHP's mail() function
         ],
     ],
 
-
-//        'EmailTransport' => [
-//            'default' => [
-//                'className' => 'Smtp',
-//                // The following keys are used for SMTP transports
-//                'host' => 'smtp.example.com',
-//                'port' => 587,
-//                'timeout' => 30,
-//                'username' => 'user@example.com',
-//                'password' => 'secret',
-//                'client' => null,
-//                'tls' => true,
-//                'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
-//            ],
-//        ],
-
-
-    /*
-     * Email delivery profiles
-     *
-     * Delivery profiles allow you to predefine various properties about email
-     * messages from your application and give the settings a name. This saves
-     * duplication across your application and makes maintenance and development
-     * easier. Each profile accepts a number of keys. See `Cake\Mailer\Email`
-     * for more information.
-     */
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => ['flowerhaven@example.com' => 'FlowerHaven'],
+            'from' => ['flowerhaven@example.com' => 'Flower Haven Customer Service Team'],
             'charset' => 'utf-8',
             'headerCharset' => 'utf-8',
         ],
     ],
+
 
     /*
      * Connection information used by the ORM to connect
