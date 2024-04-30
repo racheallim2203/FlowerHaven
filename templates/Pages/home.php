@@ -171,7 +171,7 @@ $this->assign('title', 'Home');
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="px-5 py-5 py-lg-0">
-                        <h1 class="mb-4"><span style="color: #e632d7">Flower</span>Haven Florist</h1>
+                        <h1 class="mb-4"><span style="color: #e632d7">Flower</span> Haven Florist</h1>
                         <p class=" mb-4">Meet Lily, the passionate soul behind Flower Haven, where her love for flowers blossoms into vibrant creations that captivate hearts and souls.</p>
                         <p> As the owner of Flower Haven, Lily is committed to sourcing the finest blooms from trusted growers, ensuring each stem is a testament to nature's bounty and beauty. From classic roses to exotic orchids, every flower that graces her shop is handpicked with love and care </p>
                         <a href="<?= $this->Url->build(['controller' => 'Flowers', 'action' =>'customerIndex']); ?>" class="custom-link mb-2">
