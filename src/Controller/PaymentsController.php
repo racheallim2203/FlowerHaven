@@ -34,11 +34,7 @@ class PaymentsController extends AppController
         $payments = $this->paginate($query);
 
         $paymentMethodsTable = TableRegistry::getTableLocator()->get('PaymentMethods');
-        $paymentMethods = $paymentMethodsTable->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'method_type'
-        ])->toArray();
-
+        $paymentMethods = $paymentMethodsTable->find('list', keyField: 'id', valueField: 'method_type');
         // Retrieve the cart from session
         $session = $this->request->getSession();
         $cart = $session->read('Cart') ?? [];
@@ -107,10 +103,8 @@ class PaymentsController extends AppController
         $payment = $this->Payments->get($id, [
             'contain' => ['OrderDeliveries', 'PaymentMethods', 'Users', 'PaymentStatuses'],
         ]);
-        $paymentStatuses = $this->Payments->PaymentStatuses->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'status_type'
-        ])->toArray();
+
+        $paymentStatuses = $this->Payments->PaymentStatuses->find('list', keyField: 'id', valueField: 'status_type');
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $payment = $this->Payments->patchEntity($payment, $this->request->getData());
