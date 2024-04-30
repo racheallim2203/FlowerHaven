@@ -755,15 +755,16 @@ section {
     width: 100%;
 }
 
+
 .about .nav-pills .nav-link {
-    color: white;
+    color: gray;
     font-size: 18px;
     font-weight: var(--font-weight-bold);
+    border-color: transparent;
     border-left: 2px solid #ffa1f7;
-    border-radius: 1px;
     padding-right: 5px;
     padding-bottom: 10px;
-    background-color: #ad18a1;
+    background: transparent;
 }
 
 .about .nav-pills .nav-link:hover,
