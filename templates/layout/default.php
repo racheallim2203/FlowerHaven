@@ -3,6 +3,7 @@
 $currentController = $this->getRequest()->getParam('controller');
 $currentAction = $this->getRequest()->getParam('action');
 $activePage = ucfirst($currentController) . '/' . $currentAction;
+$this->Flash->render();
 ?>
 
 <!DOCTYPE html>

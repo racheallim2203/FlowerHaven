@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Flower $flower
  */
+$this->Flash->render();
 ?>
 
 <section class="preloader">
