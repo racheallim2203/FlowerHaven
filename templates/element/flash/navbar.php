@@ -36,7 +36,7 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
             </ul>
 
             <div class="d-none d-lg-block">
-               <?= $this->Html->link(' Cart', ['controller' => 'flowers', 'action' => 'shopping-cart'], ['class' => "bi-cart custom-icon nav-link"])?>
+               <?= $this->Html->link(' Cart', ['controller' => 'flowers', 'action' => 'shopping-cart'], ['class' => "bi-cart custom-icon nav-link"  . ($activePage == 'Flowers/customerShoppingCart' ? ' active' : '')])?>
 
                 <?php if ($this->Identity->isLoggedIn()) : ?>
                         <?= $this->Html->link(' Logout', ['controller' => 'Auth', 'action' => 'logout'], ['class' => "bi-person custom-icon nav-link"]) ?>
