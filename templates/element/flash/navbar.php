@@ -14,7 +14,7 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
 
             <?= $this->Html->image('F.png', [
                 'alt' => 'FlowerHaven',
-                'url'=> ['controller' => 'Pages', 'action' => 'index'],
+                'url'=> ['controller' => 'Pages', 'action' => 'display'],
                 'style' => 'height: 50px;',// Adjust the height as needed
             ]) ?>
 
