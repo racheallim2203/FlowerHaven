@@ -186,9 +186,10 @@ class FlowersController extends AppController
             return $this->redirect(['controller' => 'Flowers', 'action' => 'customerShoppingCart']);
         } else {
             $this->Flash->error(__('Not enough stock available or invalid quantity.'));
+            return $this->redirect($this->referer());
 
         }
-        return $this->redirect($this->referer());
+
 
 
 }

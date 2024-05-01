@@ -64,7 +64,7 @@ $this->assign('title', 'Shopping Cart');
                     </td>
                     <td>
                         <?= $this->Form->create(null, ['url' => ['action' => 'removeFromCart', $index], 'class' => 'remove-form']) ?>
-                        <?= $this->Form->button(__('Remove'), ['class' => 'btn btn-danger', 'type' => 'submit']) ?>
+                        <?= $this->Form->button(__('Remove'), ['confirm' => 'Are you sure you want to remove this item from your cart?','class' => 'btn btn-danger', 'type' => 'submit']) ?>
                         <?= $this->Form->end() ?>
                     </td>
                 </tr>

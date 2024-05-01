@@ -3,7 +3,6 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Flower $flower
  */
-$this->Flash->render();
 ?>
 
 <section class="preloader">
@@ -27,15 +26,18 @@ $this->Flash->render();
     </header>
 
     <section class="product-detail section-padding">
+        <!-- Display Flash Messages Here -->
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-12">
                     <div class="product-thumb">
                         <?= $this->Html->image($flower->image, ['class' => 'img-fluid product-image', 'alt' => $flower->flower_name]); ?>
                     </div>
+
                 </div>
 
                 <div class="col-lg-6 col-12">
+                    <?= $this->Flash->render() ?>
                     <div class="product-info d-flex">
                         <div>
                             <h2 class="product-title mb-0"><?= h($flower->flower_name); ?></h2>
