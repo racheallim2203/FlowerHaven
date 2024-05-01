@@ -75,7 +75,7 @@ return function (RouteBuilder $routes): void {
          */
 
 
-        $builder->connect('/*', ['controller' => 'Pages', 'action' => 'display']);
+        $builder->connect('/', ['controller' => 'Pages', 'action' => 'display']);
 
         /*
          * Connect catchall routes for all controllers.
