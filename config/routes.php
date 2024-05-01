@@ -62,8 +62,7 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/about', ['controller' => 'Pages', 'action' => 'aboutus']);
         $builder->connect('/admin', ['controller' => 'Flowers', 'action' => 'index']);
         $builder->connect('/our-flowers', ['controller' => 'Flowers', 'action' => 'customerIndex']);
-        $builder->connect('/faq', ['controller' => 'Flowers', 'action' => 'customerIndex']);
-        $builder->connect('/contact', ['controller' => 'Flowers', 'action' => 'customerIndex']);
+        $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'contact']);
         $builder->connect('/flowers/add-to-cart', ['controller' => 'Flowers', 'action' => 'addToCart']);
         $builder->connect('/flowers/shopping-cart', ['controller' => 'Flowers', 'action' => 'customerShoppingCart']);
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
@@ -74,7 +73,7 @@ return function (RouteBuilder $routes): void {
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
          */
-        $builder->connect('/pages/*', 'Pages::display');
+
 
         $builder->connect('/', ['controller' => 'Users', 'action' => 'index', 'home']);
         /*
