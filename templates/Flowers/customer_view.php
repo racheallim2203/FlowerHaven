@@ -70,5 +70,10 @@
             </div>
         </div>
     </section>
+    <div class="col-12 text-center">
+        <?= $this->Html->link('View All Products', ['controller' => 'Flowers', 'action' => 'customerIndex'], ['class' => "view-all"])?>
+    </div>
+
+
 
 </main>
