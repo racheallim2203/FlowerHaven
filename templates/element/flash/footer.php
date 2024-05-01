@@ -13,7 +13,7 @@
             <div class="col-lg-5 col-8">
                 <h5 class="text-white mb-3">Sitemap</h5>
                 <ul class="footer-menu d-flex flex-wrap">
-                    <li class="footer-menu-item"><?= $this->Html->link('Home', ['class' => 'footer-menu-link', 'controller' => 'Pages', 'action' => 'home'])?></li>
+                    <li class="footer-menu-item"><?= $this->Html->link('Home', ['class' => 'footer-menu-link', 'controller' => 'Pages', 'action' => 'display'])?></li>
                     <li class="footer-menu-item"><?= $this->Html->link('About', ['class' => 'footer-menu-link', 'controller' => 'Pages', 'action' => 'aboutus'])?></li>
                     <li class="footer-menu-item"><?= $this->Html->link('Our Flowers', ['class' => 'footer-menu-link', 'controller' => 'Flowers', 'action' => 'customerIndex'])?></li>
                     <li class="footer-menu-item"><?= $this->Html->link('Contact', ['class' => 'footer-menu-link', 'controller' => 'Pages', 'action' => 'contact'])?></li>
