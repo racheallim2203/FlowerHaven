@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-10 me-auto mb-4">
-                <a class="navbar-brand" href="/team036-app_fit3047/" ?>
+                <a class="navbar-brand" ?>
                     <?= $this->Html->image('F.png', [
                         'alt' => 'FlowerHaven',
                         'style' => 'height: 120px;'
