@@ -22,7 +22,8 @@ $this->assign('title', 'Register new user');
                                 'type' => 'email',
                                 'label' => 'Email',
                                 'placeholder' => 'email@example.com',
-                                'class' => 'form-control'
+                                'class' => 'form-control',
+                                'autofocus' => true
                             ]); ?>
                         </div>
                         <div class="column">
