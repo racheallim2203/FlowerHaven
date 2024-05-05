@@ -13,7 +13,7 @@ $this->assign('title', 'Register new user');
         <div class="row">
             <div class="col-lg-6 col-12 header-info">
                 <h1>
-                    <span class="d-block text-dark bi-log-in">Sign Up</span>
+                    <span class="d-block text-dark bi-log-in">Register</span>
                 </h1>
             </div>
         </div>

@@ -16,7 +16,7 @@
          <div class="row">
              <div class="col-lg-6 col-12 header-info">
                  <h1>
-                     <span class="d-block text-dark bi-log-in" > Forgot Password</span>
+                     <span class="d-block text-dark bi-log-in" > Forget Password</span>
                  </h1>
              </div>
          </div>
