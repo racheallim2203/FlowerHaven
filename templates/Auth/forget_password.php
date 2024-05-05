@@ -52,7 +52,7 @@
                 <hr class="hr-between-buttons">
 
                 <?= $this->Html->link('Back to login', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'btn btn-outline-primary']) ?>
-
+                <?= $this->Html->link('Go to Homepage', '/', ['class' => 'btn btn-outline-primary']) ?>
             </fieldset>
 
 

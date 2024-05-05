@@ -77,9 +77,11 @@ $this->assign('title', 'Register new user');
 ?>
                             <?= $this->Form->button('Register', ['class' => 'btn btn-success']) ?>
 
-                            <?= $this->Html->link('Back to login', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'btn btn-outline-primary']) ?>
                             <?= $this->Form->end() ?>
 
+                            <hr class="hr-between-buttons">
+                            <?= $this->Html->link('Back to login', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'btn btn-outline-primary']) ?>
+                            <?= $this->Html->link('Go to Homepage', '/', ['class' => 'btn btn-outline-primary']) ?>
                 </fieldset>
 
             </div>
