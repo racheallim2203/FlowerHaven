@@ -23,6 +23,7 @@ $this->assign('title', 'Shopping Cart');
 </header>
 
 <div class="container">
+    <div class="column column-50 column-offset-25">
     <?= $this->Flash->render() ?>
     <?php if (!empty($cart)): ?>
         <?= $this->Form->create(null, ['url' => ['action' => 'updateCart']]) ?>
@@ -80,7 +81,9 @@ $this->assign('title', 'Shopping Cart');
             <div class="alert alert-warning">Please adjust your cart to proceed to checkout.</div>
         <?php endif; ?>
     <?php else: ?>
+        <br>
         <p>Your cart is empty.</p>
+        <br><br><br><br><br><br><br><br>
     <?php endif; ?>
     <br><br>
 </div>
