@@ -138,5 +138,20 @@ class PaymentsController extends AppController
         return $this->redirect(['action' => 'adminIndex']);
     }
 
+    public function history()
+    {
+        $result = $this->Authentication->getResult();
+        if ($result->isValid()) {
+            $userId = $result->getData()->id;
+            $query = $this->Payments->find()
+                ->where(['Payments.user_id' => $userId])
+                ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']);
+
+            $this->set('payments', $this->paginate($query));  // Set 'orders' instead of 'history'
+        } else {
+            $this->Flash->error(__('You must be logged in to view this page.'));
+            return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+        }
+    }
 
 }
