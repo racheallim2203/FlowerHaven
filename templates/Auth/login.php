@@ -24,49 +24,49 @@ $this->assign('title', 'Login');
 </header>
 
 <div class="container">
-        <div class="column column-50 column-offset-25">
-            <div class="users form content">
+    <div class="column column-50 column-offset-25">
+        <div class="users form content">
 
-                <?= $this->Form->create() ?>
+            <?= $this->Form->create() ?>
 
-                <fieldset>
+            <fieldset>
 
-                    <?= $this->Flash->render() ?>
+            <?= $this->Flash->render() ?>
 
-                    <?php
-                    /*
-                     * NOTE: regarding 'value' config in the login page form controls
-                     * In this demo the email and password fields will be filled by demo account
-                     * credentials when debug mode is on. You should NOT do that in your production
-                     * systems. Also it's a good practice to clear (set password value to empty)
-                     * in the view so when an error occurred with form validation, the password
-                     * values are always cleared.
-                     */
-                    echo $this->Form->control('email', [
-                        'type' => 'email',
-                        'required' => true,
-                        'label' => 'Email',
-                        'placeholder' => 'email@example.com',
-                        'class' => 'form-control-login',
-                        'autofocus' => true
-                    ]);;
-                    echo $this->Form->control('password', [
-                        'type' => 'password',
-                        'required' => true,
-                        'label' => 'Password',
-                        'placeholder' => 'Password',
-                        'class' => 'form-control-login'
-                    ]);
-                    ?>
-                    <?= $this->Form->button('Login', ['class' => 'btn btn-primary']) ?>
-                    <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword'], ['class' => 'button button-outline']) ?>
-                            
-                    <hr class="hr-between-buttons">
+                <?php
+                /*
+                 * NOTE: regarding 'value' config in the login page form controls
+                 * In this demo the email and password fields will be filled by demo account
+                 * credentials when debug mode is on. You should NOT do that in your production
+                 * systems. Also it's a good practice to clear (set password value to empty)
+                 * in the view so when an error occurred with form validation, the password
+                 * values are always cleared.
+                 */
+                echo $this->Form->control('email', [
+                    'type' => 'email',
+                    'required' => true,
+                    'label' => 'Email',
+                    'placeholder' => 'email@example.com',
+                    'class' => 'form-control-login',
+                    'autofocus' => true
+                ]);
+                echo $this->Form->control('password', [
+                    'type' => 'password',
+                    'required' => true,
+                    'label' => 'Password',
+                    'placeholder' => 'Password',
+                    'class' => 'form-control-login'
+                ]);
+                ?>
+                <?= $this->Form->button('Login', ['class' => 'btn btn-primary']) ?>
+                <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword'], ['class' => 'button button-outline']) ?>
+                        
+                <hr class="hr-between-buttons">
 
-                    <?= $this->Html->link('Register new user |', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'button button-clear']) ?>
-                    <?= $this->Html->link('Go to Homepage', '/', ['class' => 'button button-clear']) ?>
-                    <?= $this->Form->end() ?>    
-                </fieldset>
-            </div>
+                <?= $this->Html->link('Register new user |', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'button button-clear']) ?>
+                <?= $this->Html->link('Go to Homepage', '/', ['class' => 'button button-clear']) ?>
+                <?= $this->Form->end() ?>    
+            </fieldset>
+        </div>
     </div>
 </div>
