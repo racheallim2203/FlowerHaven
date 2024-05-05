@@ -47,7 +47,7 @@ $this->assign('title', 'Login');
                         'required' => true,
                         'label' => 'Email',
                         'placeholder' => 'email@example.com',
-                        'class' => 'form-control',
+                        'class' => 'form-control-login',
                         'autofocus' => true
                     ]);;
                     echo $this->Form->control('password', [
@@ -55,7 +55,7 @@ $this->assign('title', 'Login');
                         'required' => true,
                         'label' => 'Password',
                         'placeholder' => 'Password',
-                        'class' => 'form-control'
+                        'class' => 'form-control-login'
                     ]);
                     ?>
                     <?= $this->Form->button('Login', ['class' => 'btn btn-primary']) ?>
