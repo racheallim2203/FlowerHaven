@@ -48,7 +48,7 @@ class AuthController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            
+
             // Default sets the user as a customer, not an admin
             $user->isAdmin = 0;
 
@@ -212,7 +212,7 @@ class AuthController extends AppController
             // Check if the user is an admin (isAdmin = 0)
             if ($user->isAdmin == 0) {
                 // If user is not an admin, redirect to non-admin page
-                return $this->redirect(['controller' => 'pages', 'action' => 'index']);
+                return $this->redirect(['controller' => 'pages', 'action' => 'display']);
             } else {
                 // If user is an admin, redirect to admin page
                 return $this->redirect(['controller' => 'flowers', 'action' => 'index']);
