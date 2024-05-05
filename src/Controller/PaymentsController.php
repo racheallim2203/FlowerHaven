@@ -24,6 +24,7 @@ class PaymentsController extends AppController
             ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']);
         $this->set('payments', $this->paginate($query));
     }
+
     public function index()
     {
         $query = $this->Payments->find()

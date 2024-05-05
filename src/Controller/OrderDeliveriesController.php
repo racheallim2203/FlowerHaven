@@ -137,6 +137,7 @@ class OrderDeliveriesController extends AppController
 
         $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
         $paymentsTable = TableRegistry::getTableLocator()->get('Payments');
+        $orderFlowersTable = TableRegistry::getTableLocator()->get('OrderFlowers');
         $connection = ConnectionManager::get('default');
         $connection->begin();
 
@@ -172,14 +173,16 @@ class OrderDeliveriesController extends AppController
                     throw new Exception('No order delivery was found to extract ID.');
                 }
             }
-
+            $result = $this->Authentication->getResult();
+            $userId = $result->getData()->id;
             $this->log('Retrieved orderDeliveryId: ' . $orderDeliveryId, 'debug');
             $paymentData = [
                 'orderdelivery_id' => $orderDeliveryId,
                 'paymentstatus_id' => 'PAS-00001',
                 'paymentmethod_id' => $this->request->getData('payment_method_id'),
-                'user_id' => 'USE-00003',
+                'user_id' => $userId,
             ];
+
 
             // Create a new entity for Payments
             $payment = $paymentsTable->newEntity($paymentData);
@@ -189,6 +192,25 @@ class OrderDeliveriesController extends AppController
                 throw new Exception('Unable to save payment details.');
             } else {
                 $paymentId = $payment->id;  // Successfully saved
+            }
+
+            foreach ($cart as $item) {
+                try {
+                    $flower = $flowersTable->get($item['flower_id']);
+                    $orderflowerData = [
+                        'flower_id' => $flower->id,
+                        'orderdelivery_id' => $orderDeliveryId,
+                        'quantity' => $item['quantity']
+                    ];
+
+                    $orderFlower = $orderFlowersTable->newEntity($orderflowerData);
+                    if (!$orderFlowersTable->save($orderFlower)) {
+                        throw new Exception('Failed to save order detail for flower.');
+                    }
+                } catch (RecordNotFoundException $e) {
+                    Log::error('Flower not found with ID: ' . $item['flower_id']);
+                    continue; // Skip this item or handle accordingly
+                }
             }
 
             // Reduce stock count once successful payment made
@@ -201,36 +223,11 @@ class OrderDeliveriesController extends AppController
                 if (!$flowersTable->save($flower)) {
                     throw new Exception('Unable to update stock for flower ID: ' . $item['flower_id']);
                 }
+
             }
 
-//            $mailer = new Mailer();
-//            $mailer->setEmailFormat('html');
-//            $mailer->setTo('customer@review.flowerhaven.u24s1036.monash-ie.me', 'Customer Name');
-//            $mailer->setFrom(['flowerhaven@example.com' => 'Flower Haven Customer Service Team']);
-//            $mailer->setSubject('Flower Haven: Order Confirmation');
-//
-//            $orderDetails = '<ul>';
-//            foreach ($cart as $item) {
-//                $orderDetails .= '<li><strong>Item:</strong> ' . h($item['name']) . ' - <strong>Quantity:</strong> ' . h($item['quantity']) . '</li>';
-//            }
-//            $orderDetails .= '</ul>';
-//
-//            $htmlMessage = "
-//            <h1>Order Confirmation</h1>
-//            <h3>Thank you for your order!</h3>
-//            <p>Your order has been processed successfully. Below are your order details:</p>
-//            <ul>
-//                <li><strong>Order ID:</strong> {$orderDeliveryId}</li>
-//                <li><strong>Total Amount:</strong> \${$totalAmount}</li>
-//                <li><strong>Expected Delivery Date:</strong> " . (new DateTime())->modify('+5 days')->format('Y-m-d') . "</li>
-//            </ul>
-//            <h3>Order Items:</h3>
-//            {$orderDetails}
-//            <p>If you have any questions, please reply to this email or contact our support team.</p>
-//            <br><br>
-//            <p>Kind regards,</p>
-//            ";
-//            $mailer->deliver($htmlMessage);
+//            // Attempt to send confirmation email
+//            $this->sendConfirmationEmail($cart);
 
             // Proceed with the rest of the transaction handling
             $connection->commit();
@@ -243,11 +240,11 @@ class OrderDeliveriesController extends AppController
                 'paymentId' => $paymentId,
             ]);
         } catch (Exception $e) {
-                // Log the exception message to understand what went wrong
-                Log::debug('Error processing order: ' . $e->getMessage());
-                $connection->rollback();
+            // Log the exception message to understand what went wrong
+            Log::debug('Error processing order: ' . $e->getMessage());
+            $connection->rollback();
 
-                return $this->responseJson(['success' => false, 'message' => 'Error processing your order: ' . $e->getMessage()]);
+            return $this->responseJson(['success' => false, 'message' => 'Error processing your order: ' . $e->getMessage()]);
         }
     }
 
