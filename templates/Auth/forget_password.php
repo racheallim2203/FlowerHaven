@@ -13,13 +13,11 @@
  
  <header class="site-header section-padding-img site-header-image front-product">
      <div class="container">
-         <div class="row">
-             <div class="col-lg-6 col-12 header-info">
-                 <h1>
-                     <span class="d-block text-dark bi-log-in" > Forget Password</span>
-                 </h1>
-             </div>
-         </div>
+        <div class="col-lg-7 col-12 header-info">
+            <h1>
+                <span class="d-block text-dark bi-key"> Forget Password</span> 
+            </h1>
+        </div>
      </div>
  </header>
  
