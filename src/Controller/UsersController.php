@@ -90,6 +90,13 @@ class UsersController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
+
+        // Prevent deleting if the user is an admin or if the user is the currently logged-in user
+        if ($user->isAdmin || $user->id == $this->Auth->user('id')) {
+            $this->Flash->error(__('You cannot delete this user.'));
+            return $this->redirect(['action' => 'index']);
+        }
+
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('The user has been deleted.'));
         } else {
