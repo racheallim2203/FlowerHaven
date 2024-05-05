@@ -39,10 +39,16 @@
                             <input type="password" class="form-control" value="<?= h($user->password) ?>" readonly>
                         </div>   
                         <?= $this->Form->control('address', ['type' => 'text', 'class' => 'form-control form-control-lg']); ?>
-                        <?= $this->Form->control('phone_no', ['type' => 'email', 'class' => 'form-control form-control-lg']); ?>
+                        <?= $this->Form->control('phone_no', ['type' => 'text', 'class' => 'form-control form-control-lg']); ?>
                         <div class="form-group">
                             <label><?= __('Is Admin') ?></label>
-                            <input type="text" class="form-control" value="<?= $user->isAdmin ? __('Yes') : __('No'); ?>" readonly>
+                            <?= $this->Form->control('isAdmin', [
+                                'type' => 'select',
+                                'options' => [0 => __('No'), 1 => __('Yes')],
+                                'empty' => false,
+                                'class' => 'form-control',
+                                'label' => false
+                            ]); ?>
                         </div>
                         <?= $this->Form->control('nonce', ['type' => 'hidden']); ?>
                         <?= $this->Form->control('nonce_expiry', ['type' => 'hidden']); ?>

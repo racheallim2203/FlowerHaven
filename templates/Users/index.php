@@ -47,7 +47,13 @@
                                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class' => 'btn btn-primary btn-sm']) ?>
                                     </div>
                                     <div class="d-block">
-                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn btn-danger btn-sm']) ?>
+                                        <?php if (!$user->isAdmin && $user->id != $this->request->getSession()->read('Auth.User.id')): ?>
+                                            <?= $this->Form->postLink(
+                                                __('Delete'),
+                                                ['action' => 'delete', $user->id],
+                                                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn btn-danger btn-sm']
+                                            ) ?>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             </tr>
