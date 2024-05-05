@@ -31,7 +31,7 @@ $this->assign('title', 'Login');
 
             <fieldset>
 
-            <?= $this->Flash->render() ?>
+                <?= $this->Flash->render() ?>
 
                 <?php
                 /*
@@ -58,13 +58,13 @@ $this->assign('title', 'Login');
                     'class' => 'form-control-login'
                 ]);
                 ?>
-                <?= $this->Form->button('Login', ['class' => 'btn btn-primary']) ?>
+                <?= $this->Form->button('Login', ['class' => 'btn btn-success']) ?>
                 <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword'], ['class' => 'button button-outline']) ?>
                         
                 <hr class="hr-between-buttons">
 
-                <?= $this->Html->link('Register new user |', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'button button-clear']) ?>
-                <?= $this->Html->link('Go to Homepage', '/', ['class' => 'button button-clear']) ?>
+                <?= $this->Html->link('Register new user', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'btn btn-outline-primary']) ?>
+                <?= $this->Html->link('Go to Homepage', '/', ['class' => 'btn btn-outline-primary']) ?>
                 <?= $this->Form->end() ?>    
             </fieldset>
         </div>

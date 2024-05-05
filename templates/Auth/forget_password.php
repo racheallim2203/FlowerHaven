@@ -46,12 +46,12 @@
                 ]);
                 ?>
 
-                <?= $this->Form->button('Send verification email', ['class' => 'btn btn-primary']) ?>
+                <?= $this->Form->button('Send verification email', ['class' => 'btn btn-success']) ?>
                 <?= $this->Form->end() ?>
 
                 <hr class="hr-between-buttons">
 
-                <?= $this->Html->link('Back to login', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'button button-outline']) ?>
+                <?= $this->Html->link('Back to login', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'btn btn-outline-primary']) ?>
 
             </fieldset>
 
