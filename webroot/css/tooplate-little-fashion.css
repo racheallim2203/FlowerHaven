@@ -53,6 +53,9 @@ body {
     font-family: var(--body-font-family);
     position: relative;
     /* padding-top: 90px; */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Minimum height is full viewport height */
 }
 
 /*---------------------------------------
@@ -1017,6 +1020,7 @@ button:focus:not(:focus-visible) {
     background: var(--dark-color);
     padding-top: 5rem;
     padding-bottom: 5rem;
+    width: 100%; /* Ensures footer stretches across the width of the page */
 }
 
 .footer-menu {

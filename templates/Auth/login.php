@@ -7,19 +7,29 @@ use Cake\Core\Configure;
 
 $debug = Configure::read('debug');
 
-$this->layout = 'login';
+$this->layout = 'default2';
 $this->assign('title', 'Login');
 ?>
-<div class="container login">
-    <div class="row">
+
+<header class="site-header section-padding-img site-header-image front-product">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12 header-info">
+                <h1>
+                    <span class="d-block text-dark bi-log-in" > Sign In</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
         <div class="column column-50 column-offset-25">
             <div class="users form content">
 
                 <?= $this->Form->create() ?>
 
                 <fieldset>
-
-                    <legend>Login</legend>
 
                     <?= $this->Flash->render() ?>
 
@@ -48,17 +58,15 @@ $this->assign('title', 'Login');
                         'class' => 'form-control'
                     ]);
                     ?>
+                    <?= $this->Form->button('Login', ['class' => 'btn btn-primary']) ?>
+                    <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword'], ['class' => 'button button-outline']) ?>
+                            
+                    <hr class="hr-between-buttons">
+
+                    <?= $this->Html->link('Register new user |', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'button button-clear']) ?>
+                    <?= $this->Html->link('Go to Homepage', '/', ['class' => 'button button-clear']) ?>
+                    <?= $this->Form->end() ?>    
                 </fieldset>
-
-                <?= $this->Form->button('Login') ?>
-                <?= $this->Html->link('Forgot password?', ['controller' => 'Auth', 'action' => 'forgetPassword'], ['class' => 'button button-outline']) ?>
-                <?= $this->Form->end() ?>
-
-                <hr class="hr-between-buttons">
-
-                <?= $this->Html->link('Register new user', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'button button-clear']) ?>
-                <?= $this->Html->link('Go to Homepage', '/', ['class' => 'button button-clear']) ?>
             </div>
-        </div>
     </div>
 </div>

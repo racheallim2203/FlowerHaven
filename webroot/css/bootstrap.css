@@ -13,7 +13,7 @@ html {
 body {
   margin: 0;
 }
-/* article,
+article,
 aside,
 details,
 figcaption,
@@ -27,7 +27,7 @@ nav,
 section,
 summary {
   display: block;
-} */
+}
 audio,
 canvas,
 progress,
@@ -2505,6 +2505,7 @@ label {
   max-width: 100%;
   margin-bottom: 5px;
   font-weight: bold;
+  margin-top:5px;
 }
 input[type="search"] {
   -webkit-box-sizing: border-box;
@@ -3086,10 +3087,10 @@ fieldset[disabled] .btn-default.active {
   background-color: #333;
 }
 .form-control {
-  width: 100%;
-  padding: 8px;
-  margin: 6px 0;
-  display: inline-block;
+  width: 30%;
+  padding: 1rem;
+  margin: 0;
+  display: flow;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
@@ -3097,7 +3098,7 @@ fieldset[disabled] .btn-default.active {
 .users form {
   margin-top: 20px;
   background: white;
-  padding: 20px;
+  padding: 20rem;
   border-radius: 8px;
 }
 .btn-primary, .btn-outline-primary  {

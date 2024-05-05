@@ -11,6 +11,7 @@ use Cake\Core\Configure;
 
 $appLocale = Configure::read('App.defaultLocale');
 ?>
+
 <!DOCTYPE html>
 <html lang="<?= $appLocale ?>">
 <head>
@@ -42,7 +43,7 @@ $appLocale = Configure::read('App.defaultLocale');
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
-    <style>
+    <!-- <style>
         header {
             padding-top: 10px;
             text-align: center
@@ -51,31 +52,21 @@ $appLocale = Configure::read('App.defaultLocale');
             padding-top: 10px;
             padding-bottom: 20px;
         }
-    </style>
+    </style> -->
 </head>
 
-<body>
-<header>
-    <?= $this->Html->image('F.png', [
-        'alt' => 'FlowerHaven',
-        'url'=> ['controller' => 'Pages', 'action' => 'index'],
-        'style' => 'height: 125px;',// Adjust the height as needed
-    ]) ?>
-</header>
 
 <main class="main">
     <?= $this->fetch('content') ?>
 </main>
-
-<footer class="site-footer">
-    <?= $this->element('flash/footer') ?> <!-- Created element for footer -->
+<!-- <footer class="site-footer">
+    <?= $this->element('flash/footer') ?> 
 </footer>
-
+ -->
 <!-- JAVASCRIPT FILES -->
 <?= $this->Html->script('jquery.min') ?>
 <?= $this->Html->script('Headroom') ?>
 <?= $this->Html->script('jQuery.headroom') ?>
 <?= $this->Html->script('slick.min') ?>
 <?= $this->Html->script('custom') ?>
-</body>
 </html>
