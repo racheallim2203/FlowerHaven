@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\PaymentsTable $Payments
  * @property \App\Model\Table\PaymentMethodsTable $PaymentMethods
+ * @property \App\Model\Table\OrderFlowersTable $OrderFlowers
  */
 class PaymentsController extends AppController
 {
@@ -145,9 +146,9 @@ class PaymentsController extends AppController
             $userId = $result->getData()->id;
             $query = $this->Payments->find()
                 ->where(['Payments.user_id' => $userId])
-                ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']);
+                ->contain(['OrderDeliveries' => ['OrderFlowers' => ['Flowers']], 'PaymentStatuses', 'PaymentMethods', 'Users']);
 
-            $this->set('payments', $this->paginate($query));  // Set 'orders' instead of 'history'
+            $this->set('payments', $this->paginate($query));
         } else {
             $this->Flash->error(__('You must be logged in to view this page.'));
             return $this->redirect(['controller' => 'Users', 'action' => 'login']);

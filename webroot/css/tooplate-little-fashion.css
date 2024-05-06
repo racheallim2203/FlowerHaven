@@ -1185,27 +1185,4 @@ button:focus:not(:focus-visible) {
         width: 25px;
         height: 25px;
     }
-
-    .modal-header {
-        padding-top: 6rem;
-        padding-bottom: 2rem;
-    }
-
-    .modal-body {
-        padding: 2rem;
-    }
-
-    #cart-modal .modal-footer {
-        padding-right: 0;
-        padding-left: 0;
-    }
-
-    #cart-modal .modal-body {
-        padding: 4rem 2rem 2rem 2rem;
-    }
-
-    .full-image-img {
-        bottom: 0;
-    }
 }
-

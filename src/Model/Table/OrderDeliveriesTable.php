@@ -31,7 +31,8 @@ class OrderDeliveriesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->hasMany('OrderFlowers', [
-            'foreignKey' => 'order_delivery_id',
+            'foreignKey' => 'orderdelivery_id',
+            'joinType' => 'INNER'
         ]);
 
         $this->hasMany('Flowers', [
