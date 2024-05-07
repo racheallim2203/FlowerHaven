@@ -1,0 +1,130 @@
+.modal-content {
+    background-color: #822466; /* Deep purple background */
+    border-color: white; /* White border color */
+    border-radius: 1rem; /* Rounded corners for the modal */
+}
+
+.modal-dialog {
+    max-width: 750px; /* Maximum width */
+    margin: 1.75rem auto; /* Center the dialog with top and bottom margin */
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between; /* Aligns children (title and close button) on each end */
+    align-items: center; /* Centers children vertically */
+    padding: 1rem; /* Adjusted padding for uniform spacing */
+    color: white;
+    border-bottom: none;
+}
+
+.title-box {
+    flex: 1; /* Takes up the maximum available space */
+    display: flex;
+    justify-content: center; /* Centers the title horizontally */
+    align-items: center; /* Centers the title vertically */
+    background-color: #940951; /* Deep purple background */
+    padding: 1rem;
+    border-radius: 0.5rem; /* Rounded corners */
+}
+
+.modal-header .close {
+    padding: 1rem; /* Padding around the close button */
+    margin: -4rem -1rem -2rem auto; /* Position the close button */
+    color: white; /* White color for the close button */
+    text-align: center;
+}
+
+.modal-title {
+    line-height: 1.6; /* Line height for the title */
+    color: white; /* White color for the title */
+    text-align: center; /* Center alignment for the title */
+}
+
+.modal-body {
+    padding: 2rem; /* Padding inside the modal body */
+    color: white; /* Text color */
+}
+
+.progress-track {
+    display: flex; /* Flexbox display for alignment */
+    justify-content: space-between; /* Space out the children */
+    align-items: center; /* Align items vertically */
+    padding: 0; /* No padding */
+    margin: 30px 0; /* Margin for visual spacing */
+}
+
+#progressbar {
+    list-style: none;
+    display: flex; /* Ensures that elements are laid out as flexible box items */
+    justify-content: space-between; /* Distributes space between the elements */
+    align-items: center; /* Vertically aligns elements in the middle */
+    width: 100%; /* Full width of its container */
+    padding: 0;
+    margin: 40px 0; /* Increase top and bottom margin to allow space for text */
+    position: relative; /* Needed for pseudo-elements */
+}
+
+#progressbar li {
+    flex-grow: 1; /* Allows each dot to grow evenly, taking up equal space */
+    text-align: center; /* Centers the text below each dot */
+}
+
+#progressbar li span {
+    display: block;
+    margin-top: 15px; /* Adjust this value to position text below the line and dot */
+    color: white;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+#progressbar li::before {
+    content: ''; /* Necessary for the pseudo-element to show */
+    position: absolute; /* Absolute positioning relative to the parent */
+    width: 100%; /* Full width to stretch across the gaps */
+    height: 2px; /* Line thickness */
+    background-color: #ddd; /* Line color */
+    top: 50%; /* Aligns the line in the middle vertically */
+    left: 0; /* Start from the middle of the dot, going left */
+    /*transform: translateX(-50%);*/
+    z-index: 1; /* Ensures the line is behind the dot */
+}
+
+
+
+
+#progressbar li:first-child::before {
+    display: none; /* No line before the first dot */
+    left: 0;
+}
+
+#progressbar li.active::before {
+    background-color: white; /* Active line color */
+}
+
+#progressbar li.active {
+    background-color: #c202b5; /* Active state color for the dot */
+
+}
+
+.details {
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    padding: 1rem;
+}
+
+#progressbar li::before, #progressbar li::after {
+    content: "";
+    position: absolute;
+    top: 2; /* Position the line at the top of the element */
+    height: 2px;
+    background-color: #ddd; /* Default line color */
+    width: 100%;
+    left: 2;
+}
+
+.title-box{
+}
+
+

@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\PaymentsTable $Payments
  * @property \App\Model\Table\PaymentMethodsTable $PaymentMethods
+ * @property \App\Model\Table\OrderFlowersTable $OrderFlowers
  */
 class PaymentsController extends AppController
 {
@@ -135,8 +136,23 @@ class PaymentsController extends AppController
             $this->Flash->error(__('The payment could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'adminIndex']);
+        return $this->redirect(['action' => 'history']);
     }
 
+    public function history()
+    {
+        $result = $this->Authentication->getResult();
+        if ($result->isValid()) {
+            $userId = $result->getData()->id;
+            $query = $this->Payments->find()
+                ->where(['Payments.user_id' => $userId])
+                ->contain(['OrderDeliveries' => ['OrderFlowers' => ['Flowers']], 'PaymentStatuses', 'PaymentMethods', 'Users']);
+
+            $this->set('payments', $this->paginate($query));
+        } else {
+            $this->Flash->error(__('You must be logged in to view this page.'));
+            return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+        }
+    }
 
 }
