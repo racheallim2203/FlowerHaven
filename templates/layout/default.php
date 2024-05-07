@@ -2,7 +2,7 @@
 // Assuming you have a way to determine the current page/controller/action
 $currentController = $this->getRequest()->getParam('controller');
 $currentAction = $this->getRequest()->getParam('action');
-$activePage = ucfirst($currentController) . '/' . $currentAction;
+$activePage = ucfirst($currentController);
 $this->Flash->render();
 ?>
 
@@ -35,20 +35,20 @@ $this->Flash->render();
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     </li>
-                    <li class="nav-item <?= ($activePage == 'Flowers/index') ? 'active' : '' ?>">
-                        <?= $this->Html->link('Flowers <span class="sr-only">(current)</span>', ['controller' => 'Flowers', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?>
+                    <li class="nav-item" >
+                        <?= $this->Html->link('Flowers', ['controller' => 'Flowers', 'action' => 'index'], ['class' => 'nav-link' . ($activePage == 'Flowers' ? ' active' : '')]) ?>
                     </li>
-                    <li class="nav-item <?= ($activePage == 'Payment/index') ? 'active' : '' ?>">
-                        <?= $this->Html->link('Payment', ['controller' => 'Payments', 'action' => 'adminIndex'], ['class' => 'nav-link']) ?>
+                    <li class="nav-item" >
+                        <?= $this->Html->link('Payment', ['controller' => 'Payments', 'action' => 'adminIndex'], ['class' => 'nav-link' . ($activePage == 'Payments' ? ' active' : '')]) ?>
                     </li>
-                    <li class="nav-item <?= ($activePage == 'User/index') ? 'active' : '' ?>">
-                        <?= $this->Html->link('Users', ['controller' => 'Users', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                    <li class="nav-item" >
+                        <?= $this->Html->link('Users', ['controller' => 'Users', 'action' => 'index'], ['class' => 'nav-link' . ($activePage == 'Users' ? ' active' : '')]) ?>
                     </li>
-                    <li class="nav-item <?= ($activePage == 'Categories/index') ? 'active' : '' ?>">
-                        <?= $this->Html->link('Categories', ['controller' => 'Categories', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                    <li class="nav-item" >
+                        <?= $this->Html->link('Categories', ['controller' => 'Categories', 'action' => 'index'], ['class' => 'nav-link' . ($activePage == 'Categories' ? ' active' : '')]) ?>
                     </li>
-                    <li class="nav-item <?= ($activePage == 'OrderDeliveries/index') ? 'active' : '' ?>">
-                        <?= $this->Html->link('Orders', ['controller' => 'OrderDeliveries', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                    <li class="nav-item" >
+                        <?= $this->Html->link('Orders', ['controller' => 'OrderDeliveries', 'action' => 'index'], ['class' => 'nav-link' . ($activePage == 'OrderDeliveries' ? ' active' : '')]) ?>
                     </li>
                 </ul>
             </div>
