@@ -50,7 +50,7 @@ class UsersTable extends Table
 
     /**
      * Default validation rules.
-     *
+     * With updated validation rules too.
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
@@ -58,29 +58,57 @@ class UsersTable extends Table
     {
         $validator
             ->scalar('username')
+            ->minLength('username', 3, 'Username must be at least 3 characters long.')
+            ->maxLength('username', 50, 'Username must not exceed 50 characters.')
             ->requirePresence('username', 'create')
-            ->notEmptyString('username');
+            ->notEmptyString('username', 'Username is required.');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmptyString('email');
+            ->notEmptyString('email', 'Email is required.')
+            ->add('email', 'validFormat', [
+                'rule' => 'email',
+                'message' => 'Email must be valid.'
+            ]);
 
         $validator
             ->scalar('password')
-            ->maxLength('password', 256)
+            ->lengthBetween('password', [8, 50], 'Password must be between 8 and 50 characters long.')
             ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+            ->notEmptyString('password', 'Password is required.')
+            ->add('password', 'complexity', [
+                'rule' => ['custom', '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/'],
+                'message' => 'Password must include at least one uppercase, one lowercase, and one number.'
+            ]);
 
         $validator
             ->scalar('address')
+            ->maxLength('address', 255, 'Address must not exceed 255 characters.')
             ->requirePresence('address', 'create')
-            ->notEmptyString('address');
+            ->notEmptyString('address', 'Address is required.');
 
         $validator
             ->scalar('phone_no')
+            ->maxLength('phone_no', 20, 'Phone number must not exceed 20 characters.')
             ->requirePresence('phone_no', 'create')
-            ->notEmptyString('phone_no');
+            ->notEmptyString('phone_no', 'Phone number is required.')
+            ->add('phone_no', 'validFormat', [
+                'rule' => ['custom', '/^\+?(\d.*){3,}$/'],
+                'message' => 'Phone number must be valid.'
+            ]);
+        
+        // Validation rule for password confirmation
+        $validator
+            ->add('password_confirm', 'custom', [
+                'rule' => function ($value, $context) {
+                    if (isset($context['data']['password']) && $value !== $context['data']['password']) {
+                        return false;
+                    }
+                    return true;
+                },
+                'message' => 'The passwords do not match.',
+            ]);
 
         $validator
             ->boolean('isAdmin')
@@ -110,8 +138,8 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
-        $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
+        $rules->add($rules->isUnique(['username'], 'This username is already in use.'));
+        $rules->add($rules->isUnique(['email'], 'This email is already in use.'));
 
         return $rules;
     }
