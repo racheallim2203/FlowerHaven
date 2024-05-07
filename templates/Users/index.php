@@ -40,7 +40,7 @@ $this->assign('title', 'Admin | Users');
                                 <td><?= h($user->phone_no) ?></td>
                                 <td><?= $this->Number->format($user->isAdmin) ?></td>
                                 <td><?= h($user->nonce) ?></td>
-                                <td><?= $user->hasValue('nonce_expiry') ?></td>
+                                <td><?= h($user->nonce_expiry ? $user->nonce_expiry->format('d-m-Y H:i:s') : '') ?></td>
                                 <td class="actions">
                                     <div class="d-block mb-2">
                                         <?= $this->Html->link(__('View'), ['action' => 'view', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
