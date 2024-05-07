@@ -10,7 +10,8 @@ use Cake\Error\Debugger;
 use Cake\Http\Exception\NotFoundException;
 
 $this->layout = 'default2';
-$this->assign('title', 'AboutUs');
+$this->assign('title', 'About Us');
+
 ?>
 
 <header class="site-header section-padding-img site-header-image">

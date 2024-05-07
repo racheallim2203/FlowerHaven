@@ -23,6 +23,20 @@ class UsersController extends AppController
      */
     public function index()
     {
+        // Get the current user's ID and details
+        $currentUserId = $this->request->getSession()->read('Auth.User.id');
+        $currentUser = $this->Users->get($id);
+    
+        // Check if the current user is an admin
+        if ($this->$user->$isAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            return $this->render();
+        }
+    
+        // Proceed if the user is an admin
         $query = $this->Users->find();
         $users = $this->paginate($query);
 
@@ -79,6 +93,20 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, contain: []);
+        // Get the current user's ID and details
+        $currentUserId = $this->request->getSession()->read('Auth.User.id');
+        $currentUser = $this->Users->get($id);
+    
+        // Check if the current user is an admin
+        if ($currentUser->isAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            return $this->render();
+        }
+    
+        // Proceed if the user is an admin
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
     
