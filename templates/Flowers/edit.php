@@ -49,7 +49,7 @@
                                 'type' => 'number', // Specifies that the input must be a number
                                 'step' => '0.01', // Allows decimal values
                                 'required' => true,
-                                'min' => '0.5', // Minimum value
+                                'min' => '0.01', // Minimum value
                                 'placeholder' => 'Price:'
                             ]); ?>
                         </div>
@@ -57,7 +57,6 @@
                             <?= $this->Form->control('stock_quantity', [
                                 'class' => 'form-control form-control-lg',
                                 'type' => 'number', // Ensures the input must be a number
-                                'min' => '0', // Minimum value
                                 'required' => true,
                                 'placeholder' => 'Stock quantity:'
                             ]); ?>

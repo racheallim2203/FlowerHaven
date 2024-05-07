@@ -63,29 +63,34 @@ class FlowersTable extends Table
     {
         $validator
             ->scalar('flower_name')
-            ->maxLength('flower_name', 32)
+            ->maxLength('flower_name', 32, 'The flower name cannot exceed 32 characters.')
             ->requirePresence('flower_name', 'create')
-            ->notEmptyString('flower_name');
-
+            ->notEmptyString('flower_name', 'Please enter a flower name.');
+    
         $validator
             ->scalar('flower_description')
+            ->maxLength('flower_description', 1000, 'The flower description cannot exceed 1000 characters.')
             ->requirePresence('flower_description', 'create')
-            ->notEmptyString('flower_description');
+            ->notEmptyString('flower_description', 'Please provide a description of the flower.');
 
         $validator
             ->decimal('flower_price')
             ->requirePresence('flower_price', 'create')
-            ->notEmptyString('flower_price');
+            ->maxLength('flower_price', 10, 'The flower price cannot exceed 10 digits.')
+            ->notEmptyString('flower_price', 'Please enter the price of the flower.')
+            ->greaterThan('flower_price', 0, 'The flower price must be greater than zero.');
 
         $validator
             ->integer('stock_quantity')
             ->requirePresence('stock_quantity', 'create')
-            ->notEmptyString('stock_quantity');
+            ->maxLength('stock_quantity', 10, 'The stock quantity cannot exceed 10 digits.')
+            ->notEmptyString('stock_quantity', 'Please enter the stock quantity.')
+            ->greaterThanOrEqual('stock_quantity', 0, 'The stock quantity cannot be negative.');
 
         $validator
             ->scalar('category_id')
-            ->maxLength('category_id', 10)
-            ->notEmptyString('category_id');
+            ->maxLength('category_id', 10, 'The category ID cannot exceed 10 characters.')
+            ->notEmptyString('category_id', 'Please select a category.');
 
         $validator
             ->add('image_file', [

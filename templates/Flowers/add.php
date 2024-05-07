@@ -53,7 +53,6 @@ $this->assign('title', 'Admin | Add New Flower');
                             <?= $this->Form->control('stock_quantity', [
                                 'class' => 'form-control form-control-lg',
                                 'type' => 'number', // Ensures the input must be a number
-                                'min' => '0', // Minimum value
                                 'required' => true,
                                 'placeholder' => 'Stock quantity:'
                             ]); ?>
