@@ -49,7 +49,7 @@
                                 'type' => 'number', // Specifies that the input must be a number
                                 'step' => '0.01', // Allows decimal values
                                 'required' => true,
-                                'min' => '0.01', // Minimum value
+                                'min' => '0.5', // Minimum value
                                 'placeholder' => 'Price:'
                             ]); ?>
                         </div>
