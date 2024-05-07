@@ -3,6 +3,8 @@
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\User> $users
  */
+$this->layout = 'default';
+$this->assign('title', 'Admin | Users');
 ?>
 
 <div class="container-fluid">

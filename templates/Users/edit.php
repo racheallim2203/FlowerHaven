@@ -3,6 +3,8 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
+$this->layout = 'default';
+$this->assign('title', 'Admin | Edit User');
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -29,17 +31,38 @@
                     <h4 class="mb-0"><?= __('Edit User') ?></h4>
                 </div>
                 <div class="card-body">
-                    <?= $this->Form->create($user) ?>
+                    <?= $this->Form->create($user, ['class' => 'form', 'type' => 'file']) ?>
                     <fieldset>
                         <legend><?= __('User Information') ?></legend>
-                        <?= $this->Form->control('username', ['type' => 'text', 'class' => 'form-control form-control-lg']); ?>
-                        <?= $this->Form->control('email', ['type' => 'email', 'class' => 'form-control form-control-lg']); ?>
+                        <?= $this->Form->control('username', [
+                            'type' => 'text', 
+                            'class' => 'form-control form-control-lg',
+                            'placeholder' => 'Username'
+                            ]); ?>
+
+                        <?= $this->Form->control('email', [
+                            'type' => 'email', 
+                            'class' => 'form-control form-control-lg',
+                            'placeholder' => 'email@example.com'
+                            ]); ?>
+
                         <div class="form-group">
                             <label><?= __('Password') ?></label>
                             <input type="password" class="form-control" value="<?= h($user->password) ?>" readonly>
-                        </div>   
-                        <?= $this->Form->control('address', ['type' => 'text', 'class' => 'form-control form-control-lg']); ?>
-                        <?= $this->Form->control('phone_no', ['type' => 'text', 'class' => 'form-control form-control-lg']); ?>
+                        </div>  
+
+                        <?= $this->Form->control('address', [
+                            'type' => 'text', 
+                            'class' => 'form-control form-control-lg',
+                            'placeholder' => '123 Street, Suburb, Postcode'
+                            ]); ?>
+
+                        <?= $this->Form->control('phone_no', [
+                            'type' => 'text', 
+                            'class' => 'form-control form-control-lg',
+                            'placeholder' => '+123.4567890123'
+                            ]); ?>
+                            
                         <div class="form-group">
                             <label><?= __('Is Admin') ?></label>
                             <?= $this->Form->control('isAdmin', [

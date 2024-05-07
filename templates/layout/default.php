@@ -42,7 +42,7 @@ $this->Flash->render();
                         <?= $this->Html->link('Payment', ['controller' => 'Payments', 'action' => 'adminIndex'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'User/index') ? 'active' : '' ?>">
-                        <?= $this->Html->link('User', ['controller' => 'Users', 'action' => 'index'], ['class' => 'nav-link']) ?>
+                        <?= $this->Html->link('Users', ['controller' => 'Users', 'action' => 'index'], ['class' => 'nav-link']) ?>
                     </li>
                     <li class="nav-item <?= ($activePage == 'Categories/index') ? 'active' : '' ?>">
                         <?= $this->Html->link('Categories', ['controller' => 'Categories', 'action' => 'index'], ['class' => 'nav-link']) ?>

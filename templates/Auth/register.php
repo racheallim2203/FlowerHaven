@@ -5,7 +5,7 @@
  */
 
 $this->layout = 'default2';
-$this->assign('title', 'Register new user');
+$this->assign('title', 'Register New User');
 ?>
 
 <header class="site-header section-padding-img site-header-image front-product">
@@ -74,7 +74,8 @@ $this->assign('title', 'Register new user');
                                 'placeholder' => 'Confirm Password',
                                 'class' => 'form-control-login'
                             ]);
-?>
+                            ?>
+
                             <?= $this->Form->button('Register', ['class' => 'btn btn-success']) ?>
 
                             <?= $this->Form->end() ?>
