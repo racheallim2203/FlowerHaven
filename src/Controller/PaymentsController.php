@@ -21,6 +21,20 @@ class PaymentsController extends AppController
      */
     public function adminIndex()
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with payments adminIndex function
         $query = $this->Payments->find()
             ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']);
         $this->set('payments', $this->paginate($query));
@@ -65,6 +79,20 @@ class PaymentsController extends AppController
      */
     public function view($id = null)
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with payments view function
         $payment = $this->Payments->get($id, contain: ['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']);
         $this->set(compact('payment'));
     }
@@ -102,6 +130,20 @@ class PaymentsController extends AppController
      */
     public function edit($id = null)
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with payments edit function
         $payment = $this->Payments->get($id, [
             'contain' => ['OrderDeliveries', 'PaymentMethods', 'Users', 'PaymentStatuses'],
         ]);
@@ -128,6 +170,20 @@ class PaymentsController extends AppController
      */
     public function delete($id = null)
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with payments delete function
         $this->request->allowMethod(['post', 'delete']);
         $payment = $this->Payments->get($id);
         if ($this->Payments->delete($payment)) {

@@ -29,6 +29,20 @@ class OrderDeliveriesController extends AppController
      */
     public function index()
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with orderdeliveries index function
         $query = $this->OrderDeliveries->find()
             ->contain(['OrderStatuses', 'DeliveryStatuses']);
         $orderDeliveries = $this->paginate($query);
@@ -45,6 +59,20 @@ class OrderDeliveriesController extends AppController
      */
     public function view(?string $id = null)
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with orderdeliveries view function
         $orderDelivery = $this->OrderDeliveries->get($id, contain: ['Orderstatuses', 'DeliveryStatuses']);
         $this->set(compact('orderDelivery'));
     }
@@ -80,6 +108,20 @@ class OrderDeliveriesController extends AppController
      */
     public function edit(?string $id = null)
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with orderdeliveries edit function
         $orderDelivery = $this->OrderDeliveries->get($id, [
             'contain' => [],
         ]);
@@ -115,6 +157,20 @@ class OrderDeliveriesController extends AppController
      */
     public function delete(?string $id = null)
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with orderdeliveries delete function
         $this->request->allowMethod(['post', 'delete']);
         $orderDelivery = $this->OrderDeliveries->get($id);
         if ($this->OrderDeliveries->delete($orderDelivery)) {
