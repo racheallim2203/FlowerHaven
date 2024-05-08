@@ -40,7 +40,7 @@ class FlowersController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -82,7 +82,7 @@ class FlowersController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -120,10 +120,7 @@ class FlowersController extends AppController
         // Log the count of flowers to see if it's working correctly
         // $this->log('Number of flowers found: ' . count($flowers), 'debug');
 
-        $categories = $this->Flowers->Categories->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'category_name'
-        ])->toArray();
+        $categories = $this->Flowers->Categories->find('list', keyField:'id', valueField: 'category_name');
 
         $this->set(compact('flowers', 'categories'));
         $this->viewBuilder()->setLayout('default2');
@@ -293,7 +290,7 @@ class FlowersController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -345,7 +342,7 @@ class FlowersController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -403,7 +400,7 @@ class FlowersController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
