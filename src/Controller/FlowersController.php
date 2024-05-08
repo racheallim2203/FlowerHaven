@@ -71,10 +71,34 @@ class FlowersController extends AppController
 
     public function customerIndex()
     {
-        $query = $this->Flowers->find('all', contain: ['Categories']);
+        $query = $this->Flowers->find('all', [
+            'contain' => ['Categories']
+        ]);
+
+        $search = $this->request->getQuery('search');
+        $category = $this->request->getQuery('category');
+
+        if (!empty($search)) {
+            $query->where(['Flowers.flower_name LIKE' => '%' . $search . '%']);
+        }
+
+        if (!empty($category)) {
+            $query->where(['Categories.id' => $category]);
+        }
+
         $flowers = $this->paginate($query);
+
+        // Debugging line to check the output of the query
+        // Log the count of flowers to see if it's working correctly
+        // $this->log('Number of flowers found: ' . count($flowers), 'debug');
+
+        $categories = $this->Flowers->Categories->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'category_name'
+        ])->toArray();
+
+        $this->set(compact('flowers', 'categories'));
         $this->viewBuilder()->setLayout('default2');
-        $this->set(compact('flowers'));
     }
 
     public function customerView($id = null)
