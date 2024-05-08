@@ -23,11 +23,7 @@ $this->Flash->render();
     <div class="w-auto px-2">
         <div class="navbar navbar-expand-xl navbar-light bg-light">
             <a class="navbar-brand" href="<?= $this->Url->build('/') ?>">
-                <?= $this->Html->image('F.png', [
-                    'alt' => 'FlowerHaven',
-                    'url'=> ['controller' => 'Admin', 'action' => 'index'],
-                    'style' => 'height: 60px;' // Adjust the height as needed
-                ]) ?>
+                <?= $this->ContentBlock->image('Logo', ['style' => 'height: 60px', 'url'=> ['controller' => 'Pages', 'action' => 'display']]); ?>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
