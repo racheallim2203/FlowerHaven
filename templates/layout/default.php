@@ -50,6 +50,9 @@ $this->Flash->render();
                     <li class="nav-item" >
                         <?= $this->Html->link('Orders', ['controller' => 'OrderDeliveries', 'action' => 'index'], ['class' => 'nav-link' . ($activePage == 'OrderDeliveries' ? ' active' : '')]) ?>
                     </li>
+                    <li class="nav-item">
+                        <?= $this->Html->link('Content Blocks', ['plugin' => 'ContentBlocks', 'controller' => 'ContentBlocks', 'action' => 'index'], ['class' => 'nav-link' . ($activePage == 'ContentBlocks' ? ' active' : '')]) ?>
+                    </li>
                 </ul>
             </div>
             <div class="d-none d-lg-block" id="navbarNav">

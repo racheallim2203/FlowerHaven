@@ -11,12 +11,7 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
             <span class="navbar-toggler-icon"></span>
         </button>
 
-
-            <?= $this->Html->image('F.png', [
-                'alt' => 'FlowerHaven',
-                'url'=> ['controller' => 'Pages', 'action' => 'display'],
-                'style' => 'height: 50px;',// Adjust the height as needed
-            ]) ?>
+        <?= $this->ContentBlock->image('Logo', ['style' => 'height: 50px', 'url'=> ['controller' => 'Pages', 'action' => 'display']]); ?>
 
 
         <div class="collapse navbar-collapse" id="navbarNav">
