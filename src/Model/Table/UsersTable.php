@@ -59,12 +59,13 @@ class UsersTable extends Table
         $validator
             ->scalar('username')
             ->minLength('username', 3, 'Username must be at least 3 characters long.')
-            ->maxLength('username', 50, 'Username must not exceed 50 characters.')
+            ->maxLength('username', 32, 'Username must not exceed 32 characters.')
             ->requirePresence('username', 'create')
             ->notEmptyString('username', 'Username is required.');
 
         $validator
             ->email('email')
+            ->maxLength('email', 255, 'Email must not exceed 255 characters.')
             ->requirePresence('email', 'create')
             ->notEmptyString('email', 'Email is required.')
             ->add('email', 'validFormat', [
@@ -75,6 +76,7 @@ class UsersTable extends Table
         $validator
             ->scalar('password')
             ->lengthBetween('password', [8, 50], 'Password must be between 8 and 50 characters long.')
+            ->maxLength('password', 255, 'Password must not exceed 255 characters.')
             ->requirePresence('password', 'create')
             ->notEmptyString('password', 'Password is required.')
             ->add('password', 'complexity', [
