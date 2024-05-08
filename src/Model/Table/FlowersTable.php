@@ -76,14 +76,14 @@ class FlowersTable extends Table
         $validator
             ->decimal('flower_price')
             ->requirePresence('flower_price', 'create')
-            ->maxLength('flower_price', 10, 'The flower price cannot exceed 10 digits.')
+            ->maxLength('flower_price', 4, 'The flower price cannot exceed 4 digits.')
             ->notEmptyString('flower_price', 'Please enter the price of the flower.')
             ->greaterThan('flower_price', 0, 'The flower price must be greater than zero.');
 
         $validator
             ->integer('stock_quantity')
             ->requirePresence('stock_quantity', 'create')
-            ->maxLength('stock_quantity', 10, 'The stock quantity cannot exceed 10 digits.')
+            ->maxLength('stock_quantity', 4, 'The stock quantity cannot exceed 4 digits.')
             ->notEmptyString('stock_quantity', 'Please enter the stock quantity.')
             ->greaterThanOrEqual('stock_quantity', 0, 'The stock quantity cannot be negative.');
 
