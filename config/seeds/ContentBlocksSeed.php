@@ -9,6 +9,37 @@ class ContentBlocksSeed extends AbstractSeed
     public function run(): void
     {
         $data = [
+            //Header and Footer
+            [
+                'parent' => 'Global',
+                'label' => 'Copyright Message',
+                'description' => 'Copyright information shown at the bottom of the home page.',
+                'slug' => 'copyright-message',
+                'type' => 'html',
+                'value' => 'Copyright © 2024 <strong>Flower Haven</strong>',
+            ],
+            [
+                'parent' => 'Global',
+                'label' => 'Logo',
+                'description' => 'Logo used in the navbar and footer of the website',
+                'slug' => 'Logo',
+                'type' => 'image',
+                'value' => 'F.png',
+            ],
+            [
+                'parent' => 'Global',
+                'label' => 'Social Media',
+                'description' => 'Social Media information shown in the footer',
+                'slug' => 'social-media',
+                'type' => 'html',
+                'value' =>
+                    '<li><a href="#" class="social-icon-link bi-whatsapp"></a></li>
+                    <li><a href="#" class="social-icon-link bi-instagram"></a></li>
+                    <li><a href="#" class="social-icon-link bi-skype"></a></li>
+                    <li><a href="mailto:example@example.com" class="social-icon-link bi-envelope-fill"></a></li>  <!-- Email icon added here -->',
+            ],
+
+
             //Slideshow
             [
                 'parent' => 'Home Slideshow',
@@ -196,16 +227,6 @@ class ContentBlocksSeed extends AbstractSeed
                 'value' => 'aboutus4.jpg',
             ],
 
-
-
-            [
-                'parent' => 'home',
-                'label' => 'Copyright Message',
-                'description' => 'Copyright information shown at the bottom of the home page.',
-                'slug' => 'copyright-message',
-                'type' => 'text',
-                'value' => '(c) Copyright 2023, enter copyright owner here.',
-            ],
         ];
 
         $table = $this->table('content_blocks');
