@@ -58,13 +58,16 @@ class CategoriesTable extends Table
     {
         $validator
             ->scalar('category_name')
-            ->maxLength('category_name', 255)
-            ->allowEmptyString('category_name');
+            ->maxLength('category_name', 255, 'The category name cannot exceed 255 characters.')
+            ->requirePresence('category_name', 'create')
+            ->notEmptyString('category_name', 'Category name is required.')
+            ->add('category_name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table', 'message' => 'Category name already exists.']);
 
         $validator
             ->scalar('category_description')
-            ->maxLength('category_description', 255)
-            ->allowEmptyString('category_description');
+            ->maxLength('category_description', 510, 'The category description cannot exceed 510 characters.')
+            ->requirePresence('category_description', 'create')
+            ->notEmptyString('category_description', 'Please provide a description of the category.');
 
         return $validator;
     }

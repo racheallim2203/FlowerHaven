@@ -69,7 +69,7 @@ class FlowersTable extends Table
     
         $validator
             ->scalar('flower_description')
-            ->maxLength('flower_description', 1000, 'The flower description cannot exceed 1000 characters.')
+            ->maxLength('flower_description', 510, 'The flower description cannot exceed 510 characters.')
             ->requirePresence('flower_description', 'create')
             ->notEmptyString('flower_description', 'Please provide a description of the flower.');
 
