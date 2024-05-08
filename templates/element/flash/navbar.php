@@ -39,7 +39,7 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
                <?= $this->Html->link(' Cart', ['controller' => 'flowers', 'action' => 'shopping-cart'], ['class' => "bi-cart custom-icon nav-link"  . ($activePage == 'Flowers/customerShoppingCart' ? ' active' : '')])?>
 
                 <?php if ($this->Identity->isLoggedIn()) : ?>
-                        <?= $this->Html->link(' Orders', ['controller' => 'Payments', 'action' => 'history'], ['class' => "bi-bag custom-icon nav-link"]) ?>
+                        <?= $this->Html->link(' Orders', ['controller' => 'Payments', 'action' => 'history'], ['class' => "bi-bag custom-icon nav-link"  . ($activePage == 'Payments/history' ? ' active' : '')]) ?>
                         <?= $this->Html->link(' Logout', ['controller' => 'Auth', 'action' => 'logout'], ['class' => "bi-person custom-icon nav-link"]) ?>
                     <?php else : ?>
                         <?= $this->Html->link(' Login', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon nav-link"]) ?>

@@ -33,7 +33,7 @@
                             <?= $this->Form->control('category_name', ['class' => 'form-control form-control-lg']); ?>
                         </div>
                         <div class="form-group">
-                            <?= $this->Form->control('category_description', ['class' => 'form-control form-control-lg']); ?>
+                            <?= $this->Form->control('category_description', ['class' => 'form-control form-control-lg', 'type' => 'textarea']); ?>
                         </div>
                     </fieldset>
                     <div class="form-group mt-4">

@@ -37,6 +37,20 @@ class FlowersController extends AppController
      */
     public function index()
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with flowers index function
         $query = $this->Flowers->find('all', contain: ['Categories'], order: ['Flowers.stock_quantity' => 'asc']);
         $search = $this->request->getQuery('search');
         $category = $this->request->getQuery('category');
@@ -65,6 +79,20 @@ class FlowersController extends AppController
      */
     public function view($id = null)
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with flowers view function
         $flower = $this->Flowers->get($id, contain: ['Categories', 'OrderFlowers']);
         $this->set(compact('flower'));
     }
@@ -213,10 +241,8 @@ class FlowersController extends AppController
             return $this->redirect($this->referer());
 
         }
+    }
 
-
-
-}
     public function customerShoppingCart()
     {
         $session = $this->request->getSession();
@@ -264,6 +290,20 @@ class FlowersController extends AppController
      */
     public function add()
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with flowers add function
         $flower = $this->Flowers->newEmptyEntity();
         if ($this->request->is('post')) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
@@ -302,6 +342,20 @@ class FlowersController extends AppController
      */
     public function edit($id = null)
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with flowers edit function
         $flower = $this->Flowers->get($id, contain: []);
 
 
@@ -346,6 +400,20 @@ class FlowersController extends AppController
      */
     public function delete($id = null)
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with flowers delete function
         $this->request->allowMethod(['post', 'delete']);
         $flower = $this->Flowers->get($id);
         if ($this->Flowers->delete($flower)) {

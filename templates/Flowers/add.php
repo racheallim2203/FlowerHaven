@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\Flower $flower
  * @var \Cake\Collection\CollectionInterface|string[] $categories
  */
+$this->layout = 'default';
+$this->assign('title', 'Admin | Add New Flower');
 ?>
 <br>
 <div class="container-fluid">
@@ -51,7 +53,6 @@
                             <?= $this->Form->control('stock_quantity', [
                                 'class' => 'form-control form-control-lg',
                                 'type' => 'number', // Ensures the input must be a number
-                                'min' => '0', // Minimum value
                                 'required' => true,
                                 'placeholder' => 'Stock quantity:'
                             ]); ?>

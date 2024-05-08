@@ -5,6 +5,7 @@
  *  * @var iterable<\App\Model\Entity\Category> $categories
  */
 
+$this->assign('title', 'Admin | Flowers');
 ?>
 
 <div class="container-fluid">

@@ -9,6 +9,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Error\Debugger;
 use Cake\Http\Exception\NotFoundException;
 
+$this->layout = 'default2';
 $this->assign('title', 'Home');
 
 ?>

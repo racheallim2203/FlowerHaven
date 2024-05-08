@@ -11,6 +11,29 @@ namespace App\Controller;
 class OrderStatusesController extends AppController
 {
     /**
+     * Controller initialize override 
+     * Verifies whether the user accessing the page is an admin or not
+     * @return void
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+    
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+    }
+    
+    /**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view

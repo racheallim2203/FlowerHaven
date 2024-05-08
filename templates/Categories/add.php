@@ -29,7 +29,7 @@
                             <?= $this->Form->control('category_name', ['class' => 'form-control form-control-lg', 'label' => 'Category Name']); ?>
                         </div>
                         <div class="form-group">
-                            <?= $this->Form->control('description', ['class' => 'form-control form-control-lg', 'label' => 'Description']); ?>
+                            <?= $this->Form->control('description', ['class' => 'form-control form-control-lg', 'label' => 'Description', 'type' => 'textarea']); ?>
                         </div>
                     </fieldset>
                     <div class="form-group mt-4">

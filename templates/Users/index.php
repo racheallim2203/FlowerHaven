@@ -3,6 +3,8 @@
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\User> $users
  */
+$this->layout = 'default';
+$this->assign('title', 'Admin | Users');
 ?>
 
 <div class="container-fluid">
@@ -38,7 +40,7 @@
                                 <td><?= h($user->phone_no) ?></td>
                                 <td><?= $this->Number->format($user->isAdmin) ?></td>
                                 <td><?= h($user->nonce) ?></td>
-                                <td><?= $user->hasValue('nonce_expiry') ?></td>
+                                <td><?= h($user->nonce_expiry ? $user->nonce_expiry->format('d-m-Y H:i:s') : '') ?></td>
                                 <td class="actions">
                                     <div class="d-block mb-2">
                                         <?= $this->Html->link(__('View'), ['action' => 'view', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
@@ -47,7 +49,13 @@
                                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class' => 'btn btn-primary btn-sm']) ?>
                                     </div>
                                     <div class="d-block">
-                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn btn-danger btn-sm']) ?>
+                                        <?php if (!$user->isAdmin && $user->id != $this->request->getSession()->read('Auth.User.id')): ?>
+                                            <?= $this->Form->postLink(
+                                                __('Delete'),
+                                                ['action' => 'delete', $user->id],
+                                                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn btn-danger btn-sm']
+                                            ) ?>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             </tr>

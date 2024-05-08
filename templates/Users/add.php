@@ -3,6 +3,9 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
+$this->layout = 'default';
+$this->assign('title', 'Admin | Register New User');
+?>
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -22,29 +25,65 @@
                     <h4 class="mb-0"><?= __('Add User') ?></h4>
                 </div>
                 <div class="card-body">
-                    <?= $this->Form->create($user, ['type' => 'file']) ?>
+                <?= $this->Form->create($user, ['class' => 'form', 'type' => 'file']) ?>
                     <fieldset>
+                        <legend><?= __('User Information') ?></legend>
+                        <?= $this->Form->control('username', [
+                            'type' => 'text', 
+                            'class' => 'form-control form-control-lg',
+                            'placeholder' => 'Username'
+                        ]); ?>
+
+                        <?= $this->Form->control('email', [
+                            'type' => 'email', 
+                            'class' => 'form-control form-control-lg',
+                            'placeholder' => 'email@example.com'
+                        ]); ?>
+
+                        <?= $this->Form->control('password', [
+                            'type' => 'password',
+                            'required' => true,
+                            'label' => 'Password',
+                            'placeholder' => 'Password',
+                            'class' => 'form-control form-control-lg'
+                        ]); ?>
+
+                        <?= $this->Form->control('password_confirm', [
+                            'type' => 'password',
+                            'required' => true,
+                            'label' => 'Confirm Password',
+                            'placeholder' => 'Confirm Password',
+                            'class' => 'form-control form-control-lg'
+                        ]); ?>
+
+                        <?= $this->Form->control('address', [
+                            'type' => 'text', 
+                            'class' => 'form-control form-control-lg',
+                            'placeholder' => '123 Street, Suburb, Postcode'
+                        ]); ?>
+
+                        <?= $this->Form->control('phone_no', [
+                            'type' => 'text', 
+                            'class' => 'form-control form-control-lg',
+                            'placeholder' => '+123.4567890123'
+                        ]); ?>
+                            
                         <div class="form-group">
-                            <?= $this->Form->control('username', ['class' => 'form-control form-control-lg']); ?>
-                        </div>
-                        <div class="form-group">
-                            <?= $this->Form->control('email', ['class' => 'form-control form-control-lg']); ?>
-                        </div>
-                        <div class="form-group">
-                            <?= $this->Form->control('password', ['class' => 'form-control form-control-lg']); ?>
-                        </div>
-                        <div class="form-group">
-                            <?= $this->Form->control('phone_no', ['class' => 'form-control form-control-lg']); ?>
-                        </div>
-                        <div class="form-group">
-                            <?= $this->Form->control('isAdmin', ['class' => 'form-control form-control-lg']); ?>
+                            <label><?= __('Is Admin') ?></label>
+                            <?= $this->Form->control('isAdmin', [
+                                'type' => 'select',
+                                'options' => [0 => __('No'), 1 => __('Yes')],
+                                'empty' => false,
+                                'class' => 'form-control',
+                                'label' => false
+                            ]); ?>
                         </div>
 
-                    </fieldset>
-                    <div class="form-group mt-4">
+                        <div class="form-group mt-4">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-lg btn-success']) ?>
-                    </div>
-                    <?= $this->Form->end() ?>
+                        </div>
+                        <?= $this->Form->end() ?>
+                    </fieldset>
                 </div>
             </div>
         </div>
