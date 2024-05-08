@@ -19,14 +19,12 @@ $this->assign('title', 'About Us');
         <div class="row">
             <div class="col-lg-6 col-12 header-info">
                 <h1>
-                    <span class="d-block" style="color: #ff30c1">Flower</span>
-                    <span class="d-block text-dark">Haven</span>
-                    <p>Where Every Petal Tells A Story</p>
+                    <?= $this->ContentBlock->html('about-banner'); ?>
                 </h1>
             </div>
         </div>
     </div>
-    <img src="<?= $this->Url->image('header/aboutus.jpg') ?>" class="header-image img-fluid" alt="">
+    <?= $this->ContentBlock->image('about-banner-image', ['class' => 'header-image img-fluid']); ?>
 </header>
 
 

@@ -250,6 +250,27 @@ class ContentBlocksSeed extends AbstractSeed
                 'type' => 'image',
                 'value' => 'aboutus4.jpg',
             ],
+            //About Us
+            [
+                'parent' => 'About Us',
+                'label' => 'Header Banner',
+                'description' => 'Text of the Header Banner',
+                'slug' => 'about-banner',
+                'type' => 'html',
+                'value' => '<span class="d-block" style="color: #ff30c1">Flower</span>
+                    <span class="d-block text-dark">Haven</span>
+                    <p>Where Every Petal Tells A Story</p>',
+            ],
+            [
+                'parent' => 'About Us',
+                'label' => 'Header Banner Image',
+                'description' => 'Image of the Header Banner',
+                'slug' => 'about-banner-image',
+                'type' => 'image',
+                'value' => 'header/aboutus.jpg',
+            ],
+
+
 
 
         ];
