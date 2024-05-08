@@ -126,6 +126,14 @@ class ContentBlocksSeed extends AbstractSeed
             ],
             [
                 'parent' => 'Home Tab Panel',
+                'label' => 'Side Title 1',
+                'description' => 'The Side Title of Panel 1 in Homepage',
+                'slug' => 'panelside1-title',
+                'type' => 'text',
+                'value' => 'Introduction',
+            ],
+            [
+                'parent' => 'Home Tab Panel',
                 'label' => 'Panel 1 Title',
                 'description' => 'The Title of Panel 1 in Homepage',
                 'slug' => 'panel1-title',
@@ -149,6 +157,14 @@ class ContentBlocksSeed extends AbstractSeed
                 'value' => 'aboutus1.jpg',
             ],
             /////////
+            [
+                'parent' => 'Home Tab Panel',
+                'label' => 'Side Title 2',
+                'description' => 'The Side Title of Panel 2 in Homepage',
+                'slug' => 'panelside2-title',
+                'type' => 'text',
+                'value' => 'Our Values',
+            ],
             [
                 'parent' => 'Home Tab Panel',
                 'label' => 'Panel 2 Title',
@@ -175,6 +191,14 @@ class ContentBlocksSeed extends AbstractSeed
                 'value' => '',
             ],
             /////////
+            [
+                'parent' => 'Home Tab Panel',
+                'label' => 'Side Title 3',
+                'description' => 'The Side Title of Panel 3 in Homepage',
+                'slug' => 'panelside3-title',
+                'type' => 'text',
+                'value' => 'Our Services',
+            ],
             [
                 'parent' => 'Home Tab Panel',
                 'label' => 'Panel 3 Title',
@@ -226,6 +250,7 @@ class ContentBlocksSeed extends AbstractSeed
                 'type' => 'image',
                 'value' => 'aboutus4.jpg',
             ],
+
 
         ];
 
