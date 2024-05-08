@@ -83,7 +83,7 @@ return function (RouteBuilder $routes): void {
         $builder->redirect('/content-blocks/categories', ['controller' => 'Categories', 'action' => 'index']);
         $builder->redirect('/content-blocks/order-deliveries', ['controller' => 'OrderDeliveries', 'action' => 'index']);
         $builder->redirect('/content-blocks/admin', ['controller' => 'Flowers', 'action' => 'index']);
-
+        $builder->redirect('/content-blocks/pages/display', ['controller' => 'Pages', 'action' => 'display']);
 
         /*
          * Connect catchall routes for all controllers.
