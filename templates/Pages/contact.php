@@ -24,7 +24,7 @@ $this->assign('title', 'Contact Us');
             </div>
         </div>
     </div>
-    <?= $this->Html->image('header/positive-european-woman-has-break-after-work.jpg', ['class' => 'header-image img-fluid', 'alt' => 'Header Image']) ?>
+    <?= $this->Html->image('retail-shop-owner-mask-social-distancing-shopping.jpg', ['class' => 'header-image img-fluid', 'alt' => 'Header Image']) ?>
 </header>
 
 <section class="contact section-padding">
