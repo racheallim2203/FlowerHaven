@@ -36,6 +36,7 @@
                                 <td><?= $payment->payment_method ? h($payment->payment_method->method_type) : __('No Payment Method') ?></td>
                                 <td><?= $this->Html->link(h($payment->user_id), ['controller' => 'Users', 'action' => 'view', $payment->user_id]) ?></td>
                                 <td class="actions">
+                                    <?= $this->Html->link(__('View'), ['action' => 'view', $payment->id], ['class' => 'btn btn-info btn-block']) ?>
                                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $payment->id], ['class' => 'btn btn-primary btn-sm']) ?>
                                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $payment->id], ['confirm' => __('Are you sure you want to delete # {0}?', $payment->id), 'class' => 'btn btn-danger btn-sm']) ?>
                                 </td>

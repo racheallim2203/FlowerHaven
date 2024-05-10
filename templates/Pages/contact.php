@@ -30,49 +30,8 @@ $this->assign('title', 'Contact Us');
 <section class="contact section-padding">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-12">
-                <h2 class="mb-4">Let's <span>begin</span></h2>
-
-                <?= $this->Form->create(null, ['class' => 'contact-form me-lg-5 pe-lg-3', 'role' => 'form']) ?>
-                <?= $this->Form->control('name', [
-                    'label' => false,
-                    'class' => 'form-control',
-                    'required' => true,
-                    'type' => 'text',
-                    'placeholder' => 'Full name'
-                ]) ?>
-                <br>
-                <?= $this->Form->control('email', [
-                    'label' => false,
-                    'class' => 'form-control',
-                    'required' => true,
-                    'type' => 'email',
-                    'pattern' => '[^ @]*@[^ @]*',
-                    'placeholder' => 'Email address'
-                ]) ?>
-                <br>
-                <?= $this->Form->control('subject', [
-                    'label' => false,
-                    'class' => 'form-control',
-                    'required' => true,
-                    'type' => 'text',
-                    'placeholder' => 'Subject'
-                ]) ?>
-                <br>
-                <?= $this->Form->control('message', [
-                    'label' => false,
-                    'class' => 'form-control',
-                    'required' => true,
-                    'type' => 'textarea',
-                    'style' => 'height: 160px',
-                    'placeholder' => 'Enquiries'
-                ]) ?>
-                <br>
-                <?= $this->Form->button('Send', ['class' => 'btn btn-primary', 'style' => 'width:100%;']) ?>
-                <?= $this->Form->end() ?>
-            </div>
-
             <div class="col-lg-6 col-12 mt-5 ms-auto">
+            <h2 class="mb-4">Find Us  <span>Here!</span></h2>
                 <div class="row">
                     <div class="col-6 border-end contact-info">
                         <h6 class="mb-3">Email Address</h6>
@@ -94,7 +53,7 @@ $this->assign('title', 'Contact Us');
 
                     <div class="col-6 border-top border-end contact-info">
                         <h6 class="mb-3">Shop Address</h6>
-                        <p class="text-muted">Akershusstranda 20, 0150 Oslo, Norway</p>
+                        <p class="text-muted">Melbourne Central City, VIC</p>
                     </div>
 
                     <div class="col-6 border-top contact-info">
@@ -106,6 +65,14 @@ $this->assign('title', 'Contact Us');
                             <?= $this->Html->link($this->Html->tag('i', '', ['class' => 'bi-whatsapp']), '#', ['class' => 'social-icon-link', 'escape' => false]) ?>
                         </ul>
                     </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12 mt-5 ms-auto">
+                <div class="map-responsive">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.843853109464!2d144.963058!3d-37.813628!2m3!1f0!2f0!3f0!3m2!1i1024!1i768!4f13.1!3m3!1m2!1s0x6ad65d5df4cc7b95%3A0x2c3e374529a07223!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1651176689154!5m2!1sen!2sus"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
                 </div>
             </div>
         </div>

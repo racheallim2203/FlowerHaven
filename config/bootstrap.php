@@ -34,6 +34,7 @@ require CORE_PATH . 'config' . DS . 'bootstrap.php';
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Configure\Engine\PhpConfig;
+use Cake\Core\Plugin;
 use Cake\Database\Type\StringType;
 use Cake\Database\TypeFactory;
 use Cake\Datasource\ConnectionManager;

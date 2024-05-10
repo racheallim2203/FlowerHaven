@@ -35,12 +35,14 @@
                         <?= $this->Form->control('orderstatus_id', [
                             'options' => $orderstatuses,
                             'class' => 'form-control form-control-lg',
-                            'label' => ['text' => 'Order Status', 'class' => 'form-label mt-4']
+                            'label' => ['text' => 'Order Status', 'class' => 'form-label mt-4'],
+                            'disabled' => $isCancelled
                         ]); ?>
                         <?= $this->Form->control('deliverystatus_id', [
                             'options' => $deliveryStatuses,
                             'class' => 'form-control form-control-lg',
-                            'label' => ['text' => 'Delivery Status', 'class' => 'form-label mt-4']
+                            'label' => ['text' => 'Delivery Status', 'class' => 'form-label mt-4'],
+                            'disabled' => $isCancelled
                         ]); ?>
 
                         <!-- Display other fields as static text -->

@@ -32,7 +32,8 @@ class OrderDeliveriesTable extends Table
 
         $this->hasMany('OrderFlowers', [
             'foreignKey' => 'orderdelivery_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
+            'dependent' => true  // Ensures deletion of OrderFlowers when OrderDelivery is deleted
         ]);
 
         $this->hasMany('Flowers', [
@@ -40,17 +41,18 @@ class OrderDeliveriesTable extends Table
             'through' => 'OrderFlowers',
         ]);
 
-
-        // Define associations
         $this->belongsTo('OrderStatuses', [
             'foreignKey' => 'orderstatus_id',
             'joinType' => 'INNER'
         ]);
 
-
         $this->belongsTo('DeliveryStatuses', [
             'foreignKey' => 'deliverystatus_id',
             'joinType' => 'INNER'
+        ]);
+
+        $this->hasMany('Payments', [
+            'foreignKey' => 'orderdelivery_id'
         ]);
     }
 

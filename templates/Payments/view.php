@@ -45,27 +45,45 @@
                             </td>
                         </tr>
                         <tr>
-                            <th><?= __('Payment Status') ?></th>
+                            <th><?= __('Order Status') ?></th>
                             <td>
-                                <?= $payment->has('payment_status') && !empty($payment->payment_status->name)
-                                    ? $this->Html->link($payment->payment_status->name, ['controller' => 'PaymentStatuses', 'action' => 'view', $payment->payment_status->id])
-                                    : __('Not Available') ?>
+                                <?php if ($payment->order_delivery && $payment->order_delivery->order_status): ?>
+                                    <?= h($payment->order_delivery->order_status->order_type) ?>
+                                <?php else: ?>
+                                    <?= __('Not Available') ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <tr>
-                            <th><?= __('Payment Method') ?></th>
+                            <th><?= __('Delivery Status') ?></th>
                             <td>
-                                <?= $payment->has('payment_method') && !empty($payment->payment_method->name)
-                                    ? $this->Html->link($payment->payment_method->name, ['controller' => 'PaymentMethods', 'action' => 'view', $payment->payment_method->id])
-                                    : __('Not Available') ?>
+                                <?php if ($payment->order_delivery && $payment->order_delivery->delivery_status): ?>
+                                    <?= h($payment->order_delivery->delivery_status->delivery_status) ?>
+                                <?php else: ?>
+                                    <?= __('Not Available') ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <tr>
-                            <th><?= __('User') ?></th>
+                            <th><?= __('Total Amount Paid') ?></th>
                             <td>
-                                <?= $payment->has('user') && !empty($payment->user->id)
-                                    ? $this->Html->link($payment->user->id, ['controller' => 'Users', 'action' => 'view', $payment->user->id])
-                                    : __('Not Available') ?>
+                                <?php if ($payment->order_delivery && $payment->order_delivery->total_amount): ?>
+                                    $<?= h($payment->order_delivery->total_amount) ?>
+                                <?php else: ?>
+                                    <?= __('Not Available') ?>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><?= __('User ID') ?></th>
+                            <td>
+                                <?= $payment->user ? h($payment->user->id) : __('Not Available') ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><?= __('User Email') ?></th>
+                            <td>
+                                <?= $payment->user ? h($payment->user->email) : __('Not Available') ?>
                             </td>
                         </tr>
                         </tbody>

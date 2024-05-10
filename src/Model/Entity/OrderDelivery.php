@@ -31,7 +31,7 @@ class OrderDelivery extends Entity
      */
     protected array $_accessible = [
         '*' => true,
-        'id' => false,  // `id` should not be mass assignable
+        'id' => false, // `id` should not be mass assignable
         'orderstatus_id' => true,
         'deliverystatus_id' => true,
         'order_date' => true,
@@ -39,5 +39,7 @@ class OrderDelivery extends Entity
         'delivery_date' => true,
         'orderstatus' => true,
         'delivery_status' => true,
+        'payments' => true, // Ensure payments are accessible
+        'order_flowers' => true, // Ensure order flowers are accessible
     ];
 }

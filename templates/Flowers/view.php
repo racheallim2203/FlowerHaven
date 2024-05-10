@@ -84,7 +84,7 @@
                                 <tbody>
                                 <?php foreach ($flower->order_flowers as $orderFlower) : ?>
                                     <tr>
-                                        <td><?= $this->Html->link($orderFlower->id, ['controller' => 'OrderFlower', 'action' => 'view', $orderFlower->id]) ?></td>
+                                        <td><?= h($orderFlower->id) ?></td>
                                         <td><?= $this->Html->link($orderFlower->flower_id, ['controller' => 'Flowers', 'action' => 'view', $orderFlower->flower_id]) ?></td>
                                         <td><?= h($orderFlower->quantity) ?></td>
                                         <td class="actions">

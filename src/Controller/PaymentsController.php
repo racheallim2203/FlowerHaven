@@ -24,7 +24,7 @@ class PaymentsController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -69,7 +69,6 @@ class PaymentsController extends AppController
     }
 
 
-
     /**
      * View method
      *
@@ -82,7 +81,7 @@ class PaymentsController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -93,7 +92,9 @@ class PaymentsController extends AppController
         }
 
         // Proceed with payments view function
-        $payment = $this->Payments->get($id, contain: ['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']);
+        $payment = $this->Payments->get($id, [
+            'contain' => ['OrderDeliveries.OrderStatuses', 'OrderDeliveries.DeliveryStatuses', 'PaymentStatuses', 'PaymentMethods', 'Users']
+        ]);
         $this->set(compact('payment'));
     }
 
@@ -133,7 +134,7 @@ class PaymentsController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -173,7 +174,7 @@ class PaymentsController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -211,4 +212,40 @@ class PaymentsController extends AppController
         }
     }
 
+    public function cancelOrder($paymentId)
+    {
+        $this->request->allowMethod(['post']); // Ensure this is a POST request for security
+
+        try {
+            // Fetch the payment along with the associated order delivery
+            $payment = $this->Payments->get($paymentId, ['contain' => ['OrderDeliveries']]);
+        } catch (Exception $e) {
+            Log::error('Error fetching payment with ID ' . $paymentId . ': ' . $e->getMessage());
+            $this->Flash->error('Error fetching payment.');
+            return $this->redirect(['action' => 'history']);
+        }
+
+        if (!$payment->order_delivery) {
+            $this->Flash->error('Order Delivery not found for this payment.');
+            return $this->redirect(['action' => 'history']);
+        }
+
+        // Set the order delivery status to 'ORS-00005' (Cancelled)
+        $orderDelivery = $payment->order_delivery;
+        $orderDelivery->orderstatus_id = 'ORS-00005'; // Cancelled status
+
+        // Set payment status to 'PAS-00003' (Waiting to Refund)
+        $payment->paymentstatus_id = 'PAS-00003'; // Waiting to Refund status
+
+        // Set the delivery status to 'ORS-00005' (Cancelled)
+        $orderDelivery->deliverystatus_id = 'DEL-00005'; // Cancelled status
+
+        if ($this->Payments->OrderDeliveries->save($orderDelivery) && $this->Payments->save($payment)) {
+            $this->Flash->success('Order and payment status have been successfully updated.');
+        } else {
+            $this->Flash->error('Failed to update order and payment status.');
+        }
+
+        return $this->redirect(['action' => 'history']);
+    }
 }

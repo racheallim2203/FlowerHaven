@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\OrderDelivery;
 use Cake\Datasource\ConnectionManager;
 use Cake\Log\Log;
 use Cake\Mailer\Mailer;
@@ -32,7 +33,7 @@ class OrderDeliveriesController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -62,7 +63,7 @@ class OrderDeliveriesController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -70,10 +71,31 @@ class OrderDeliveriesController extends AppController
             $this->viewBuilder()->setTemplatePath('Error');
             $this->viewBuilder()->setTemplate('error401');
             $this->render();
+            return;
         }
 
-        // Proceed with orderdeliveries view function
-        $orderDelivery = $this->OrderDeliveries->get($id, contain: ['Orderstatuses', 'DeliveryStatuses']);
+        try {
+            // Retrieve the order delivery with related entities including OrderFlowers and Flowers
+            $orderDelivery = $this->OrderDeliveries->get($id, [
+                'contain' => [
+                    'OrderStatuses',
+                    'DeliveryStatuses',
+                    'Payments' => [
+                        'PaymentStatuses',
+                        'PaymentMethods',
+                        'Users'
+                    ],
+                    'OrderFlowers' => [
+                        'Flowers'  // Make sure the association is set to retrieve details about flowers
+                    ]
+                ]
+            ]);
+        } catch (\Cake\Datasource\Exception\RecordNotFoundException $e) {
+            // Handle the case where the order delivery does not exist
+            $this->Flash->error(__('Order delivery not found.'));
+            return $this->redirect(['action' => 'index']);
+        }
+
         $this->set(compact('orderDelivery'));
     }
 
@@ -108,22 +130,20 @@ class OrderDeliveriesController extends AppController
      */
     public function edit(?string $id = null)
     {
-        // Get the current user's ID and details
+        // Authentication and admin check
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
-        // Check if the current user is an admin
+
         if ($userIsAdmin == 0) {
-            // Render the custom error401 page if the user is not an admin
             $this->response = $this->response->withStatus(401);
             $this->viewBuilder()->setTemplatePath('Error');
             $this->viewBuilder()->setTemplate('error401');
             $this->render();
+            return;
         }
 
-        // Proceed with orderdeliveries edit function
         $orderDelivery = $this->OrderDeliveries->get($id, [
-            'contain' => [],
+            'contain' => ['OrderStatuses', 'DeliveryStatuses'],
         ]);
 
         $orderstatuses = $this->OrderDeliveries->OrderStatuses->find('list', [
@@ -136,16 +156,17 @@ class OrderDeliveriesController extends AppController
             'valueField' => 'delivery_status',
         ])->toArray();
 
+        $isCancelled = ($orderDelivery->order_status && $orderDelivery->order_status->order_type === 'Cancelled');
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $orderDelivery = $this->OrderDeliveries->patchEntity($orderDelivery, $this->request->getData());
             if ($this->OrderDeliveries->save($orderDelivery)) {
                 $this->Flash->success(__('The order delivery has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The order delivery could not be saved. Please, try again.'));
         }
-        $this->set(compact('orderDelivery', 'orderstatuses', 'deliveryStatuses'));
+        $this->set(compact('orderDelivery', 'orderstatuses', 'deliveryStatuses', 'isCancelled'));
     }
 
     /**
@@ -160,7 +181,7 @@ class OrderDeliveriesController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -231,27 +252,33 @@ class OrderDeliveriesController extends AppController
             }
             $result = $this->Authentication->getResult();
             $userId = $result->getData()->id;
+            $this->log('Retrieved orderDeliveryId: ' . $userId, 'debug');
             $this->log('Retrieved orderDeliveryId: ' . $orderDeliveryId, 'debug');
             $paymentData = [
                 'orderdelivery_id' => $orderDeliveryId,
                 'paymentstatus_id' => 'PAS-00001',
                 'paymentmethod_id' => $this->request->getData('payment_method_id'),
+
                 'user_id' => $userId,
             ];
 
 
+
             // Create a new entity for Payments
             $payment = $paymentsTable->newEntity($paymentData);
-
+            $this->log('Retrieved orderDeliveryId: ' . $orderDeliveryId, 'debug');
             // Attempt to save the entity to the database
             if (!$paymentsTable->save($payment)) {
+                $this->log('Failed to save payment details. Errors: ' . json_encode($payment->getErrors()), 'debug');
                 throw new Exception('Unable to save payment details.');
             } else {
                 $paymentId = $payment->id;  // Successfully saved
+                $this->log('Successfully saved payment details. Payment ID: ' . $paymentId, 'debug');
             }
-
+            $this->log('Retrieved orderDeliveryId: ' . $orderDeliveryId, 'debug');
             foreach ($cart as $item) {
                 try {
+                    $this->log('Retrieved orderDeliveryId: ' . $orderDeliveryId, 'debug');
                     $flower = $flowersTable->get($item['flower_id']);
                     $orderflowerData = [
                         'flower_id' => $flower->id,
@@ -268,7 +295,7 @@ class OrderDeliveriesController extends AppController
                     continue; // Skip this item or handle accordingly
                 }
             }
-
+            $this->log('Retrieved orderDeliveryId: ' . $orderDeliveryId, 'debug');
             // Reduce stock count once successful payment made
             foreach ($cart as $item) {
                 $flower = $flowersTable->get($item['flower_id']);
@@ -281,14 +308,14 @@ class OrderDeliveriesController extends AppController
                 }
 
             }
-
+            $this->log('Retrieved orderDeliveryId: ' . $orderDeliveryId, 'debug');
 //            // Attempt to send confirmation email
 //            $this->sendConfirmationEmail($cart);
 
             // Proceed with the rest of the transaction handling
             $connection->commit();
             $session->delete('Cart');
-
+            $this->log('Retrieved orderDeliveryId: ' . $orderDeliveryId, 'debug');
             return $this->responseJson([
                 'success' => true,
                 'message' => 'Payment processed successfully',

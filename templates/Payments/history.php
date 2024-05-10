@@ -84,8 +84,9 @@ $this->assign('title', 'Order History');
                                         ) ?>
                                     </div>
                                     <div class="mt-2">
-                                        <?= $this->Form->postLink('Delete Details', ['controller' => 'Payments', 'action' => 'delete', $payment->id], ['confirm' => 'Are you sure you want to delete?', 'class' => 'btn btn-danger btn-sm']) ?>
+                                        <?= $this->Form->postLink('Delete History', ['controller' => 'Payments', 'action' => 'delete', $payment->id], ['confirm' => 'Are you sure you want to delete?', 'class' => 'btn btn-danger btn-sm']) ?>
                                     </div>
+                                    <?= $this->Form->postLink('Cancel Order', ['controller' => 'Payments', 'action' => 'cancelOrder', $payment->id], ['confirm' => 'Are you sure you want to cancel this order?', 'class' => 'btn btn-danger btn-sm']) ?>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
