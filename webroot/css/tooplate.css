@@ -539,3 +539,7 @@ footer {
         top: 107px;
     }
 }
+
+.refund-waiting {
+    background-color: #f7eb9c; /* Light red for illustration */
+}

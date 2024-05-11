@@ -10,6 +10,33 @@
 
 <div class="container-fluid">
     <div class="row">
+        <?= $this->Form->create(null, ['type' => 'get', 'class' => 'form-inline']) ?>
+        <div class="col-md-4 mb-3">
+            <?= $this->Form->control('paymentStatusId', [
+                'type' => 'select',
+                'label' => false,
+                'class' => 'form-control',
+                'options' => $paymentStatuses,
+                'empty' => 'Choose Payment Status',
+                'value' => $this->request->getQuery('paymentStatusId')
+            ]) ?>
+        </div>
+        <div class="col-md-4 mb-3">
+            <?= $this->Form->control('userSearch', [
+                'class' => 'form-control',
+                'label' => false,
+                'placeholder' => 'Enter user email',
+                'value' => $this->request->getQuery('userSearch'),
+                'maxlength' => '20'
+            ]) ?>
+        </div>
+        <div class="col-md-4 mb-3 d-flex">
+            <?= $this->Form->button(__('Filter'), ['class' => 'btn btn-primary']) ?>
+            <?= $this->Html->link('Reset', ['action' => 'adminIndex'], ['class' => 'btn btn-secondary']) ?>
+        </div>
+        <?= $this->Form->end() ?>
+    </div>
+    <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <br>
             <div class="bg-white tm-block h-100">
@@ -29,7 +56,7 @@
                         </thead>
                         <tbody>
                         <?php foreach ($payments as $payment): ?>
-                            <tr>
+                            <tr class="<?= $payment->payment_status && $payment->payment_status->status_type === 'Waiting To Refund' ? 'refund-waiting' : '' ?>">
                                 <td><?= h($payment->id) ?></td>
                                 <td><?= $this->Html->link(h($payment->orderdelivery_id), ['controller' => 'OrderDeliveries', 'action' => 'view', $payment->orderdelivery_id]) ?></td>
                                 <td><?= $payment->payment_status ? h($payment->payment_status->status_type) : __('No Payment Status') ?></td>

@@ -30,22 +30,25 @@ class OrderDeliveriesController extends AppController
      */
     public function index()
     {
-        // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
 
-        // Check if the current user is an admin
         if ($userIsAdmin == 0) {
-            // Render the custom error401 page if the user is not an admin
             $this->response = $this->response->withStatus(401);
             $this->viewBuilder()->setTemplatePath('Error');
             $this->viewBuilder()->setTemplate('error401');
             $this->render();
+            return;
         }
 
         // Proceed with orderdeliveries index function
         $query = $this->OrderDeliveries->find()
-            ->contain(['OrderStatuses', 'DeliveryStatuses']);
+            ->contain(['OrderStatuses', 'DeliveryStatuses'])
+            ->order([
+                'CASE WHEN DeliveryStatuses.delivery_status = \'Awaiting Pickup\' THEN 0 ELSE 1 END' => 'ASC',
+                'OrderDeliveries.id' => 'ASC'
+            ]);
+
         $orderDeliveries = $this->paginate($query);
 
         $this->set(compact('orderDeliveries'));

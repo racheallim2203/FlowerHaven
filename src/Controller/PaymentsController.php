@@ -21,23 +21,46 @@ class PaymentsController extends AppController
      */
     public function adminIndex()
     {
-        // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
 
-        // Check if the current user is an admin
         if ($userIsAdmin == 0) {
-            // Render the custom error401 page if the user is not an admin
             $this->response = $this->response->withStatus(401);
             $this->viewBuilder()->setTemplatePath('Error');
             $this->viewBuilder()->setTemplate('error401');
             $this->render();
+            return;
         }
 
-        // Proceed with payments adminIndex function
+        $paymentStatusId = $this->request->getQuery('paymentStatusId');
+        $userId = $this->request->getQuery('userId');
+
         $query = $this->Payments->find()
-            ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users']);
-        $this->set('payments', $this->paginate($query));
+            ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users'])
+            ->order([
+                'PaymentStatuses.status_type' => 'DESC', // Ensures 'Waiting To Refund' comes first if sorted DESC alphabetically
+                'Payments.id' => 'ASC' // Fallback sort by payment ID
+            ]);
+
+        if (!empty($paymentStatusId)) {
+            $query->where(['PaymentStatuses.id' => $paymentStatusId]);
+        }
+
+        if (!empty($userId)) {
+            $query->where(['Users.id' => $userId]);
+        }
+
+        $payments = $this->paginate($query);
+        $paymentStatuses = $this->Payments->PaymentStatuses->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'status_type'
+        ]);
+        $users = $this->Payments->Users->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'email'
+        ]);
+
+        $this->set(compact('payments', 'paymentStatuses', 'users'));
     }
 
     public function index()

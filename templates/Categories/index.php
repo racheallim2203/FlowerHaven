@@ -9,7 +9,13 @@
     <div class="row">
         <?= $this->Form->create(null, ['type' => 'get', 'class' => 'form-inline']) ?>
         <div class="col-md-4 mb-3">
-            <?= $this->Form->control('search', ['label' => false, 'class' => 'form-control', 'placeholder' => 'Search Flowers', 'value' => $this->request->getQuery('search')]) ?>
+            <?= $this->Form->control('search', [
+                'label' => false,
+                'class' => 'form-control',
+                'placeholder' => 'Search Flowers',
+                'value' => $this->request->getQuery('search'),
+                'maxlength' => '15' // Set your desired word limit here
+            ]) ?>
         </div>
         <div class="col-md-4 mb-3">
             <?= $this->Form->control('category', [

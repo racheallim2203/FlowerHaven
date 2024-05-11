@@ -12,7 +12,7 @@ namespace App\Controller;
 class CategoriesController extends AppController
 {
     /**
-     * Controller initialize override 
+     * Controller initialize override
      * Verifies whether the user accessing the page is an admin or not
      * @return void
      */
@@ -23,7 +23,7 @@ class CategoriesController extends AppController
         // Get the current user's ID and details
         $result = $this->Authentication->getResult();
         $userIsAdmin = $result->getData()->isAdmin;
-    
+
         // Check if the current user is an admin
         if ($userIsAdmin == 0) {
             // Render the custom error401 page if the user is not an admin
@@ -33,7 +33,7 @@ class CategoriesController extends AppController
             $this->render();
         }
     }
-    
+
     /**
      * Index method
      *
