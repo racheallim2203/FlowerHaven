@@ -7,6 +7,34 @@
 
 <div class="container-fluid">
     <div class="row">
+        <?= $this->Form->create(null, ['type' => 'get', 'class' => 'form-inline']) ?>
+        <div class="col-md-4 mb-3">
+            <?= $this->Form->control('orderStatusId', [
+                'type' => 'select',
+                'class' => 'form-control',
+                'label' => false,
+                'options' => $orderStatuses,
+                'empty' => 'Search Order Status',
+                'value' => $this->request->getQuery('orderStatusId')
+            ]) ?>
+        </div>
+        <div class="col-md-4 mb-3">
+            <?= $this->Form->control('deliveryStatusId', [
+                'type' => 'select',
+                'class' => 'form-control',
+                'label' => false,
+                'options' => $deliveryStatuses,
+                'empty' => 'Search Delivery Status',
+                'value' => $this->request->getQuery('deliveryStatusId')
+            ]) ?>
+        </div>
+        <div class="col-md-4 mb-3 d-flex">
+            <?= $this->Form->button(__('Apply Filters'), ['class' => 'btn btn-primary']) ?>
+            <?= $this->Html->link('Reset', ['action' => 'index'], ['class' => 'btn btn-secondary ml-2']) ?>
+        </div>
+        <?= $this->Form->end() ?>
+    </div>
+    <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <br>
             <div class="bg-white tm-block h-100">

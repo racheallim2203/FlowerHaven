@@ -50,8 +50,30 @@ class OrderDeliveriesController extends AppController
             ]);
 
         $orderDeliveries = $this->paginate($query);
+        $orderStatusId = $this->request->getQuery('orderStatusId');
+        $deliveryStatusId = $this->request->getQuery('deliveryStatusId');
 
-        $this->set(compact('orderDeliveries'));
+
+        if (!empty($orderStatusId)) {
+            $query->where(['OrderStatuses.id' => $orderStatusId]);
+        }
+
+        if (!empty($deliveryStatusId)) {
+            $query->where(['DeliveryStatuses.id' => $deliveryStatusId]);
+        }
+
+        $orderDeliveries = $this->paginate($query);
+        $orderStatuses = $this->OrderDeliveries->OrderStatuses->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'order_type'
+        ])->toArray();
+
+        $deliveryStatuses = $this->OrderDeliveries->DeliveryStatuses->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'delivery_status'
+        ])->toArray();
+
+        $this->set(compact('orderDeliveries', 'orderStatuses', 'deliveryStatuses'));
     }
 
     /**
