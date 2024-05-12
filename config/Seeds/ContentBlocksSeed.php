@@ -273,6 +273,7 @@ class ContentBlocksSeed extends AbstractSeed
 
 
 
+
         ];
 
         $table = $this->table('content_blocks');
