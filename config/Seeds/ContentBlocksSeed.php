@@ -250,7 +250,7 @@ class ContentBlocksSeed extends AbstractSeed
                 'type' => 'image',
                 'value' => 'aboutus4.jpg',
             ],
-            //About Us
+            ///About Us Section///
             [
                 'parent' => 'About Us',
                 'label' => 'Header Banner',
@@ -269,6 +269,131 @@ class ContentBlocksSeed extends AbstractSeed
                 'type' => 'image',
                 'value' => 'header/aboutus.jpg',
             ],
+            [
+                'parent' => 'About Us',
+                'label' => 'Page Title',
+                'description' => 'Title underneath the Header Banner',
+                'slug' => 'about-title',
+                'type' => 'html',
+                'value' => 'What do we do at <span>Flower</span>Haven',
+            ],
+            //Card 1
+            [
+                'parent' => 'About Us Card 1',
+                'label' => 'About Card Title 1',
+                'description' => 'Title in the first card',
+                'slug' => 'about-card-title1',
+                'type' => 'html',
+                'value' => 'Expertise',
+            ],
+            [
+                'parent' => 'About Us Card 1',
+                'label' => 'About Card Subtitle 1',
+                'description' => 'Title in the first card',
+                'slug' => 'about-card-subtitle1',
+                'type' => 'html',
+                'value' => 'Use freshest, most vibrant flowers',
+            ],
+            [
+                'parent' => 'About Us Card 1',
+                'label' => 'About Card Expanded Title 1',
+                'description' => 'Title of Pop-Up Card',
+                'slug' => 'about-card-exp-title1',
+                'type' => 'html',
+                'value' => 'Expert Floristry',
+            ],
+            [
+                'parent' => 'About Us Card 1',
+                'label' => 'About Card Description 1',
+                'description' => 'Description of Pop-Up Card',
+                'slug' => 'about-card-desc1',
+                'type' => 'html',
+                'value' => 'Our team of skilled florists combines expertise with passion to design floral artistry that reflects your personal style and event theme. Using the freshest, most vibrant flowers sourced from trusted growers, we ensure each creation is as unique as it is beautiful.',
+            ],
+            //Card 2
+            [
+                'parent' => 'About Us Card 2',
+                'label' => 'About Card Title 2',
+                'description' => 'Title in the second card',
+                'slug' => 'about-card-title2',
+                'type' => 'html',
+                'value' => 'Personalized',
+            ],
+            [
+                'parent' => 'About Us Card 2',
+                'label' => 'About Card Subtitle 2',
+                'description' => 'Title in the second card',
+                'slug' => 'about-card-subtitle2',
+                'type' => 'html',
+                'value' => 'Tailoring occasions',
+            ],
+            [
+                'parent' => 'About Us Card 2',
+                'label' => 'About Card Expanded Title 2',
+                'description' => 'Title of Pop-Up Card',
+                'slug' => 'about-card-exp-title2',
+                'type' => 'html',
+                'value' => 'Personalized Services',
+            ],
+            [
+                'parent' => 'About Us Card 2',
+                'label' => 'About Card Description 2',
+                'description' => 'Description of Pop-Up Card',
+                'slug' => 'about-card-desc2',
+                'type' => 'html',
+                'value' => 'Understanding that every occasion is special, we offer personalized consultations either in-store or online to tailor our floral services to your specific needs. Whether you’re planning a large event or sending a personal gift, our team is here to guide you every step of the way.',
+            ],
+            //Card 3
+            [
+                'parent' => 'About Us Card 3',
+                'label' => 'About Card Title 3',
+                'description' => 'Title in the third card',
+                'slug' => 'about-card-title3',
+                'type' => 'html',
+                'value' => 'Retail Online',
+            ],
+            [
+                'parent' => 'About Us Card 3',
+                'label' => 'About Card Subtitle 3',
+                'description' => 'Title in the third card',
+                'slug' => 'about-card-subtitle3',
+                'type' => 'html',
+                'value' => 'Online and In Store',
+            ],
+            [
+                'parent' => 'About Us Card 3',
+                'label' => 'About Card Expanded Title 3',
+                'description' => 'Title of Pop-Up Card',
+                'slug' => 'about-card-exp-title3',
+                'type' => 'html',
+                'value' => 'Online and In-Store',
+            ],
+            [
+                'parent' => 'About Us Card 3',
+                'label' => 'About Card Description 3',
+                'description' => 'Description of Pop-Up Card',
+                'slug' => 'about-card-desc3',
+                'type' => 'html',
+                'value' => 'Visit us at our welcoming shop or browse our extensive online gallery to find the perfect floral expression. With our convenient delivery service, beautiful flowers are just a click away.',
+            ],
+            [
+                'parent' => 'Testimonial',
+                'label' => 'Change the text/ style of the testimonial at the bottom',
+                'description' => 'Testimonial html',
+                'slug' => 'testimonial',
+                'type' => 'html',
+                'value' => '
+                            Flower Haven never disappoints! I ordered a bouquet for my mother\'s birthday,
+                            and it was absolutely stunning. The flowers were fresh, beautifully arranged,
+                            and delivered right on time. Their attention to detail really shines through in their arrangements!</p>
+                        <div class="slick-testimonial-client d-flex align-items-center mt-4">
+                            <img src="<?= $this->Url->image(\'people/customer1.jpg\') ?>" class="img-fluid custom-circle-image team-image me-3" alt="">
+                            <span>George, <strong class="text-muted">Customer</strong></span>
+                        </div>',
+            ],
+
+
+
 
 
 
