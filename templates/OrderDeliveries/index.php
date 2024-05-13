@@ -29,7 +29,7 @@
             ]) ?>
         </div>
         <div class="col-md-4 mb-3 d-flex">
-            <?= $this->Form->button(__('Apply Filters'), ['class' => 'btn btn-primary']) ?>
+            <?= $this->Form->button(__('Filter'), ['class' => 'btn btn-primary']) ?>
             <?= $this->Html->link('Reset', ['action' => 'index'], ['class' => 'btn btn-secondary ml-2']) ?>
         </div>
         <?= $this->Form->end() ?>

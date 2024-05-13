@@ -26,14 +26,27 @@
     </header>
 
     <section class="product-detail section-padding">
-        <!-- Display Flash Messages Here -->
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-12">
-                    <div class="product-thumb">
-                        <?= $this->Html->image($flower->image, ['class' => 'img-fluid product-image', 'alt' => $flower->flower_name]); ?>
+                    <div id="flowerCarousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <?= $this->Html->image($flower->image, ['class' => 'd-block w-100', 'alt' => $flower->flower_name]); ?>
+                            </div>
+                            <div class="carousel-item">
+                                <?= $this->Html->image($flower->image2 ?? 'rosearrangement.jpg', ['class' => 'd-block w-100', 'alt' => 'Additional view']); ?>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#flowerCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#flowerCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
-
                 </div>
 
                 <div class="col-lg-6 col-12">

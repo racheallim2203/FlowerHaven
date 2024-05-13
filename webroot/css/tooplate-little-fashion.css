@@ -1185,4 +1185,17 @@ button:focus:not(:focus-visible) {
         width: 25px;
         height: 25px;
     }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: black; /* Change the background color */
+        border-radius: 50%; /* Make it round */
+        width: 50px; /* Set width */
+        height: 50px; /* Set height */
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 5%; /* Control width for larger clickable area */
+    }
 }
