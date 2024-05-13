@@ -25,7 +25,7 @@
         </div>
     </header>
 
-    <section class="product-detail section-padding">
+    <section class="product-detail section-padding" style="background-color: beige;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-12">
