@@ -58,8 +58,8 @@
                     </div>
 
                     <div class="product-description">
-                        <strong class="lead mb-5">$<?= h($flower->flower_price); ?></strong>
-                        <p class="lead mb-5"><?= h($flower->flower_description); ?></p>
+                        <strong class="lead mb-5" style="font-weight: bolder">$<?= h($flower->flower_price); ?></strong>
+                        <p class="lead mb-5"style="font-weight: bold"><?= h($flower->flower_description); ?></p>
                         <p class="lead"><strong>Available Stock: </strong><?= h($flower->stock_quantity); ?></p> <!-- Displaying stock quantity -->
                     </div>
 
@@ -86,7 +86,7 @@
             </div>
         </div>
     </section>
-    <div class="col-12 text-center">
+    <div class="col-12 text-center" style="background-color: beige">
         <?= $this->Html->link('View All Products', ['controller' => 'Flowers', 'action' => 'customerIndex'], ['class' => "view-all"])?>
     </div>
 
