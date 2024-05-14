@@ -41,5 +41,6 @@ class OrderDelivery extends Entity
         'delivery_status' => true,
         'payments' => true, // Ensure payments are accessible
         'order_flowers' => true, // Ensure order flowers are accessible
+        'isArchived' => true,
     ];
 }

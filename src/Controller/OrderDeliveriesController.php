@@ -134,6 +134,7 @@ class OrderDeliveriesController extends AppController
         $orderDelivery = $this->OrderDeliveries->newEmptyEntity();
         if ($this->request->is('post')) {
             $orderDelivery = $this->OrderDeliveries->patchEntity($orderDelivery, $this->request->getData());
+            $orderDelivery->isArchived = 0; // Sets the default isArchived value to be not archived (0)
             if ($this->OrderDeliveries->save($orderDelivery)) {
                 $this->Flash->success(__('The order delivery has been saved.'));
 
@@ -363,5 +364,85 @@ class OrderDeliveriesController extends AppController
         return $this->response
             ->withType('application/json')
             ->withStringBody(json_encode($data));
+    }
+
+    /**
+     * Archive method
+     *
+     * @param string|null $id Order Delivery id.
+     * @return \Cake\Http\Response|null|void Redirects on successful archive, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function archive(?string $id = null)
+    {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with order deliveries archive function
+        $orderDelivery = $this->OrderDeliveries->get($id, [
+            'contain' => ['OrderStatuses', 'DeliveryStatuses'],
+        ]);
+
+        $orderDelivery->isArchived = 1; 
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $orderDelivery = $this->OrderDeliveries->patchEntity($orderDelivery, $this->request->getData());
+            if ($this->OrderDeliveries->save($orderDelivery)) {
+                $this->Flash->success(__('The order delivery has been saved.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The order delivery could not be saved. Please, try again.'));
+        }
+        $this->set(compact('orderDelivery', 'orderstatuses', 'deliveryStatuses', 'isCancelled'));
+    }
+
+    /**
+     * Unarchive method
+     *
+     * @param string|null $id Order Delivery id.
+     * @return \Cake\Http\Response|null|void Redirects on successful unarchive, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function unarchive(?string $id = null)
+    {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with order deliveries archive function
+        $orderDelivery = $this->OrderDeliveries->get($id, [
+            'contain' => ['OrderStatuses', 'DeliveryStatuses'],
+        ]);
+
+        $orderDelivery->isArchived = 0; 
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $orderDelivery = $this->OrderDeliveries->patchEntity($orderDelivery, $this->request->getData());
+            if ($this->OrderDeliveries->save($orderDelivery)) {
+                $this->Flash->success(__('The order delivery has been saved.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The order delivery could not be saved. Please, try again.'));
+        }
+        $this->set(compact('orderDelivery', 'orderstatuses', 'deliveryStatuses', 'isCancelled'));
     }
 }

@@ -316,6 +316,9 @@ class FlowersController extends AppController
                 $flower->image = $name;
             }
 
+            $flower->isArchived = 0; // Sets the default isArchived value to be not archived (0)
+
+
             if ($this->Flowers->save($flower)) {
                 $this->Flash->success(__('The flower has been saved.'));
 
@@ -449,6 +452,20 @@ class FlowersController extends AppController
      */
     public function archive($id = null)
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with flowers archive function
         $flower = $this->Flowers->get($id, contain: []);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -475,6 +492,20 @@ class FlowersController extends AppController
      */
     public function unarchive($id = null)
     {
+        // Get the current user's ID and details
+        $result = $this->Authentication->getResult();
+        $userIsAdmin = $result->getData()->isAdmin;
+
+        // Check if the current user is an admin
+        if ($userIsAdmin == 0) {
+            // Render the custom error401 page if the user is not an admin
+            $this->response = $this->response->withStatus(401);
+            $this->viewBuilder()->setTemplatePath('Error');
+            $this->viewBuilder()->setTemplate('error401');
+            $this->render();
+        }
+
+        // Proceed with flowers unarchive function
         $flower = $this->Flowers->get($id, contain: []);
 
         if ($this->request->is(['patch', 'post', 'put'])) {

@@ -50,6 +50,7 @@
                             <th><?= $this->Paginator->sort('order_date', 'Order Date', ['style' => 'color: #9e297e;']) ?></th>
                             <th><?= $this->Paginator->sort('total_amount', 'Total Amount', ['style' => 'color: #9e297e;']) ?></th>
                             <th><?= $this->Paginator->sort('delivery_date', 'Delivery Date', ['style' => 'color: #9e297e;']) ?></th>
+                            <th><?= $this->Paginator->sort('isArchived', 'Archived?', ['style' => 'color: #9e297e;']) ?></th>
                             <th class="actions" style="color: #9e297e;"><?= __('Actions') ?></th>
                         </tr>
                         </thead>
@@ -62,12 +63,28 @@
                                 <td><?= h($orderDelivery->order_date->format('Y-m-d')) ?></td>
                                 <td><?= $this->Number->currency($orderDelivery->total_amount) ?></td>
                                 <td><?= h($orderDelivery->delivery_date->format('Y-m-d')) ?></td>
+                                <td><?= h($orderDelivery->isArchived ? __('Yes') : __('No') ) ?></td>
                                 <td class="actions">
                                     <?= $this->Html->link(__('View'), ['action' => 'view', $orderDelivery->id], ['class' => 'btn btn-info btn-sm']) ?>
                                     <?php if ($orderDelivery->order_status && $orderDelivery->order_status->order_type !== 'Cancelled'): ?>
                                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $orderDelivery->id], ['class' => 'btn btn-primary btn-sm']) ?>
                                     <?php endif; ?>
-                                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $orderDelivery->id], ['confirm' => __('Are you sure you want to delete # {0}?', $orderDelivery->id), 'class' => 'btn btn-danger btn-sm']) ?>
+                                    <!-- Check if the current user is already archived -->
+                                    <?php if (!$orderDelivery->isArchived): ?>
+                                        <!-- If not, an archive button is available to be pressed -->
+                                        <?= $this->Form->postLink(
+                                            __('Archive'),
+                                            ['action' => 'archive', $orderDelivery->id],
+                                            ['confirm' => __('Are you sure you want to archive # {0}?', $orderDelivery->id), 'class' => 'btn btn-danger btn-sm']
+                                        ) ?>
+                                    <?php else: ?>
+                                        <!-- If yes, an un-archive button is available to be pressed -->
+                                        <?= $this->Form->postLink(
+                                            __('Unarchive'),
+                                            ['action' => 'unarchive', $orderDelivery->id],
+                                            ['confirm' => __('Are you sure you want to unarchive # {0}?', $orderDelivery->id), 'class' => 'btn btn-danger btn-sm']
+                                        ) ?>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

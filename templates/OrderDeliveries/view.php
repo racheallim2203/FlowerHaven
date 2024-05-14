@@ -94,6 +94,10 @@
                                 <?php endforeach; ?>
                             </td>
                         </tr>
+                        <tr>
+                            <th><?= __('Archived') ?></th>
+                            <td><?= $orderDelivery->isArchived ? __('Yes') : __('No') ?></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

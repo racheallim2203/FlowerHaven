@@ -58,6 +58,18 @@
                             <label><?= __('Delivery Date') ?></label>
                             <input type="text" class="form-control" value="<?= h($orderDelivery->delivery_date) ?>" readonly>
                         </div>
+
+                        <!-- Edit archived status -->
+                        <div class="form-group">
+                            <label><?= __('Is Archived') ?></label>
+                            <?= $this->Form->control('isArchived', [
+                                'type' => 'select',
+                                'options' => [0 => __('No'), 1 => __('Yes')],
+                                'empty' => false,
+                                'class' => 'form-control',
+                                'label' => false
+                            ]); ?>
+                        </div>
                     </fieldset>
                     <div class="form-group mt-4">
                         <?= $this->Form->button(__('Update Order Delivery'), ['class' => 'btn btn-lg btn-success']) ?>
