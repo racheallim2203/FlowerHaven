@@ -1,5 +1,8 @@
 <?php
-// Assuming you have a way to determine the current page/controller/action
+// Fetching the currently authenticated user object
+$user = $this->Identity->get();
+
+// The current controller and action for active link highlighting
 $currentController = $this->getRequest()->getParam('controller');
 $currentAction = $this->getRequest()->getParam('action');
 $activePage = ucfirst($currentController) . '/' . $currentAction;
@@ -33,9 +36,16 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
             <div class="d-none d-lg-block">
                <?= $this->Html->link(' Cart', ['controller' => 'flowers', 'action' => 'shopping-cart'], ['class' => "bi-cart custom-icon nav-link"  . ($activePage == 'Flowers/customerShoppingCart' ? ' active' : '')])?>
 
+                <!-- Check if the user is logged in -->
                 <?php if ($this->Identity->isLoggedIn()) : ?>
+                        <!-- If the user is logged in -->
                         <?= $this->Html->link(' Orders', ['controller' => 'Payments', 'action' => 'history'], ['class' => "bi-bag custom-icon nav-link"  . ($activePage == 'Payments/history' ? ' active' : '')]) ?>
                         <?= $this->Html->link(' Logout', ['controller' => 'Auth', 'action' => 'logout'], ['class' => "bi-person custom-icon nav-link"]) ?>
+                        
+                        <?php if ($user && $user->isAdmin): ?>
+                            <?= $this->Html->link(' Admin', ['controller' => 'Admin', 'action' => 'index'], ['class' => "bi-shield-lock custom-icon nav-link"]) ?>
+                        <?php endif; ?>
+
                     <?php else : ?>
                         <?= $this->Html->link(' Login', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon nav-link"]) ?>
                     <?php endif; ?>

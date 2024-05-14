@@ -1,3 +1,8 @@
+<?php
+// Fetching the currently authenticated user object
+$user = $this->Identity->get();
+?>
+
 <footer class="site-footer mt-10">
     <div class="container">
         <div class="row">
@@ -14,6 +19,9 @@
                     <li class="footer-menu-item"><?= $this->Html->link('About', ['class' => 'footer-menu-link', 'controller' => 'Pages', 'action' => 'aboutus'])?></li>
                     <li class="footer-menu-item"><?= $this->Html->link('Our Flowers', ['class' => 'footer-menu-link', 'controller' => 'Flowers', 'action' => 'customerIndex'])?></li>
                     <li class="footer-menu-item"><?= $this->Html->link('Contact', ['class' => 'footer-menu-link', 'controller' => 'Pages', 'action' => 'contact'])?></li>
+                    <?php if ($user && $user->isAdmin): ?>
+                        <li class="footer-menu-item"><?= $this->Html->link('Admin Dashboard', ['class' => 'footer-menu-link', 'controller' => 'Flowers', 'action' => 'index'])?></li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <div class="col-lg-3 col-4">
