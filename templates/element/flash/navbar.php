@@ -38,7 +38,7 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
                         <?php endif; ?>
 
                     <?php else : ?>
-                        <?= $this->Html->link(' Login', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon nav-link"]) ?>
+                        <?= $this->Html->link(' Login', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon nav-link"  . ($activePage == 'Auth/login' ? ' active' : '')]) ?>
                 <?php endif; ?>
             </div>
         </div>
