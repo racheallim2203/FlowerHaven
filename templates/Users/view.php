@@ -12,6 +12,7 @@
                 <div class="card-header bg-dark text-white">
                     <h4 class="mb-0"><?= __('Actions') ?></h4>
                 </div>
+                <!-- Buttons related to editing, viewing a list of and creating a new user -->
                 <div class="card-body">
                     <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => 'btn btn-primary btn-block']) ?>
                     <?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index'], ['class' => 'btn btn-info btn-block']) ?>
@@ -24,6 +25,7 @@
                 <div class="card-header bg-dark text-white">
                     <h4 class="mb-0"><?= __('User Details') ?></h4>
                 </div>
+                <!-- Table displaying the specified user's information -->
                 <div class="card-body">
                     <table class="table table-striped">
                         <tbody>
@@ -51,12 +53,10 @@
                                 <?= h($user->phone_no) ?: __('Not Available') ?>
                             </td>
                         </tr>
-                        <?php if ($user->isAdmin): ?>
-                            <tr>
+                        <tr>
                                 <th><?= __('Admin') ?></th>
                                 <td><?= $user->isAdmin ? __('Yes') : __('No') ?></td>
-                            </tr>
-                        <?php endif; ?>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

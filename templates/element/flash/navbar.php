@@ -16,21 +16,12 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
 
         <?= $this->ContentBlock->image('Logo', ['style' => 'height: 50px', 'url'=> ['controller' => 'Pages', 'action' => 'display']]); ?>
 
-
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-                <li>
-                   <?= $this->Html->link('Home', ['controller' => 'Pages', 'action' => 'display'], ['class' => "nav-link" . ($activePage == 'Pages/display' ? ' active' : '')]) ?> </a>
-                </li>
-                <li>
-                    <?= $this->Html->link('About', ['controller' => 'Pages', 'action' => 'aboutus'], ['class' => "nav-link" . ($activePage == 'Pages/aboutus' ? ' active' : '')])?>
-                </li>
-                <li>
-                    <?= $this->Html->link('Products', ['controller' => 'Flowers', 'action' => 'customerIndex'], ['class' => "nav-link" . ($activePage == 'Flowers/customerIndex' ? ' active' : '')])?>
-                </li>
-                <li>
-                    <?= $this->Html->link('Contact Us', ['controller' => 'Pages', 'action' => 'contact'], ['class' => "nav-link" . ($activePage == 'Pages/contact' ? ' active' : '')])?>
-                </li>
+                <li><?= $this->Html->link('Home', ['controller' => 'Pages', 'action' => 'display'], ['class' => "nav-link" . ($activePage == 'Pages/display' ? ' active' : '')]) ?> </a></li>
+                <li><?= $this->Html->link('About', ['controller' => 'Pages', 'action' => 'aboutus'], ['class' => "nav-link" . ($activePage == 'Pages/aboutus' ? ' active' : '')])?></li>
+                <li><?= $this->Html->link('Products', ['controller' => 'Flowers', 'action' => 'customerIndex'], ['class' => "nav-link" . ($activePage == 'Flowers/customerIndex' ? ' active' : '')])?></li>
+                <li><?= $this->Html->link('Contact Us', ['controller' => 'Pages', 'action' => 'contact'], ['class' => "nav-link" . ($activePage == 'Pages/contact' ? ' active' : '')])?></li>
             </ul>
 
             <div class="d-none d-lg-block">
@@ -48,7 +39,7 @@ $activePage = ucfirst($currentController) . '/' . $currentAction;
 
                     <?php else : ?>
                         <?= $this->Html->link(' Login', ['controller' => 'Auth', 'action' => 'login'], ['class' => "bi-person custom-icon nav-link"]) ?>
-                    <?php endif; ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>

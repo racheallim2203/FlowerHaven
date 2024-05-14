@@ -14,6 +14,7 @@ $this->assign('title', 'Admin | Register New User');
                 <div class="card-header" style="color: white; background-color: #ccaf47;">
                     <h4 class="tm-block-title font-weight-bold"><?= __('Actions') ?></h4>
                 </div>
+                <!-- Button to view the list of users in the database -->
                 <div class="card-body">
                     <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'btn btn-outline-info btn-block']) ?>
                 </div>
@@ -24,6 +25,7 @@ $this->assign('title', 'Admin | Register New User');
                 <div class="card card-body text-white" style="background-color: #69064e;">
                     <h4 class="mb-0"><?= __('Add User') ?></h4>
                 </div>
+                <!-- Form to create a new user -->
                 <div class="card-body">
                 <?= $this->Form->create($user, ['class' => 'form', 'type' => 'file']) ?>
                     <fieldset>
@@ -78,9 +80,10 @@ $this->assign('title', 'Admin | Register New User');
                                 'label' => false
                             ]); ?>
                         </div>
-
+                        
+                        <!-- Form button that submits and adds the inputted information into the database -->
                         <div class="form-group mt-4">
-                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-lg btn-success']) ?>
+                            <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-lg btn-success']) ?>
                         </div>
                         <?= $this->Form->end() ?>
                     </fieldset>

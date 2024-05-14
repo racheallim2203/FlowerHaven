@@ -16,8 +16,10 @@ $this->assign('title', 'Admin | Users');
                 <div class="table-responsive">
                     <h2 class="text-center" style="font-weight: bold;">Users</h2>
                     <br>
+                    <!-- Create a table showcasing the list of users in the database -->
                     <table class="table table-bordered" style="background-color: #f8f9fa;">
                         <thead>
+                        <!-- User table's column names -->
                         <tr class="table-pink">
                             <th style="color: #9e297e;">ID</th>
                             <th style="color: #9e297e;">Username</th>
@@ -31,6 +33,7 @@ $this->assign('title', 'Admin | Users');
                         </tr>
                         </thead>
                         <tbody>
+                        <!-- User information for each column -->
                         <?php foreach ($users as $user): ?>
                             <tr>
                                 <td><?= h($user->id) ?></td>
@@ -49,7 +52,9 @@ $this->assign('title', 'Admin | Users');
                                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class' => 'btn btn-primary btn-sm']) ?>
                                     </div>
                                     <div class="d-block">
+                                        <!-- Check if the current user is an admin and is the currently logged in user -->
                                         <?php if (!$user->isAdmin && $user->id != $this->request->getSession()->read('Auth.User.id')): ?>
+                                            <!-- If not, a delete button is available to be pressed -->
                                             <?= $this->Form->postLink(
                                                 __('Delete'),
                                                 ['action' => 'delete', $user->id],
@@ -64,6 +69,7 @@ $this->assign('title', 'Admin | Users');
                     </table>
                 </div>
 
+                <!--  -->
                 <div class="paginator">
                     <ul class="pagination justify-content-center">
                         <?= $this->Paginator->first('<< ' . __('First')) ?>
@@ -82,5 +88,4 @@ $this->assign('title', 'Admin | Users');
             </div>
         </div>
     </div>
-
 </div>

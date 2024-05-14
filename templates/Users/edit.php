@@ -14,7 +14,9 @@ $this->assign('title', 'Admin | Edit User');
                     <h4 class="mb-0"><?= __('Actions') ?></h4>
                 </div>
                 <div class="card-body">
+                    <!-- Check if the current user is an admin and is the currently logged in user -->
                     <?php if (!$user->isAdmin && $user->id != $this->request->getSession()->read('Auth.User.id')): ?>
+                        <!-- If not, a delete button is available to be pressed -->
                         <?= $this->Form->postLink(
                             __('Delete user'),
                             ['action' => 'delete', $user->id],
@@ -31,6 +33,7 @@ $this->assign('title', 'Admin | Edit User');
                     <h4 class="mb-0"><?= __('Edit User') ?></h4>
                 </div>
                 <div class="card-body">
+                    <!-- Edit user form -->
                     <?= $this->Form->create($user, ['class' => 'form', 'type' => 'file']) ?>
                     <fieldset>
                         <legend><?= __('User Information') ?></legend>
@@ -76,6 +79,7 @@ $this->assign('title', 'Admin | Edit User');
                         <?= $this->Form->control('nonce', ['type' => 'hidden']); ?>
                         <?= $this->Form->control('nonce_expiry', ['type' => 'hidden']); ?>
                     </fieldset>
+                    <!-- Update button that submits the form with the updated user information -->
                     <div class="form-group mt-4">
                         <?= $this->Form->button(__('Update user'), ['class' => 'btn btn-lg btn-success']) ?>
                     </div>
