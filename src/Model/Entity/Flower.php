@@ -40,6 +40,7 @@ class Flower extends Entity
         'image' => true,
         'category' => true,
         'order_flowers' => true,
+        'isArchived' => true,
     ];
 
     public function validationDefault(Validator $validator): Validator

@@ -168,17 +168,17 @@ class UsersController extends AppController
     
             $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been updated successfully.'));
+                $this->Flash->success(__('The user has been archived successfully.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                $this->Flash->error(__('The user could not be archived. Please, try again.'));
             }
         }
         $this->set(compact('user'));
     }
 
     /**
-     * Archive method
+     * Unarchive method
      *
      * @param string|null $id User id.
      * @return \Cake\Http\Response|null Redirects to index.
@@ -197,10 +197,10 @@ class UsersController extends AppController
     
             $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been updated successfully.'));
+                $this->Flash->success(__('The user has been unarchived successfully.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                $this->Flash->error(__('The user could not be unarchived. Please, try again.'));
             }
         }
         $this->set(compact('user'));

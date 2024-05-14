@@ -40,8 +40,8 @@ $this->assign('title', 'Admin | Users');
                                 <td><?= h($user->email) ?></td>
                                 <td><?= h($user->address) ?></td>
                                 <td><?= h($user->phone_no) ?></td>
-                                <td><?= $this->Number->format($user->isAdmin) ?></td>
-                                <td><?= h($user->isArchived) ?></td>
+                                <td><?= h($user->isAdmin ? __('Yes') : __('No') ) ?></td>
+                                <td><?= h($user->isArchived ? __('Yes') : __('No') ) ?></td>
                                 <td class="actions">
                                     <div class="d-block mb-2">
                                         <?= $this->Html->link(__('View'), ['action' => 'view', $user->id], ['class' => 'btn btn-info btn-sm']) ?>

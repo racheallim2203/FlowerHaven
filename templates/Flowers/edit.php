@@ -71,7 +71,17 @@
                                     'empty' => 'Select a category:',
                                     'required' => true
                                 ]); ?>
-                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><?= __('Is Archived') ?></label>
+                            <?= $this->Form->control('isArchived', [
+                                'type' => 'select',
+                                'options' => [0 => __('No'), 1 => __('Yes')],
+                                'empty' => false,
+                                'class' => 'form-control',
+                                'label' => false
+                            ]); ?>
+                        </div>
                     </fieldset>
                     <div class="form-group mt-4">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-lg btn-success']) ?>

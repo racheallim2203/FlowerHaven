@@ -438,4 +438,57 @@ class FlowersController extends AppController
 
         return $this->redirect($this->referer()); // Redirect back to the same page
     }
+
+
+    /**
+     * Archive method
+     *
+     * @param string|null $id Flowers id.
+     * @return \Cake\Http\Response|null|void Redirects on successful archive, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function archive($id = null)
+    {
+        $flower = $this->Flowers->get($id, contain: []);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
+
+            $flower->isArchived = 1; 
+
+            if ($this->Flowers->save($flower)) {
+                $this->Flash->success(__('The flower has been unarchived.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The flower could not be unarchived. Please, try again.'));
+        }
+        $this->set(compact('flower', 'categories'));
+    }
+
+    /**
+     * Unarchive method
+     *
+     * @param string|null $id Flowers id.
+     * @return \Cake\Http\Response|null|void Redirects on successful archive, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function unarchive($id = null)
+    {
+        $flower = $this->Flowers->get($id, contain: []);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
+
+            $flower->isArchived = 0; 
+
+            if ($this->Flowers->save($flower)) {
+                $this->Flash->success(__('The flower has been unarchived.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The flower could not be unarchived. Please, try again.'));
+        }
+        $this->set(compact('flower', 'categories'));
+    }
 }

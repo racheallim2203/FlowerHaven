@@ -45,6 +45,7 @@ $this->assign('title', 'Admin | Flowers');
                             <th style="color: #9e297e;">Flower Price</th>
                             <th style="color: #9e297e;">Stock Quantity</th>
                             <th style="color: #9e297e;">Category</th>
+                            <th style="color: #9e297e;">Archived?</th>
                             <th class="actions" style="color: #9e297e;"><?= __('Actions') ?></th>
                         </tr>
                         </thead>
@@ -58,6 +59,7 @@ $this->assign('title', 'Admin | Flowers');
                                 <td>
                                     <?= $flower->has('category') && !empty($flower->category->category_name) ? $this->Html->link($flower->category->category_name, ['controller' => 'Categories', 'action' => 'view', $flower->category->id]) : __('No Categories') ?>
                                 </td>
+                                <td><?= h($flower->isArchived ? __('Yes') : __('No') ) ?></td>
                                 <td class="actions">
                                     <div class="d-block mb-2">
                                         <?= $this->Html->link(__('View'), ['action' => 'view', $flower->id], ['class' => 'btn btn-info btn-sm']) ?>
@@ -65,9 +67,22 @@ $this->assign('title', 'Admin | Flowers');
                                     <div class="d-block mb-2">
                                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $flower->id], ['class' => 'btn btn-primary btn-sm']) ?>
                                     </div>
-                                    <div class="d-block">
-                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $flower->id], ['confirm' => __('Are you sure you want to delete # {0}?', $flower->id), 'class' => 'btn btn-danger btn-sm']) ?>
-                                    </div>
+                                    <!-- Check if the current user is already archived -->
+                                    <?php if (!$flower->isArchived): ?>
+                                        <!-- If not, an archive button is available to be pressed -->
+                                        <?= $this->Form->postLink(
+                                            __('Archive'),
+                                            ['action' => 'archive', $flower->id],
+                                            ['confirm' => __('Are you sure you want to archive # {0}?', $flower->id), 'class' => 'btn btn-danger btn-sm']
+                                        ) ?>
+                                    <?php else: ?>
+                                        <!-- If yes, an un-archive button is available to be pressed -->
+                                        <?= $this->Form->postLink(
+                                            __('Unarchive'),
+                                            ['action' => 'unarchive', $flower->id],
+                                            ['confirm' => __('Are you sure you want to unarchive # {0}?', $flower->id), 'class' => 'btn btn-danger btn-sm']
+                                        ) ?>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

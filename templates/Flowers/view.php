@@ -56,6 +56,10 @@
                             <th><?= __('Categories') ?></th>
                             <td><?= $flower->has('category') ? $this->Html->link($flower->category->category_name, ['controller' => 'Categories', 'action' => 'view', $flower->category->id]) : __('No Categories') ?></td>
                         </tr>
+                        <tr>
+                            <th><?= __('Archived') ?></th>
+                            <td><?= $flower->isArchived ? __('Yes') : __('No') ?></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
