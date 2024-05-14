@@ -127,7 +127,11 @@ class UsersTable extends Table
             ->date('nonce_expiry')
             ->requirePresence('nonce_expiry', 'create')
             ->notEmptyDate('nonce_expiry');
-
+        
+        $validator
+            ->boolean('isArchived')
+            ->requirePresence('isArchived', 'create')
+            ->notEmptyString('isArchived');
         return $validator;
     }
 

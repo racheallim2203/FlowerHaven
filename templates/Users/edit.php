@@ -78,6 +78,17 @@ $this->assign('title', 'Admin | Edit User');
                         </div>
                         <?= $this->Form->control('nonce', ['type' => 'hidden']); ?>
                         <?= $this->Form->control('nonce_expiry', ['type' => 'hidden']); ?>
+                        
+                        <div class="form-group">
+                            <label><?= __('Is Archived') ?></label>
+                            <?= $this->Form->control('isArchived', [
+                                'type' => 'select',
+                                'options' => [0 => __('No'), 1 => __('Yes')],
+                                'empty' => false,
+                                'class' => 'form-control',
+                                'label' => false
+                            ]); ?>
+                        </div>
                     </fieldset>
                     <!-- Update button that submits the form with the updated user information -->
                     <div class="form-group mt-4">

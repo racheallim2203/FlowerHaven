@@ -54,8 +54,12 @@
                             </td>
                         </tr>
                         <tr>
-                                <th><?= __('Admin') ?></th>
-                                <td><?= $user->isAdmin ? __('Yes') : __('No') ?></td>
+                            <th><?= __('Admin') ?></th>
+                            <td><?= $user->isAdmin ? __('Yes') : __('No') ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Archived') ?></th>
+                            <td><?= $user->isArchived ? __('Yes') : __('No') ?></td>
                         </tr>
                         </tbody>
                     </table>

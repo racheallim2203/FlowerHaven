@@ -26,9 +26,8 @@ $this->assign('title', 'Admin | Users');
                             <th style="color: #9e297e;">Email</th>
                             <th style="color: #9e297e;">Address</th>
                             <th style="color: #9e297e;">Phone Number</th>
-                            <th style="color: #9e297e;">isAdmin</th>
-                            <th style="color: #9e297e;">Nonce</th>
-                            <th style="color: #9e297e;">Nonce Expiry</th>
+                            <th style="color: #9e297e;">Admin?</th>
+                            <th style="color: #9e297e;">Archived?</th>
                             <th class="actions" style="color: #9e297e;"><?= __('Actions') ?></th>
                         </tr>
                         </thead>
@@ -42,8 +41,7 @@ $this->assign('title', 'Admin | Users');
                                 <td><?= h($user->address) ?></td>
                                 <td><?= h($user->phone_no) ?></td>
                                 <td><?= $this->Number->format($user->isAdmin) ?></td>
-                                <td><?= h($user->nonce) ?></td>
-                                <td><?= h($user->nonce_expiry ? $user->nonce_expiry->format('d-m-Y H:i:s') : '') ?></td>
+                                <td><?= h($user->isArchived) ?></td>
                                 <td class="actions">
                                     <div class="d-block mb-2">
                                         <?= $this->Html->link(__('View'), ['action' => 'view', $user->id], ['class' => 'btn btn-info btn-sm']) ?>
@@ -52,13 +50,20 @@ $this->assign('title', 'Admin | Users');
                                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id], ['class' => 'btn btn-primary btn-sm']) ?>
                                     </div>
                                     <div class="d-block">
-                                        <!-- Check if the current user is an admin and is the currently logged in user -->
-                                        <?php if (!$user->isAdmin && $user->id != $this->request->getSession()->read('Auth.User.id')): ?>
-                                            <!-- If not, a delete button is available to be pressed -->
+                                        <!-- Check if the current user is already archived -->
+                                        <?php if (!$user->isArchived): ?>
+                                            <!-- If not, an archive button is available to be pressed -->
                                             <?= $this->Form->postLink(
-                                                __('Delete'),
-                                                ['action' => 'delete', $user->id],
-                                                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'btn btn-danger btn-sm']
+                                                __('Archive'),
+                                                ['action' => 'archive', $user->id],
+                                                ['confirm' => __('Are you sure you want to archive # {0}?', $user->id), 'class' => 'btn btn-danger btn-sm']
+                                            ) ?>
+                                        <?php else: ?>
+                                            <!-- If yes, an un-archive button is available to be pressed -->
+                                            <?= $this->Form->postLink(
+                                                __('Unarchive'),
+                                                ['action' => 'unarchive', $user->id],
+                                                ['confirm' => __('Are you sure you want to unarchive # {0}?', $user->id), 'class' => 'btn btn-danger btn-sm']
                                             ) ?>
                                         <?php endif; ?>
                                     </div>

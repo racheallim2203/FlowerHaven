@@ -43,6 +43,7 @@ class User extends Entity
         'nonce' => true,
         'nonce_expiry' => true,
         'payments' => true,
+        'isArchived' => true,
     ];
 
     /**
