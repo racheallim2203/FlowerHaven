@@ -45,6 +45,7 @@ class OrderDeliveriesController extends AppController
         $query = $this->OrderDeliveries->find()
             ->contain(['OrderStatuses', 'DeliveryStatuses'])
             ->order([
+                'OrderDeliveries.isArchived' => 'ASC', // Unarchived order deliveries first
                 'CASE WHEN DeliveryStatuses.delivery_status = \'Awaiting Pickup\' THEN 0 ELSE 1 END' => 'ASC',
                 'OrderDeliveries.id' => 'ASC'
             ]);

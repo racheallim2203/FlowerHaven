@@ -46,7 +46,11 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $query = $this->Users->find();
+        $query = $this->Users->find('all', [
+            'order' => [
+                'Users.isArchived' => 'ASC', // Unarchived users first
+            ]
+        ]);
         $users = $this->paginate($query);
 
         $this->set(compact('users'));

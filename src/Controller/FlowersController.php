@@ -51,7 +51,13 @@ class FlowersController extends AppController
         }
 
         // Proceed with flowers index function
-        $query = $this->Flowers->find('all', contain: ['Categories'], order: ['Flowers.stock_quantity' => 'asc']);
+        $query = $this->Flowers->find('all', [
+            'contain' => ['Categories'],
+            'order' => [
+                'Flowers.isArchived' => 'ASC', // Unarchived flowers first
+                'Flowers.stock_quantity' => 'ASC' // Then sort by stock quantity
+            ]
+        ]);
         $search = $this->request->getQuery('search');
         $category = $this->request->getQuery('category');
 
