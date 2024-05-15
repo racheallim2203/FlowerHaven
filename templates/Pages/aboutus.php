@@ -33,7 +33,7 @@ $this->assign('title', 'About Us');
         <div class="row">
 
             <div class="col-12">
-                <h2 class="mb-5">What do we do at <span>Flower</span>Haven</h2>
+                <h2 class="mb-5"><?= $this->ContentBlock->html('about-title'); ?></h2>
             </div>
 
             <div class="col-lg-4 mb-4 col-12">
@@ -41,8 +41,8 @@ $this->assign('title', 'About Us');
                     <img src="<?= $this->Url->image('people/expertise.jpg') ?>" class="img-fluid custom-circle-image team-image me-4" alt="">
 
                     <div class="team-info">
-                        <h5 class="mb-0">Expertise</h5>
-                        <strong class="text-muted">Use freshest, most vibrant flowers</strong>
+                        <h5 class="mb-0"><?= $this->ContentBlock->html('about-card-title1'); ?></h5>
+                        <strong class="text-muted"><?= $this->ContentBlock->html('about-card-subtitle1'); ?></strong>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#expertise">
                             <i class="bi-plus-circle-fill"></i>
@@ -51,11 +51,11 @@ $this->assign('title', 'About Us');
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Expert Floristry</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel"><?= $this->ContentBlock->html('about-card-exp-title1'); ?></h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Our team of skilled florists combines expertise with passion to design floral artistry that reflects your personal style and event theme. Using the freshest, most vibrant flowers sourced from trusted growers, we ensure each creation is as unique as it is beautiful.
+                                        <?= $this->ContentBlock->html('about-card-desc1'); ?>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -72,8 +72,8 @@ $this->assign('title', 'About Us');
                     <img src="<?= $this->Url->image('people/personalised.jpg') ?>" class="img-fluid custom-circle-image team-image me-4" alt="">
 
                     <div class="team-info">
-                        <h5 class="mb-0">Personalized</h5>
-                        <strong class="text-muted">Tailoring occasions</strong>
+                        <h5 class="mb-0"><?= $this->ContentBlock->html('about-card-title2'); ?></h5>
+                        <strong class="text-muted"><?= $this->ContentBlock->html('about-card-subtitle2'); ?></strong>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#personalized">
                             <i class="bi-plus-circle-fill"></i>
@@ -82,11 +82,11 @@ $this->assign('title', 'About Us');
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Personalized Services</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel"><?= $this->ContentBlock->html('about-card-exp-title2'); ?></h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Understanding that every occasion is special, we offer personalized consultations either in-store or online to tailor our floral services to your specific needs. Whether you’re planning a large event or sending a personal gift, our team is here to guide you every step of the way.
+                                        <?= $this->ContentBlock->html('about-card-desc2'); ?>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -103,8 +103,8 @@ $this->assign('title', 'About Us');
                     <img src="<?= $this->Url->image('people/retail.jpg') ?>" class="img-fluid custom-circle-image team-image me-4" alt="">
 
                     <div class="team-info">
-                        <h5 class="mb-0">Retail Online</h5>
-                        <strong class="text-muted">Online and In Store</strong>
+                        <h5 class="mb-0"><?= $this->ContentBlock->html('about-card-title3'); ?></h5>
+                        <strong class="text-muted"><?= $this->ContentBlock->html('about-card-subtitle3'); ?></strong>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn custom-modal-btn" data-bs-toggle="modal" data-bs-target="#retail">
                             <i class="bi-plus-circle-fill"></i>
@@ -113,11 +113,11 @@ $this->assign('title', 'About Us');
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Online and In-Store</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel"><?= $this->ContentBlock->html('about-card-exp-title3'); ?></h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Visit us at our welcoming shop or browse our extensive online gallery to find the perfect floral expression. With our convenient delivery service, beautiful flowers are just a click away.
+                                        <?= $this->ContentBlock->html('about-card-desc3'); ?>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -142,36 +142,9 @@ $this->assign('title', 'About Us');
                 <div class="slick-testimonial">
                     <div class="slick-testimonial-caption">
                         <p class="lead">
-                            Flower Haven never disappoints! I ordered a bouquet for my mother's birthday,
-                            and it was absolutely stunning. The flowers were fresh, beautifully arranged,
-                            and delivered right on time. Their attention to detail really shines through in their arrangements!</p>
+                    <?= $this->ContentBlock->html('testimonial'); ?>
                         <div class="slick-testimonial-client d-flex align-items-center mt-4">
-                            <img src="<?= $this->Url->image('people/customer1.jpg') ?>" class="img-fluid custom-circle-image team-image me-3" alt="">
-                            <span>George, <strong class="text-muted">Customer</strong></span>
-                        </div>
-                    </div>
-                    <div class="slick-testimonial-caption">
-                        <p class="lead">
-                            I recently used Flower Haven for my wedding, and I cannot recommend them enough. The floral arrangements were breathtaking, and they worked closely with us to make sure everything was perfect. They truly went above and beyond to make our day special.</p>
-                        <div class="slick-testimonial-client d-flex align-items-center mt-4">
-                            <img src="<?= $this->Url->image('people/customer2.jpg') ?>" class="img-fluid custom-circle-image team-image me-3" alt="">
-                            <span>Sandar, <strong class="text-muted">Customer</strong></span>
-                        </div>
-                    </div>
-                    <div class="slick-testimonial-caption">
-                        <p class="lead">
-                            I needed a last-minute gift for a friend, and Flower Haven saved the day. Their same-day delivery service is a lifesaver, and my friend loved the eco-friendly packaging. It’s clear they care about sustainability too!</p>
-                        <div class="slick-testimonial-client d-flex align-items-center mt-4">
-                            <img src="<?= $this->Url->image('people/customer3.jpg') ?>" class="img-fluid custom-circle-image team-image me-3" alt="">
-                            <span>Carlos, <strong class="text-muted">Customer</strong></span>
-                        </div>
-                    </div>
-                    <div class="slick-testimonial-caption">
-                        <p class="lead">
-                            Every time I visit Flower Haven, I’m impressed by the variety of flowers and the knowledge of the staff. They always help me choose the perfect flowers for any occasion, and their passion for what they do is evident.</p>
-                        <div class="slick-testimonial-client d-flex align-items-center mt-4">
-                            <img src="<?= $this->Url->image('people/customer4.jpg') ?>" class="img-fluid custom-circle-image team-image me-3" alt="">
-                            <span>Catherine, <strong class="text-muted">Customer</strong></span>
+                        <?= $this->ContentBlock->image('testimonial-img');?>
                         </div>
                     </div>
                 </div>
