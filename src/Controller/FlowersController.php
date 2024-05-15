@@ -60,6 +60,7 @@ class FlowersController extends AppController
         ]);
         $search = $this->request->getQuery('search');
         $category = $this->request->getQuery('category');
+        $archive = $this->request->getQuery('archive');
 
         if (!empty($search)) {
             $query->where(['Flowers.flower_name LIKE' => '%' . $search . '%']);
@@ -67,6 +68,10 @@ class FlowersController extends AppController
 
         if (!empty($category)) {
             $query->where(['Categories.id' => $category]);
+        }
+
+        if ($archive !== '' && $archive !== null) {
+            $query->where(['Flowers.isArchived' => $archive]);
         }
 
         $flowers = $this->paginate($query);

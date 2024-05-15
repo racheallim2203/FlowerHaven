@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="row">
         <?= $this->Form->create(null, ['type' => 'get', 'class' => 'form-inline']) ?>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-3 mb-2">
             <?= $this->Form->control('orderStatusId', [
                 'type' => 'select',
                 'class' => 'form-control',
@@ -18,7 +18,7 @@
                 'value' => $this->request->getQuery('orderStatusId')
             ]) ?>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-3 mb-2">
             <?= $this->Form->control('deliveryStatusId', [
                 'type' => 'select',
                 'class' => 'form-control',
@@ -28,7 +28,17 @@
                 'value' => $this->request->getQuery('deliveryStatusId')
             ]) ?>
         </div>
-        <div class="col-md-4 mb-3 d-flex">
+        <div class="col-md-3 mb-2">
+            <?= $this->Form->control('archive', [
+                'type' => 'select',
+                'label' => false,
+                'class' => 'form-control',
+                'options' => ['0' => 'Not Archived', '1' => 'Archived'],
+                'empty' => 'Archive Status',
+                'value' => $this->request->getQuery('archive')
+            ]) ?>
+        </div>
+        <div class="col-md-3 mb-3 d-flex">
             <?= $this->Form->button(__('Filter'), ['class' => 'btn btn-primary']) ?>
             <?= $this->Html->link('Reset', ['action' => 'index'], ['class' => 'btn btn-secondary ml-2']) ?>
         </div>

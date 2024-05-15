@@ -51,6 +51,18 @@ class UsersController extends AppController
                 'Users.isArchived' => 'ASC', // Unarchived users first
             ]
         ]);
+
+        $search = $this->request->getQuery('search');
+        $archive = $this->request->getQuery('archive');
+
+        if (!empty($search)) {
+            $query->where(['Users.username LIKE' => '%' . $search . '%']);
+        }
+
+        if ($archive == 0) {
+            $query->where(['Users.isArchived' => (int)$archive]);
+        }
+
         $users = $this->paginate($query);
 
         $this->set(compact('users'));

@@ -8,7 +8,27 @@ $this->assign('title', 'Admin | Users');
 ?>
 
 <div class="container-fluid">
-
+    <div class="row">
+        <?= $this->Form->create(null, ['type' => 'get', 'class' => 'form-inline']) ?>
+        <div class="col-md-4 mb-2">
+            <?= $this->Form->control('search', ['label' => false, 'class' => 'form-control', 'placeholder' => 'Search Username', 'value' => $this->request->getQuery('search'),'maxlength' => '15'])  ?>
+        </div>
+        <div class="col-md-3 mb-2">
+            <?= $this->Form->control('archive', [
+                'type' => 'select',
+                'label' => false,
+                'class' => 'form-control',
+                'options' => ['0' => 'Not Archived', '1' => 'Archived'],
+                'empty' => 'Archive Status',
+                'value' => $this->request->getQuery('archive')
+            ]) ?>
+        </div>
+        <div class="col-md-3 mb-3 d-flex">
+            <?= $this->Form->button(__('Search'), ['class' => 'btn btn-primary']) ?>
+            <?= $this->Html->link('Refresh', ['action' => 'index'], ['class' => 'btn btn-secondary ml-2']) ?>
+        </div>
+        <?= $this->Form->end() ?>
+    </div>
     <div class="row tm-content-row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <br>

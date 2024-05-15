@@ -53,7 +53,7 @@ class OrderDeliveriesController extends AppController
         $orderDeliveries = $this->paginate($query);
         $orderStatusId = $this->request->getQuery('orderStatusId');
         $deliveryStatusId = $this->request->getQuery('deliveryStatusId');
-
+        $archive = $this->request->getQuery('archive');
 
         if (!empty($orderStatusId)) {
             $query->where(['OrderStatuses.id' => $orderStatusId]);
@@ -61,6 +61,10 @@ class OrderDeliveriesController extends AppController
 
         if (!empty($deliveryStatusId)) {
             $query->where(['DeliveryStatuses.id' => $deliveryStatusId]);
+        }
+
+        if ($archive !== '' && $archive !== null) {
+            $query->where(['OrderDeliveries.isArchived' => $archive]);
         }
 
         $orderDeliveries = $this->paginate($query);
