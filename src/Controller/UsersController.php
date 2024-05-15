@@ -59,7 +59,7 @@ class UsersController extends AppController
             $query->where(['Users.username LIKE' => '%' . $search . '%']);
         }
 
-        if ($archive == 0) {
+        if ($archive !== '' && $archive !== null) {
             $query->where(['Users.isArchived' => (int)$archive]);
         }
 
