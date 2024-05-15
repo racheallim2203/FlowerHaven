@@ -60,7 +60,7 @@
                             $flower->image,
                             [
                                 'alt' => $flower->flower_name,
-                                'style' => 'height: 360px; width: 360px;',
+                                'style' => 'height: 360px; width: 360px; object-fit: cover;',
                                 'url' => ['action' => 'customerView', $flower->id],
                             ]
                         ); ?>
