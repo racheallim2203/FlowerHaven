@@ -113,7 +113,7 @@ $this->assign('title', 'About Us');
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel"><?= $this->ContentBlock->html('about-card--exp-title3'); ?></h5>
+                                        <h5 class="modal-title" id="exampleModalLabel"><?= $this->ContentBlock->html('about-card-exp-title3'); ?></h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -143,6 +143,9 @@ $this->assign('title', 'About Us');
                     <div class="slick-testimonial-caption">
                         <p class="lead">
                     <?= $this->ContentBlock->html('testimonial'); ?>
+                        <div class="slick-testimonial-client d-flex align-items-center mt-4">
+                        <?= $this->ContentBlock->image('testimonial-img');?>
+                        </div>
                     </div>
                 </div>
             </div>

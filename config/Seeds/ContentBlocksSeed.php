@@ -385,12 +385,42 @@ class ContentBlocksSeed extends AbstractSeed
                 'value' => '
                             Flower Haven never disappoints! I ordered a bouquet for my mother\'s birthday,
                             and it was absolutely stunning. The flowers were fresh, beautifully arranged,
-                            and delivered right on time. Their attention to detail really shines through in their arrangements!</p>
-                        <div class="slick-testimonial-client d-flex align-items-center mt-4">
-                            <img src="<?= $this->Url->image(\'people/customer1.jpg\') ?>" class="img-fluid custom-circle-image team-image me-3" alt="">
-                            <span>George, <strong class="text-muted">Customer</strong></span>
-                        </div>',
+                            and delivered right on time. Their attention to detail really shines through in their arrangements!',
             ],
+            [
+                'parent' => 'Testimonial',
+                'label' => 'Testimonial Image',
+                'description' => 'Description of Pop-Up Card',
+                'slug' => 'testimonial-img',
+                'type' => 'image',
+                'value' => '',
+            ],
+            //Contact page
+            [
+                'parent' => 'Contact Us Page',
+                'label' => 'Email Address',
+                'description' => 'Email Address',
+                'slug' => 'email',
+                'type' => 'html',
+                'value' => 'hello@company.com',
+            ],
+            [
+                'parent' => 'Contact Us Page',
+                'label' => 'Company Email Address',
+                'description' => 'Company Email Address',
+                'slug' => 'company-email',
+                'type' => 'html',
+                'value' => 'studio@company.com',
+            ],
+            [
+                'parent' => 'Contact Us Page',
+                'label' => 'Address',
+                'description' => 'Address',
+                'slug' => 'address',
+                'type' => 'html',
+                'value' => 'Melbourne Central City, VIC',
+            ],
+
 
 
 
