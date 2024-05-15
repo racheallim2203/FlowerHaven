@@ -34,9 +34,11 @@
                             <div class="carousel-item active">
                                 <?= $this->Html->image($flower->image, ['class' => 'd-block w-100', 'alt' => $flower->flower_name]); ?>
                             </div>
+                            <?php if ($flower->image2): ?>
                             <div class="carousel-item">
-                                <?= $this->Html->image($flower->image2 ?? 'rosearrangement.jpg', ['class' => 'd-block w-100', 'alt' => 'Additional view']); ?>
+                                <?=$this->Html->image($flower->image2 , ['class' => 'd-block w-100', 'alt' => 'Additional view']);?>
                             </div>
+                            <?php endif; ?>
                         </div>
                         <a class="carousel-control-prev" href="#flowerCarousel" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
