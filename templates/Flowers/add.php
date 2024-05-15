@@ -59,6 +59,7 @@ $this->assign('title', 'Admin | Add New Flower');
                         </div>
                         <div class="form-group">
                             <?= $this->Form->control('image_file', ['type' => 'file', 'accept' => 'image/png,image/gif,image/jpeg']); ?>
+                            <?= $this->Form->control('image_file2', ['type' => 'file', 'accept' => 'image/png,image/gif,image/jpeg']); ?>
                         </div>
                         <div class="form-group">
                             <?= $this->Form->control('category_id', [

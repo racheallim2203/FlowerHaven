@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Migrations\AbstractMigration;
 
-class AddColumnToTable extends AbstractMigration
+class AddImage2ToFlowers extends AbstractMigration
 {
     /**
      * Change Method.
@@ -14,8 +14,12 @@ class AddColumnToTable extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('flowers')
-            ->addColumn('image', 'string', ['limit' => 255]);
+        $table = $this->table('flowers');
+        $table->addColumn('image2', 'string', [
+            'default' => null,
+            'limit' => 255,
+            'null' => true,
+        ]);
         $table->update();
     }
 }

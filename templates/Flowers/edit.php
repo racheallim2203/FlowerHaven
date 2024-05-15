@@ -63,6 +63,8 @@
                         </div>
                         <div class="form-group">
                             <?= $this->Form->control('change_image', ['type' => 'file']); ?>
+                            <?= $this->Form->control('change_image2', ['type' => 'file']); ?>
+
                             <div class="form-group">
                                 <?= $this->Form->control('category_id', [
                                     'options' => $categories,

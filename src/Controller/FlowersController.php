@@ -317,15 +317,30 @@ class FlowersController extends AppController
         if ($this->request->is('post')) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
 
+
             if(!$flower->getErrors()) {
                 $image = $this->request->getData('image_file');
-                $name = $image->getClientFilename();
+                $name = uniqid().'-'.$image->getClientFilename();
+
+                $image2 = $this->request->getData('image_file2');
+
+                if ($image2 !== null && $image2->getError() !== UPLOAD_ERR_NO_FILE) {
+                    $name2 = uniqid().'-'.$image->getClientFilename();
+                }
 
                 $targetPath = WWW_ROOT . 'img' . DS . $name;
-                if ($name)
+                if ($name) {
                     $image->moveTo($targetPath);
+                    $flower->image = $name;
+                }
 
-                $flower->image = $name;
+                if ($image2 !== null && $image2->getError() !== UPLOAD_ERR_NO_FILE) {
+                $targetPath2 = WWW_ROOT . 'img' . DS . $name2;
+                if ($name2 !== null && $image2->getError() !== UPLOAD_ERR_NO_FILE) {
+                    $image2->moveTo($targetPath2);
+                    $flower->image2 = $name2;
+                }
+            }
             }
 
             $flower->isArchived = 0; // Sets the default isArchived value to be not archived (0)
@@ -370,15 +385,18 @@ class FlowersController extends AppController
         // Proceed with flowers edit function
         $flower = $this->Flowers->get($id, contain: []);
 
-
         if ($this->request->is(['patch', 'post', 'put'])) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
 
             if(!$flower->getErrors()) {
                 $image = $this->request->getData('change_image');
-                $name = $image->getClientFilename();
+                $image2 = $this->request->getData('change_image2');
 
-                if ($name){
+                $name = $image->getClientFilename();
+                $name2 = $image->getClientFilename();
+
+                if ($name != null && $image->getError() !== UPLOAD_ERR_NO_FILE){
+                    $name = uniqid().'-'.$name;
                     $targetPath = WWW_ROOT . 'img' . DS . $name;
 
                     $image->moveTo($targetPath);
@@ -387,6 +405,20 @@ class FlowersController extends AppController
                         unlink($imgpath);
                     }
                     $flower->image = $name;
+                }
+
+                if ($name2 != null && $image2->getError() !== UPLOAD_ERR_NO_FILE){
+                    $name2 = uniqid().'-'.$name2;
+
+                    $targetPath2 = WWW_ROOT . 'img' . DS . $name2;
+
+                    $image2->moveTo($targetPath2);
+
+                    $imgpath2 = WWW_ROOT.'img'.DS.$flower->image2;
+                    if(file_exists($imgpath2)){
+                        unlink($imgpath2);
+                    }
+                    $flower->image2 = $name2;
                 }
             }
 
@@ -483,7 +515,7 @@ class FlowersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
 
-            $flower->isArchived = 1; 
+            $flower->isArchived = 1;
 
             if ($this->Flowers->save($flower)) {
                 $this->Flash->success(__('The flower has been unarchived.'));
@@ -523,7 +555,7 @@ class FlowersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
 
-            $flower->isArchived = 0; 
+            $flower->isArchived = 0;
 
             if ($this->Flowers->save($flower)) {
                 $this->Flash->success(__('The flower has been unarchived.'));
