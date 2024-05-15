@@ -35,25 +35,17 @@ $this->assign('title', 'Contact Us');
                 <div class="row">
                     <div class="col-6 border-end contact-info">
                         <h6 class="mb-3">Email Address</h6>
-                        <?= $this->Html->link(
-                            'hello@company.com',
-                            'mailto:hello@company.com',
-                            ['class' => 'custom-link']
-                        ) ?>
+                        <?= $this->ContentBlock->html('email', ['class' => 'custom-link']); ?>
                     </div>
 
                     <div class="col-6 contact-info">
                         <h6 class="mb-3">Company Email</h6>
-                        <?= $this->Html->link(
-                            'studio@company.com',
-                            'mailto:studio@company.com',
-                            ['class' => 'custom-link']
-                        ) ?>
+                        <?= $this->ContentBlock->html('company-email', ['class' => 'custom-link']); ?>
                     </div>
 
                     <div class="col-6 border-top border-end contact-info">
                         <h6 class="mb-3">Shop Address</h6>
-                        <p class="text-muted">Melbourne Central City, VIC</p>
+                        <p class="text-muted"><?= $this->ContentBlock->html('address'); ?></p>
                     </div>
 
                     <div class="col-6 border-top contact-info">
