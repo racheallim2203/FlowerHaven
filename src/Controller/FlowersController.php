@@ -111,7 +111,8 @@ class FlowersController extends AppController
     public function customerIndex()
     {
         $query = $this->Flowers->find('all', [
-            'contain' => ['Categories']
+            'contain' => ['Categories'],
+            'conditions' => ['Flowers.isArchived' => 0] // Exclude archived flowers
         ]);
 
         $search = $this->request->getQuery('search');
