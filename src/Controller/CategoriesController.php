@@ -41,22 +41,29 @@ class CategoriesController extends AppController
      */
     public function index()
     {
+        // Send a query to the database to fetch all the Flowers and order them in ascending order of category name
         $query = $this->Categories->find('all',
             contain: ['Flowers'],
             order: ['Categories.category_name' => 'asc']);
 
+        // Create a query reference for the search variable
         $search = $this->request->getQuery('search');
+        // Create a query reference for the category variable
         $category = $this->request->getQuery('category');
 
+        // Implementing the search bar functionality for flowers
         if (!empty($search)) {
             $query->matching('Flowers', function ($q) use ($search) {
                 return $q->where(['Flowers.flower_name LIKE' => '%' . $search . '%']);
             });
         }
+
+        // Implementing the filter functionality for categories of flowers
         if (!empty($category)) {
             $query->where(['Categories.id' => $category]);
         }
 
+        // Combine the categories into an array list of categories 
         $categoriesList = $this->Categories->find('list', keyField: 'id', valueField: 'category_name')->toArray();
         $categories = $this->paginate($query);
         $this->set(compact('categories', 'categoriesList'));
@@ -72,6 +79,7 @@ class CategoriesController extends AppController
      */
     public function view($id = null)
     {
+        // Reference and get the specified id of the flower that wants to be viewed
         $category = $this->Categories->get($id, contain: ['Flowers']);
         $this->set(compact('category'));
     }
@@ -86,11 +94,13 @@ class CategoriesController extends AppController
         $category = $this->Categories->newEmptyEntity();
         if ($this->request->is('post')) {
             $category = $this->Categories->patchEntity($category, $this->request->getData());
+            // If the category has been saved successfully, display the message below
             if ($this->Category->save($category)) {
                 $this->Flash->success(__('The category has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+            // If the category has not been saved successfully, display the message below
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
         $this->set(compact('category'));
@@ -108,11 +118,13 @@ class CategoriesController extends AppController
         $category = $this->Categories->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $category = $this->Categories->patchEntity($category, $this->request->getData());
+            // If the category has been saved successfully, display the message below
             if ($this->Categories->save($category)) {
                 $this->Flash->success(__('The category has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+            // If the category has not been saved successfully, display the message below
             $this->Flash->error(__('The category could not be saved. Please, try again.'));
         }
         $this->set(compact('category'));
@@ -129,9 +141,11 @@ class CategoriesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $category = $this->Categories->get($id);
+        // If the category has been deleted successfully, display the message below
         if ($this->Categories->delete($category)) {
             $this->Flash->success(__('The category has been deleted.'));
         } else {
+            // If the category has been deleted successfully, display the message below
             $this->Flash->error(__('The category could not be deleted. Please, try again.'));
         }
 

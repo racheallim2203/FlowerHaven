@@ -53,22 +53,4 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
     }
-
-//    public function authCheck(): void
-//    {
-//        // Get the authenticated user's ID
-//        $userId = $result->getData()->id;
-//
-//        // Load the user entity
-//        $user = $this->Users->get($userId);
-//
-//        // Check if the user is an admin (isAdmin = 0)
-//        if ($user->isAdmin == 0) {
-//            // If user is not an admin, redirect to non-admin page
-//            return $this->redirect(['controller' => 'pages', 'action' => 'index']);
-//        } else
-//            // If user is an admin, redirect to admin page
-//            return $this->redirect(['controller' => 'flowers', 'action' => 'index']);
-//    }
-//    }
 }

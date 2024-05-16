@@ -56,11 +56,13 @@ class AuthController extends AppController
             $user->nonce = Security::randomString(32);  // Length can be adjusted as necessary
             $user->nonce_expiry = new \DateTime('+7 days');  // This sets the expiry to 7 days from registration date
 
+            // If saving the user was successful, display the message below
             if ($this->Users->save($user)) {
                 $this->Flash->success('You have been registered. Please log in.');
 
                 return $this->redirect(['action' => 'login']);
             }
+            // If it was not successful, display the message below
             $this->Flash->error('The user could not be registered. Please, try again.');
         }
         $this->set(compact('user'));
@@ -80,22 +82,23 @@ class AuthController extends AppController
                 // Set nonce and expiry date
                 $user->nonce = Security::randomString(128);
                 $user->nonce_expiry = new DateTime('7 days');
+
                 if ($this->Users->save($user)) {
                     // Now let's send the password reset email
                     $mailer = new Mailer('default');
 
-                    // email basic config
+                    // Email basic config
                     $mailer
                         ->setEmailFormat('both')
                         ->setTo($user->email)
                         ->setSubject('Reset your account password');
 
-                    // select email template
+                    // Select email template
                     $mailer
                         ->viewBuilder()
                         ->setTemplate('reset_password');
 
-                    // transfer required view variables to email template
+                    // Transfer required view variables to email template
                     $mailer
                         ->setViewVars([
                             'first_name' => $user->first_name,
@@ -104,7 +107,7 @@ class AuthController extends AppController
                             'email' => $user->email,
                         ]);
 
-                    //Send email
+                    // Send email
                     if (!$mailer->deliver()) {
                         // Just in case something goes wrong when sending emails
                         $this->Flash->error('We have encountered an issue when sending you emails. Please try again. ');
@@ -115,7 +118,8 @@ class AuthController extends AppController
                     // Just in case something goes wrong when saving nonce and expiry
                     $this->Flash->error('We are having issue to reset your password. Please try again. ');
 
-                    return $this->render(); // Skip the rest of the controller and render the view
+                    // Skip the rest of the controller and render the view
+                    return $this->render(); 
                 }
             }
 
@@ -178,14 +182,18 @@ class AuthController extends AppController
     public function changePassword(?string $id = null)
     {
         $user = $this->Users->get($id, ['contain' => []]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             // Used a different validation set in Model/Table file to ensure both fields are filled
             $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'resetPassword']);
+
+            // If the user was saved successfully, display the message below
             if ($this->Users->save($user)) {
                 $this->Flash->success('The user has been saved.');
 
                 return $this->redirect(['controller' => 'Users', 'action' => 'index']);
             }
+            // If the user was not saved successfully, display the message below
             $this->Flash->error('The user could not be saved. Please, try again.');
         }
         $this->set(compact('user'));
@@ -201,7 +209,7 @@ class AuthController extends AppController
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
 
-        // if user passes authentication, grant access to the system
+        // If user passes authentication, grant access to the system
         if ($result && $result->isValid()) {
             // Get the authenticated user's ID
             $userId = $result->getData()->id;
@@ -233,13 +241,15 @@ class AuthController extends AppController
     {
         // We only need to log out a user when they're logged in
         $result = $this->Authentication->getResult();
+
+        // If the user was able to logout successfully, display this message
         if ($result && $result->isValid()) {
             $this->Authentication->logout();
 
             $this->Flash->success('You have been logged out successfully. ');
         }
 
-        // Otherwise just send them to the login page
+        // Otherwise just send them back to the login page
         return $this->redirect(['controller' => 'pages', 'action' => 'index']);
     }
 }

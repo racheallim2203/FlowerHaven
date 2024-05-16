@@ -51,6 +51,13 @@ class FlowersController extends AppController
         }
 
         // Proceed with flowers index function
+
+        /**
+         * Send a query to the database to fetch all the Flowers 
+         * and order them so the archived flowers are displayed
+         * at the bottom of the list and the stock quantity is also
+         * ordered in ascending order.
+         */
         $query = $this->Flowers->find('all', [
             'contain' => ['Categories'],
             'order' => [
@@ -58,18 +65,25 @@ class FlowersController extends AppController
                 'Flowers.stock_quantity' => 'ASC' // Then sort by stock quantity
             ]
         ]);
+
+        // Create a query reference for the search variable
         $search = $this->request->getQuery('search');
+        // Create a query reference for the category variable
         $category = $this->request->getQuery('category');
+        // Create a query reference for the archive variable
         $archive = $this->request->getQuery('archive');
 
+        // Implementing the search bar functionality for flowers
         if (!empty($search)) {
             $query->where(['Flowers.flower_name LIKE' => '%' . $search . '%']);
         }
 
+        // Implementing the filter functionality for categories of flowers
         if (!empty($category)) {
             $query->where(['Categories.id' => $category]);
         }
 
+        // Implementing the filter functionality for archive of flowers
         if ($archive !== '' && $archive !== null) {
             $query->where(['Flowers.isArchived' => $archive]);
         }
@@ -108,20 +122,33 @@ class FlowersController extends AppController
         $this->set(compact('flower'));
     }
 
+    /**
+     * CustomerIndex method
+     *
+     * @param string|null $id Flowers id.
+     */
     public function customerIndex()
     {
+        /**
+         * Send a query to the database to fetch all the Flowers 
+         * and exclude them from the view if they are archived.
+         */
         $query = $this->Flowers->find('all', [
             'contain' => ['Categories'],
             'conditions' => ['Flowers.isArchived' => 0] // Exclude archived flowers
         ]);
-
+        
+        // Create a query reference for the search variable
         $search = $this->request->getQuery('search');
+        // Create a query reference for the category variable
         $category = $this->request->getQuery('category');
 
+        // Implementing the search bar functionality for flowers
         if (!empty($search)) {
             $query->where(['Flowers.flower_name LIKE' => '%' . $search . '%']);
         }
 
+        // Implementing the filter functionality for categories of flowers
         if (!empty($category)) {
             $query->where(['Categories.id' => $category]);
         }
@@ -132,19 +159,30 @@ class FlowersController extends AppController
         // Log the count of flowers to see if it's working correctly
         // $this->log('Number of flowers found: ' . count($flowers), 'debug');
 
+        // Fetch category names for the dropdown
         $categories = $this->Flowers->Categories->find('list', keyField:'id', valueField: 'category_name');
 
         $this->set(compact('flowers', 'categories'));
         $this->viewBuilder()->setLayout('default2');
     }
 
+    /**
+     * CustomerView method
+     *
+     * @param string|null $id Flowers id.
+     */
     public function customerView($id = null)
     {
+        // Reference and get the specified id of the flower that wants to be viewed
         $flower = $this->Flowers->get($id, contain: ['Categories', 'OrderFlowers']);
         $this->viewBuilder()->setLayout('default2');
         $this->set(compact('flower'));
     }
 
+    /**
+     * UpdateCart method
+     *
+     */
     public function updateCart()
     {
         $session = $this->request->getSession();
@@ -153,8 +191,11 @@ class FlowersController extends AppController
         $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
         $errors = false;  // Track if any errors occurred
 
+        // Foreach item in the cart
         foreach ($updatedCart as $index => $item) {
+            // Get the quantity (stock level) of flowers for the specified flower
             $requestedQuantity = (int) $item['quantity'];
+            // If the quantity (stock level) is zero or less
             if ($requestedQuantity <= 0) {
                 // Remove item if quantity is zero or less
                 unset($cart[$index]);
@@ -163,6 +204,7 @@ class FlowersController extends AppController
 
             try {
                 $flower = $flowersTable->get($index);
+                // If the number of stock quantity added to cart is more than the stock quantity available
                 if ($requestedQuantity > $flower->stock_quantity) {
                     $this->Flash->error(__('Requested quantity for ' . $flower->flower_name . ' exceeds available stock.'));
                     $errors = true;
@@ -186,6 +228,7 @@ class FlowersController extends AppController
         if (!empty($cart)) {
             $session->write('Cart', $cart);
             if (!$errors) {
+                // If the cart has been updated successfully, display below message
                 $this->Flash->success(__('Cart updated successfully.'));
             }
         } else {
@@ -196,13 +239,17 @@ class FlowersController extends AppController
         return $this->redirect(['action' => 'customerShoppingCart']);
     }
 
-
+    /**
+     * UpdateStock method
+     *
+     */
     public function updateStock()
     {
         if ($this->request->is(['patch', 'post', 'put'])) {
             $cart = $this->request->getData('cart');
             $flowersTable = TableRegistry::getTableLocator()->get('Flowers');
 
+            // For each item in the cart
             foreach ($cart as $index => $item) {
                 $flower = $flowersTable->get($index);
                 if ($flower) {
@@ -214,13 +261,19 @@ class FlowersController extends AppController
                 }
             }
 
+            // If the cart has been updated successfully, display the message below and redirect back
             $this->Flash->success(__('Cart updated successfully.'));
             return $this->redirect(['action' => 'customerShoppingCart']);
         }
+        // Display error message 
         $this->Flash->error(__('Invalid request.'));
         return $this->redirect(['action' => 'customerShoppingCart']);
     }
 
+    /**
+     * AddToCart method
+     *
+     */
     public function addToCart()
     {
         $data = $this->request->getData();
@@ -228,6 +281,7 @@ class FlowersController extends AppController
         $quantity = (int)$data['quantity'];
         $flower = $this->Flowers->get($flowerId);
 
+        // Checks to ensure there is enough stock quantity for the amount requested for
         if ($flower->stock_quantity >= $quantity && $quantity > 0) {
             $cart = $this->request->getSession()->read('Cart') ?: [];
             if (isset($cart[$flowerId])) {
@@ -243,15 +297,21 @@ class FlowersController extends AppController
             }
 
             $this->request->getSession()->write('Cart', $cart);
+            // If the flower has been added to the cart successfully, display the message below and redirect back
             $this->Flash->success(__('Successfully added to cart.'));
             return $this->redirect(['controller' => 'Flowers', 'action' => 'customerShoppingCart']);
         } else {
+            // If there is not enough stock, display the message below and redirect back
             $this->Flash->error(__('Not enough stock available or invalid quantity.'));
             return $this->redirect($this->referer());
 
         }
     }
 
+    /**
+     * CustomerShoppingCart method
+     *
+     */
     public function customerShoppingCart()
     {
         $session = $this->request->getSession();
@@ -317,7 +377,7 @@ class FlowersController extends AppController
         if ($this->request->is('post')) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
 
-
+            // Adding flower image files to be able to be viewed on the customer view
             if(!$flower->getErrors()) {
                 $image = $this->request->getData('image_file');
                 $name = uniqid().'-'.$image->getClientFilename();
@@ -335,22 +395,23 @@ class FlowersController extends AppController
                 }
 
                 if ($image2 !== null && $image2->getError() !== UPLOAD_ERR_NO_FILE) {
-                $targetPath2 = WWW_ROOT . 'img' . DS . $name2;
-                if ($name2 !== null && $image2->getError() !== UPLOAD_ERR_NO_FILE) {
-                    $image2->moveTo($targetPath2);
-                    $flower->image2 = $name2;
+                    $targetPath2 = WWW_ROOT . 'img' . DS . $name2;
+                    if ($name2 !== null && $image2->getError() !== UPLOAD_ERR_NO_FILE) {
+                        $image2->moveTo($targetPath2);
+                        $flower->image2 = $name2;
+                    }
                 }
-            }
             }
 
             $flower->isArchived = 0; // Sets the default isArchived value to be not archived (0)
 
-
+            // If saving the flower was successful, display the message below
             if ($this->Flowers->save($flower)) {
                 $this->Flash->success(__('The flower has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+            // If saving the flower was not successful, display the message below
             $this->Flash->error(__('The flower could not be saved. Please, try again.'));
         }
         // Fetch category names for the dropdown
@@ -388,6 +449,7 @@ class FlowersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
 
+            // Editing flower image files to be able to be viewed on the customer view
             if(!$flower->getErrors()) {
                 $image = $this->request->getData('change_image');
                 $image2 = $this->request->getData('change_image2');
@@ -422,14 +484,16 @@ class FlowersController extends AppController
                 }
             }
 
-
+            // If saving the flower was successful, display the message below
             if ($this->Flowers->save($flower)) {
                 $this->Flash->success(__('The flower has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+            // If saving the flower was not successful, display the message below
             $this->Flash->error(__('The flower could not be saved. Please, try again.'));
         }
+        // Fetch category names for the dropdown
         $categories = $this->Flowers->Categories->find('list', limit: 200, keyField: 'id', valueField: 'category_name');
 
         $this->set(compact('flower', 'categories'));
@@ -460,16 +524,22 @@ class FlowersController extends AppController
         // Proceed with flowers delete function
         $this->request->allowMethod(['post', 'delete']);
         $flower = $this->Flowers->get($id);
+        // If deleting the flower was successful, display the message below
         if ($this->Flowers->delete($flower)) {
             $this->Flash->success(__('The flower has been deleted.'));
         } else {
+            // If deleting the flower was not successful, display the message below
             $this->Flash->error(__('The flower could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
     }
 
-
+    /**
+     * RemoveFromCart method
+     *
+     * @param string|null $id Flowers id.
+     */
     public function removeFromCart($index)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -478,8 +548,10 @@ class FlowersController extends AppController
         if (isset($cart[$index])) {
             unset($cart[$index]); // Remove the item from the array
             $this->request->getSession()->write('Cart', $cart); // Save the updated cart back to the session
+            // If removing the flower from the cart was successful, display the message below
             $this->Flash->success(__('The item has been removed from your cart.'));
         } else {
+            // If removing the flower from the cart was not successful, display the message below
             $this->Flash->error(__('The item could not be found in your cart.'));
         }
 
@@ -515,13 +587,16 @@ class FlowersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
 
+            // Set the flower's isArchived variable to 1, so it is archived
             $flower->isArchived = 1;
 
+            // If archiving the flower was successful, display the message below
             if ($this->Flowers->save($flower)) {
                 $this->Flash->success(__('The flower has been unarchived.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+            // If archiving the flower was not successful, display the message below
             $this->Flash->error(__('The flower could not be unarchived. Please, try again.'));
         }
         $this->set(compact('flower', 'categories'));
@@ -555,13 +630,16 @@ class FlowersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $flower = $this->Flowers->patchEntity($flower, $this->request->getData());
 
+            // Set the flower's isArchived variable to 0, so it is unarchived
             $flower->isArchived = 0;
 
+            // If unarchiving the flower was successful, display the message below
             if ($this->Flowers->save($flower)) {
                 $this->Flash->success(__('The flower has been unarchived.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+            // If unarchiving the flower was not successful, display the message below
             $this->Flash->error(__('The flower could not be unarchived. Please, try again.'));
         }
         $this->set(compact('flower', 'categories'));

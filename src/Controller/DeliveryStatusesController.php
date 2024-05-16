@@ -40,6 +40,7 @@ class DeliveryStatusesController extends AppController
      */
     public function index()
     {
+        // Send a query to the database to fetch all the Delivery Statuses
         $query = $this->DeliveryStatuses->find();
         $deliveryStatuses = $this->paginate($query);
 
@@ -55,6 +56,7 @@ class DeliveryStatusesController extends AppController
      */
     public function view($id = null)
     {
+        // Reference and get the specified id of the Delivery Status that wants to be viewed
         $deliveryStatus = $this->DeliveryStatuses->get($id, contain: []);
         $this->set(compact('deliveryStatus'));
     }
@@ -69,11 +71,13 @@ class DeliveryStatusesController extends AppController
         $deliveryStatus = $this->DeliveryStatuses->newEmptyEntity();
         if ($this->request->is('post')) {
             $deliveryStatus = $this->DeliveryStatuses->patchEntity($deliveryStatus, $this->request->getData());
+            // If the Delivery Status has been saved successfully, display the message below
             if ($this->DeliveryStatuses->save($deliveryStatus)) {
                 $this->Flash->success(__('The delivery status has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+            // If the Delivery Status has not been saved successfully, display the message below
             $this->Flash->error(__('The delivery status could not be saved. Please, try again.'));
         }
         $this->set(compact('deliveryStatus'));
@@ -91,11 +95,13 @@ class DeliveryStatusesController extends AppController
         $deliveryStatus = $this->DeliveryStatuses->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $deliveryStatus = $this->DeliveryStatuses->patchEntity($deliveryStatus, $this->request->getData());
+            // If the Delivery Status has been saved successfully, display the message below
             if ($this->DeliveryStatuses->save($deliveryStatus)) {
                 $this->Flash->success(__('The delivery status has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+            // If the Delivery Status has not been saved successfully, display the message below
             $this->Flash->error(__('The delivery status could not be saved. Please, try again.'));
         }
         $this->set(compact('deliveryStatus'));
@@ -113,8 +119,10 @@ class DeliveryStatusesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $deliveryStatus = $this->DeliveryStatuses->get($id);
         if ($this->DeliveryStatuses->delete($deliveryStatus)) {
+            // If the Delivery Status has been delted successfully, display the message below
             $this->Flash->success(__('The delivery status has been deleted.'));
         } else {
+            // If the Delivery Status has not been deleted successfully, display the message below
             $this->Flash->error(__('The delivery status could not be deleted. Please, try again.'));
         }
 
