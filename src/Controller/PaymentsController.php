@@ -15,7 +15,7 @@ use Cake\Validation\Validator;
 class PaymentsController extends AppController
 {
     /**
-     * Index method
+     * Admin Index method
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
@@ -35,6 +35,7 @@ class PaymentsController extends AppController
         $paymentStatusId = $this->request->getQuery('paymentStatusId');
         $userId = $this->request->getQuery('userId');
 
+        // Filter functionality
         $query = $this->Payments->find()
             ->contain(['OrderDeliveries', 'PaymentStatuses', 'PaymentMethods', 'Users'])
             ->order([
@@ -63,6 +64,11 @@ class PaymentsController extends AppController
         $this->set(compact('payments', 'paymentStatuses', 'users'));
     }
 
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
     public function index()
     {
         $query = $this->Payments->find()
@@ -219,9 +225,16 @@ class PaymentsController extends AppController
         return $this->redirect(['action' => 'history']);
     }
 
+    /**
+     * History method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
     public function history()
     {
+        // Checks if the user is logged in 
         $result = $this->Authentication->getResult();
+        // If logged in
         if ($result->isValid()) {
             $userId = $result->getData()->id;
             $query = $this->Payments->find()
@@ -229,12 +242,18 @@ class PaymentsController extends AppController
                 ->contain(['OrderDeliveries' => ['OrderFlowers' => ['Flowers']], 'PaymentStatuses', 'PaymentMethods', 'Users']);
 
             $this->set('payments', $this->paginate($query));
+        // If not logged in
         } else {
             $this->Flash->error(__('You must be logged in to view this page.'));
             return $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
     }
 
+    /**
+     * Cancel Order method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
     public function cancelOrder($paymentId)
     {
         $this->request->allowMethod(['post']); // Ensure this is a POST request for security
