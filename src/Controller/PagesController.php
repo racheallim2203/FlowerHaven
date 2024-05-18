@@ -65,6 +65,10 @@ class PagesController extends AppController
         }
     }
 
+    /**
+     * Displays about us page
+     *
+     */
     public function aboutus()
     {
         $this->viewBuilder()->setLayout('default2');
@@ -72,18 +76,28 @@ class PagesController extends AppController
         // Ensure the view file 'aboutus.php' is being used
         return $this->render();
     }
+
+    /**
+     * Displays faq page
+     *
+     */
     public function faq()
     {
         $this->viewBuilder()->setLayout('default2');
         $this->set('title', 'FAQ');
-        // Ensure the view file 'aboutus.php' is being used
+        // Ensure the view file 'faq.php' is being used
         return $this->render();
     }
+
+    /**
+     * Displays contact us page
+     *
+     */
     public function contact()
     {
         $this->viewBuilder()->setLayout('default2');
         $this->set('title', 'Contact Us');
-        // Ensure the view file 'aboutus.php' is being used
+        // Ensure the view file 'contact.php' is being used
         return $this->render();
     }
 

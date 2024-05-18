@@ -52,6 +52,7 @@ class UsersController extends AppController
             ]
         ]);
 
+        // Filter and search functionality
         $search = $this->request->getQuery('search');
         $archive = $this->request->getQuery('archive');
 
