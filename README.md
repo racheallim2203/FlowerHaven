@@ -1,12 +1,63 @@
-# CakePHP Application Skeleton
+# Flower Haven Online Florist Website Project
 
-![Build Status](https://github.com/cakephp/app/actions/workflows/ci.yml/badge.svg?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
-[![PHPStan](https://img.shields.io/badge/PHPStan-level%207-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
+## Introduction
 
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 5.x.
+Welcome to the Flower Haven Online Florist Website Project repository. This document serves as a guide to help you navigate the project structure, understand the codebase, and adhere to the project's coding standards and conventions.
+
+This project was developed using the [CakePHP 5.x](https://cakephp.org) framework.
 
 The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+
+## Cloning the Repository
+
+To get a full clone of this repository, including all history commits, run the following command:
+
+```bash
+git clone --mirror https://git.infotech.monash.edu/UGIE/ugie-2024/team036/team036-app_fit3047.git
+```
+
+## Repository Structure
+Here’s an overview of the main directories and files in this CakePHP project:
+
+```bash
+team036-app-fit3047/
+│
+├── config/                         # Configuration files
+│   ├── Migrations/                 # Migration files
+│   ├── Seeds/                      # Seeded files
+│   ├── app.php                     # Application configuration
+│   ├── bootstrap.php               # Bootstrap file
+│   ├── plugins.php                 # Plugins configuration
+│   ├── routes.php                  # Routes configuration
+│   └── ...                         # Other configuration files
+│
+├── FLOWERHAVENDATABASE/ 
+│   └── flowerhaven_team36.sql      # SQL Database
+│
+├── plugins/                        # Plugins
+│
+├── src/                            # Source files
+│   ├── Controller/                 # Controllers
+│   ├── Model/                      # Models
+│   ├── View/                       # Views
+│   ├── Application.php             # Application setup file
+│   └── ...                         # Other source files
+│
+├── templates/                      # Template files
+│
+├── tests/                          # Test cases
+│
+├── webroot/                        # Webroot files
+│   ├── css/                        # CSS files
+│   ├── font/                       # Font files
+│   ├── img/                        # Image files
+│   ├── js/                         # JavaScript files
+│   └── ...                         # Other webroot files
+│
+├── .gitignore                      # Git ignore file
+├── composer.json                   # Composer configuration
+└── README.md                       # This README file
+```
 
 ## Installation
 
