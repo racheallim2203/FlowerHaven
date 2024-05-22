@@ -36,9 +36,54 @@ Then visit `http://localhost:8765` to see the welcome page.
 
 ## Update
 
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
+### Install Authentication plugin via composer
+
+> **Note:** [This is the official CakePHP documentation on Authentication](https://book.cakephp.org/authentication/3/en/index.html).
+> It is strongly recommended you read through that documentation if you face any issues.
+> It will provide additional insights from the official CakePHP folk.
+
+Install this plugin into your CakePHP application using [composer](https://getcomposer.org).
+
+```
+composer require "cakephp/authentication"
+```
+
+### Install Content Blocks plugin via composer
+
+Install this plugin into your CakePHP application using [composer](https://getcomposer.org).
+
+```
+composer require ugie-cake/cakephp-content-blocks
+```
+
+#### Load the plugin
+
+Using the `cake` CLI:
+
+```php
+bin/cake plugin load ContentBlocks
+```
+
+#### Create the `content_blocks` table in your database
+>**Note:** [This is the official CakePHP quick start guide on CMS](https://book.cakephp.org/5/en/quickstart.html).
+
+> **Note:** This must be done for each environment you deploy your website to (localhost, dev, prod, etc).
+> It also requires you to have setup your `app.php` or `app_local.php` file with an appropriate `Datasources` block to connect to the database.
+
+```
+bin/cake migrations migrate
+bin/cake migrations migrate --plugin=ContentBlocks
+```
+
+#### Insert defined content blocks into database
+
+Once you have defined your content blocks in a seed (see above), then you can run the "Seed" to create the records in the database:
+
+```
+# Replace 'ContentBlocksSeed' with the name of your seed class from the previous step.
+bin/cake migrations seed --seed ContentBlocksSeed
+```
+
 
 ## Configuration
 
